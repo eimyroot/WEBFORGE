@@ -7,9 +7,14 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: webforge-ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,6 +23,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Environment
+        run: |
+          node --version
+          npm --version
+          google-chrome --version || google-chrome-stable --version || chromium --version || true
 
       - name: Unit and contract tests
         run: npm test
@@ -34,5 +45,8 @@ jobs:
       - name: Renderer coverage
         run: npm run renderer:coverage
 
-      - name: Release gate
+      - name: Package release gate
         run: npm run release:gate
+
+      - name: Full environment release gate
+        run: npm run release:full
