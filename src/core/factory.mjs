@@ -63,7 +63,17 @@ function productionGate({content,media,connectors,runtimeBuild,qa,critique,produ
   return {status:checks.every(x=>x.status==='PASS')?'PASS':'BLOCKED',checks};
 }
 
-export async function runAutonomousFactory(brief,{approveContent=false,approveMedia=false,allowNetwork=false,productionApproved=false,maxRepairs=2}={}){
+export async function runAutonomousFactory(brief,options={}){
+  const {
+    approveContent=false,
+    approveMedia=false,
+    allowNetwork=false,
+    productionApproved=false,
+    maxRepairs=2,
+    qaRunner=null
+  }=options;
+  const executeQa=typeof qaRunner==='function'?qaRunner:runBrowserQa;
+  const qaMode=typeof qaRunner==='function'?'INJECTED_TEST_RUNNER':'REAL_BROWSER';
   const stages=[]; const mark=(id,status,detail={})=>stages.push({id,status,...detail});
   mark('research','PASS',{mode:'deterministic-brief-analysis'});
   const generated=generateWebsite(brief); const dir=generatedProjectDir(generated.projectId); if(!dir) throw new Error('Generated project unavailable');
@@ -75,12 +85,12 @@ export async function runAutonomousFactory(brief,{approveContent=false,approveMe
   const mediaBinding=bindFulfilledMedia(dir); mark('media-binding',mediaBinding.status,{bound:mediaBinding.bound});
   const connectors=connectorExecutionPlan(dir); mark('connectors','READY',{items:connectors.connectors.map(x=>({id:x.id,status:x.status}))});
   const runtimeBuild=verifyRuntimeBuild(path.join(dir,'runtime'),{allowNetwork}); write(path.join(dir,'runtime-build.receipt.json'),runtimeBuild); mark('runtime-build',runtimeBuild.status);
-  let qa=await runBrowserQa(dir,{baseline:true}); if((qa.checks||[]).some(x=>x.status==='BASELINE_CREATED')) qa=await runBrowserQa(dir,{baseline:true}); mark('browser-qa',qa.status);
+  let qa=await executeQa(dir,{baseline:true}); if((qa.checks||[]).some(x=>x.status==='BASELINE_CREATED')) qa=await executeQa(dir,{baseline:true}); mark('browser-qa',qa.status,{mode:qaMode});
   let review=critique(dir,qa); let repairs=0; const history=[review];
-  while(review.status!=='PASS' && repairs<maxRepairs){ autoRepair(dir,review); repairs++; qa=await runBrowserQa(dir,{baseline:false}); review=critique(dir,qa); history.push(review); }
+  while(review.status!=='PASS' && repairs<maxRepairs){ autoRepair(dir,review); repairs++; qa=await executeQa(dir,{baseline:false}); review=critique(dir,qa); history.push(review); }
   mark('browser-critique',review.status,{score:review.score,repairs});
   const preview={status:qa.status==='PASS'&&review.status==='PASS'?'PREVIEW_READY':'BLOCKED',url:`/preview/${generated.projectId}/`}; mark('preview',preview.status,{url:preview.url});
   const production=productionGate({content,media,connectors,runtimeBuild,qa,critique:review,productionApproved}); mark('production',production.status);
-  const result={schema:'webforge.autonomous-factory.v1',version:'9.0.0',status:preview.status==='PREVIEW_READY'?'PASS':'FAIL',projectId:generated.projectId,projectDir:dir,stages,critiqueHistory:history,preview,production,truthBoundary:{portablePreview:preview.status,nativeRuntimeBuild:runtimeBuild.status,externalConnectors:'NOT_EXECUTED_BY_FACTORY_CORE',production:production.status}};
+  const result={schema:'webforge.autonomous-factory.v1',version:'9.1.0',status:preview.status==='PREVIEW_READY'?'PASS':'FAIL',projectId:generated.projectId,projectDir:dir,stages,critiqueHistory:history,preview,production,truthBoundary:{portablePreview:preview.status,browserQaMode:qaMode,nativeRuntimeBuild:runtimeBuild.status,externalConnectors:'NOT_EXECUTED_BY_FACTORY_CORE',production:production.status}};
   write(path.join(dir,'factory.receipt.json'),result); return result;
 }
