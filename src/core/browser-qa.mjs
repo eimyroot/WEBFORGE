@@ -54,7 +54,7 @@ function pngPixelHash(file){
 
 async function connectCdp(port){
   let target;
-  for(let i=0;i<60;i++){
+  for(let i=0;i<180;i++){
     try{const list=await fetch(`http://127.0.0.1:${port}/json`); const arr=await list.json(); target=arr.find(x=>x.type==='page'); if(target)break;}catch{}
     await sleep(100);
   }
@@ -81,9 +81,9 @@ export async function runBrowserQa(projectDir,{baseline=true,budgets={loadMs:150
     return receipt;
   }
   const chromium=spawn(chromiumPath,[
-    '--headless=new','--no-sandbox','--disable-gpu','--disable-lcd-text','--font-render-hinting=none',
+    '--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--no-first-run','--no-default-browser-check','--disable-lcd-text','--font-render-hinting=none',
     '--force-device-scale-factor=1','--hide-scrollbars','--window-size=1440,1200',
-    `--remote-debugging-port=${cdpPort}`,`--user-data-dir=${userData}`,'about:blank'
+    '--remote-debugging-address=127.0.0.1',`--remote-debugging-port=${cdpPort}`,`--user-data-dir=${userData}`,'about:blank'
   ],{stdio:'ignore'});
   let cdp;
   try{
