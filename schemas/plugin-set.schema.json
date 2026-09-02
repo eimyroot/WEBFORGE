@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WEBFORGE plugin-set",
+  "type": "object",
+  "required": [
+    "id",
+    "plugins",
+    "qualityScore"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "plugins": {
+      "type": "array"
+    },
+    "qualityScore": {
+      "type": "number"
+    }
+  }
+}

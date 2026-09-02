@@ -1,0 +1,12 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"webforge.media-plan.schema.v1",
+  "type":"object",
+  "required":["version","slots","connectors","productionPolicy"],
+  "properties":{
+    "version":{"const":"webforge.media-intelligence.v1"},
+    "slots":{"type":"array","items":{"type":"object","required":["id","section","role","aspectRatio","priority","connectorOrder","status"]}},
+    "connectors":{"type":"array"},
+    "productionPolicy":{"type":"string","minLength":10}
+  }
+}

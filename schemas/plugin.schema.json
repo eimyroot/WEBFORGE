@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WEBFORGE plugin",
+  "type": "object",
+  "required": [
+    "id",
+    "capabilities",
+    "runtimes",
+    "trustScore",
+    "installPolicy"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "capabilities": {
+      "type": "array"
+    },
+    "runtimes": {
+      "type": "array"
+    },
+    "trustScore": {
+      "type": "number"
+    },
+    "installPolicy": {
+      "type": "string"
+    }
+  }
+}

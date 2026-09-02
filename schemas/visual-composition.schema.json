@@ -1,0 +1,18 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"webforge.visual-composition.schema.v1",
+  "type":"object",
+  "required":["version","artDirection","content","media","templates","sections","zones","responsive","connectors"],
+  "properties":{
+    "version":{"const":"webforge.visual-composition.v1"},
+    "artDirection":{"type":"object"},
+    "content":{"type":"object"},
+    "media":{"type":"object"},
+    "templates":{"type":"object"},
+    "sections":{"type":"array","minItems":2},
+    "zones":{"type":"array","minItems":2},
+    "responsive":{"type":"object"},
+    "connectors":{"type":"object"}
+  },
+  "additionalProperties":true
+}

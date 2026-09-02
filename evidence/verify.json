@@ -1,0 +1,217 @@
+{
+  "generatedAt": "2026-09-02T05:48:54.070Z",
+  "evidence": [
+    {
+      "check": "exists:schemas/webforge.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/project.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/capability.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/pattern.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/component.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/tool.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/service.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/runtime.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/policy.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/evidence.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/visual-composition.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/media-plan.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/section-template.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/primitive.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/page-blueprint.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/art-direction.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/media-role.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/interaction.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/connector-contract.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/plugin.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/plugin-set.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/workflow.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/composition-registry.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/website-genome.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/domain-model.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/product-model.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/design-dna.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "exists:schemas/universal-plan.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "registry:domain-ontology>=20",
+      "status": "PASS",
+      "detail": "20"
+    },
+    {
+      "check": "registry:capability-ontology>=65",
+      "status": "PASS",
+      "detail": "68"
+    },
+    {
+      "check": "registry:primitives>=60",
+      "status": "PASS",
+      "detail": "60"
+    },
+    {
+      "check": "registry:section-templates>=320",
+      "status": "PASS",
+      "detail": "320"
+    },
+    {
+      "check": "registry:page-blueprints>=30",
+      "status": "PASS",
+      "detail": "30"
+    },
+    {
+      "check": "registry:art-directions>=15",
+      "status": "PASS",
+      "detail": "15"
+    },
+    {
+      "check": "registry:media-roles>=30",
+      "status": "PASS",
+      "detail": "36"
+    },
+    {
+      "check": "registry:interactions>=40",
+      "status": "PASS",
+      "detail": "48"
+    },
+    {
+      "check": "registry:connector-contracts>=20",
+      "status": "PASS",
+      "detail": "24"
+    },
+    {
+      "check": "registry:plugins>=20",
+      "status": "PASS",
+      "detail": "24"
+    },
+    {
+      "check": "registry:plugin-sets>=10",
+      "status": "PASS",
+      "detail": "12"
+    },
+    {
+      "check": "registry:workflows>=10",
+      "status": "PASS",
+      "detail": "12"
+    },
+    {
+      "check": "registry:composition-patterns>=60",
+      "status": "PASS",
+      "detail": "64"
+    },
+    {
+      "check": "registry:renderer-contracts>=30",
+      "status": "PASS",
+      "detail": "30"
+    },
+    {
+      "check": "component-count>=20",
+      "status": "PASS",
+      "detail": "30"
+    },
+    {
+      "check": "fixture:company.json",
+      "status": "PASS",
+      "detail": "company/astro"
+    },
+    {
+      "check": "fixture:local-service.json",
+      "status": "PASS",
+      "detail": "local-service/astro"
+    },
+    {
+      "check": "fixture:marketplace.json",
+      "status": "PASS",
+      "detail": "marketplace/next"
+    },
+    {
+      "check": "fixture:portfolio.json",
+      "status": "PASS",
+      "detail": "portfolio/astro"
+    },
+    {
+      "check": "fixture:saas.json",
+      "status": "PASS",
+      "detail": "saas/next"
+    }
+  ]
+}

@@ -1,0 +1,542 @@
+[
+  {
+    "id": "primitive.container",
+    "category": "layout",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.stack",
+    "category": "layout",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.cluster",
+    "category": "layout",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.grid-2",
+    "category": "layout",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.grid-3",
+    "category": "layout",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.grid-4",
+    "category": "layout",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.grid-6",
+    "category": "layout",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.split-40-60",
+    "category": "layout",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.split-50-50",
+    "category": "layout",
+    "qualityScore": 96,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.split-60-40",
+    "category": "layout",
+    "qualityScore": 97,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.asymmetric-grid",
+    "category": "layout",
+    "qualityScore": 98,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.full-bleed",
+    "category": "layout",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.sidebar-shell",
+    "category": "layout",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.sticky-column",
+    "category": "layout",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.surface-solid",
+    "category": "surface",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.surface-outline",
+    "category": "surface",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.surface-glass",
+    "category": "surface",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.surface-elevated",
+    "category": "surface",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.surface-inset",
+    "category": "surface",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.surface-accent",
+    "category": "surface",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.surface-dark",
+    "category": "surface",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.surface-light",
+    "category": "surface",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.media-frame-16x9",
+    "category": "media",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.media-frame-4x5",
+    "category": "media",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.media-frame-1x1",
+    "category": "media",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.media-frame-21x9",
+    "category": "media",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.media-overlay",
+    "category": "media",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.media-vignette",
+    "category": "media",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.media-duotone",
+    "category": "media",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.media-mask",
+    "category": "media",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.media-parallax-shell",
+    "category": "media",
+    "qualityScore": 96,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.media-lightbox-shell",
+    "category": "media",
+    "qualityScore": 97,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.display-hero",
+    "category": "typography",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.display-section",
+    "category": "typography",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.eyebrow",
+    "category": "typography",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.lede",
+    "category": "typography",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.body-prose",
+    "category": "typography",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.meta-mono",
+    "category": "typography",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.quote-display",
+    "category": "typography",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.metric-display",
+    "category": "typography",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.button-primary",
+    "category": "control",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.button-secondary",
+    "category": "control",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.button-ghost",
+    "category": "control",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.icon-button",
+    "category": "control",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.chip",
+    "category": "control",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.badge",
+    "category": "control",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.tabs",
+    "category": "control",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.accordion",
+    "category": "control",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.drawer",
+    "category": "control",
+    "qualityScore": 96,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.modal",
+    "category": "control",
+    "qualityScore": 97,
+    "maturity": "stable",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.reveal-fade",
+    "category": "motion",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.reveal-slide",
+    "category": "motion",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.image-zoom",
+    "category": "motion",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.rail-snap",
+    "category": "motion",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.sticky-reveal",
+    "category": "motion",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.parallax-light",
+    "category": "motion",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.container-query",
+    "category": "responsive",
+    "qualityScore": 94,
+    "maturity": "verified",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.subgrid",
+    "category": "layout",
+    "qualityScore": 92,
+    "maturity": "verified",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.scroll-snap",
+    "category": "interaction",
+    "qualityScore": 91,
+    "maturity": "verified",
+    "a11y": "compatible",
+    "responsive": true,
+    "renderer": "css-native"
+  },
+  {
+    "id": "primitive.focus-ring",
+    "category": "accessibility",
+    "qualityScore": 98,
+    "maturity": "verified",
+    "a11y": "required",
+    "responsive": true,
+    "renderer": "css-native"
+  }
+]

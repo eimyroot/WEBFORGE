@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Runtime",
+  "type": "object",
+  "required": [
+    "id",
+    "best_for"
+  ],
+  "properties": {
+    "id": {
+      "enum": [
+        "astro",
+        "next",
+        "vite-react"
+      ]
+    },
+    "best_for": {
+      "type": "array"
+    }
+  }
+}

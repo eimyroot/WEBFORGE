@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://webforge.local/schemas/product-model.schema.json",
+  "title":"WEBFORGE Product Intelligence",
+  "type":"object",
+  "required":["schema","entities","capabilities","capabilityIds","coreCapabilities","connectorNeeds","userJobs","unresolved","productionReadiness"],
+  "properties":{
+    "schema":{"const":"webforge.product-intelligence.v1"},
+    "capabilityIds":{"type":"array","minItems":1,"items":{"type":"string"},"uniqueItems":true},
+    "capabilities":{"type":"array","items":{"type":"object","required":["id","status"],"properties":{"status":{"enum":["SUPPORTED","CONDITIONAL","UNRESOLVED"]}}}},
+    "unresolved":{"type":"array","items":{"type":"string"}},
+    "connectorNeeds":{"type":"array","items":{"type":"string"}},
+    "userJobs":{"type":"array","minItems":1},
+    "productionReadiness":{"type":"string"}
+  },
+  "additionalProperties":true
+}

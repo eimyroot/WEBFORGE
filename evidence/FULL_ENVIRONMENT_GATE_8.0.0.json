@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "gate": "FULL_ENVIRONMENT",
+  "checks": [
+    {
+      "id": "package-gate",
+      "status": "PASS"
+    },
+    {
+      "id": "browser-integration",
+      "status": "PASS"
+    },
+    {
+      "id": "visual-diversity-matrix",
+      "status": "PASS"
+    },
+    {
+      "id": "selftest",
+      "status": "PASS"
+    }
+  ]
+}

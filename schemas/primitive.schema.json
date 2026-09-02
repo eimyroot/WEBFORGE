@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WEBFORGE primitive",
+  "type": "object",
+  "required": [
+    "id",
+    "category",
+    "qualityScore",
+    "maturity"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "qualityScore": {
+      "type": "number"
+    },
+    "maturity": {
+      "type": "string"
+    }
+  }
+}

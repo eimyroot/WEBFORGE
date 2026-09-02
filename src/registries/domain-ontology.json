@@ -1,0 +1,499 @@
+[
+  {
+    "id": "venue-entertainment",
+    "label": "Venue / Entertainment",
+    "baseArchetype": "venue",
+    "signals": [
+      "club",
+      "venue",
+      "techno",
+      "festival",
+      "concert",
+      "dj",
+      "nightlife",
+      "theatre",
+      "theater"
+    ],
+    "entities": [
+      "Event",
+      "Artist",
+      "Venue",
+      "Ticket",
+      "GalleryItem"
+    ],
+    "purposes": [
+      "experience",
+      "transact"
+    ]
+  },
+  {
+    "id": "local-professional-service",
+    "label": "Local Professional Service",
+    "baseArchetype": "local-service",
+    "signals": [
+      "tattoo studio",
+      "dentist",
+      "clinic",
+      "salon",
+      "barber",
+      "tattoo",
+      "lawyer",
+      "attorney",
+      "repair",
+      "local service",
+      "funeral",
+      "pohřeb",
+      "advokát"
+    ],
+    "entities": [
+      "Service",
+      "Professional",
+      "Location",
+      "Appointment",
+      "Review"
+    ],
+    "purposes": [
+      "inform",
+      "convert"
+    ]
+  },
+  {
+    "id": "creative-practice",
+    "label": "Creative Practice / Portfolio",
+    "baseArchetype": "portfolio",
+    "signals": [
+      "portfolio",
+      "photographer",
+      "artist",
+      "designer",
+      "architect",
+      "studio",
+      "creative practice"
+    ],
+    "entities": [
+      "Project",
+      "Service",
+      "Client",
+      "GalleryItem",
+      "Profile"
+    ],
+    "purposes": [
+      "showcase",
+      "convert"
+    ]
+  },
+  {
+    "id": "software-product",
+    "label": "Software Product",
+    "baseArchetype": "saas",
+    "signals": [
+      "saas",
+      "software",
+      "subscription",
+      "api platform",
+      "developer tool"
+    ],
+    "entities": [
+      "Product",
+      "Feature",
+      "Plan",
+      "Integration",
+      "Customer"
+    ],
+    "purposes": [
+      "sell",
+      "activate"
+    ]
+  },
+  {
+    "id": "web-application",
+    "label": "Web Application",
+    "baseArchetype": "web-app",
+    "signals": [
+      "web app",
+      "dashboard",
+      "internal tool",
+      "portal",
+      "workspace"
+    ],
+    "entities": [
+      "User",
+      "Workspace",
+      "Task",
+      "Record",
+      "Notification"
+    ],
+    "purposes": [
+      "operate",
+      "collaborate"
+    ]
+  },
+  {
+    "id": "marketplace-platform",
+    "label": "Marketplace / Exchange",
+    "baseArchetype": "marketplace",
+    "signals": [
+      "marketplace",
+      "buyers",
+      "sellers",
+      "vendors",
+      "rentals",
+      "listings",
+      "tinder for",
+      "matchmaking"
+    ],
+    "entities": [
+      "Listing",
+      "Provider",
+      "Buyer",
+      "Transaction",
+      "Review"
+    ],
+    "purposes": [
+      "discover",
+      "transact"
+    ]
+  },
+  {
+    "id": "editorial-publication",
+    "label": "Editorial / Publication",
+    "baseArchetype": "editorial",
+    "signals": [
+      "magazine",
+      "news",
+      "publication",
+      "journal",
+      "editorial",
+      "blog"
+    ],
+    "entities": [
+      "Article",
+      "Author",
+      "Topic",
+      "Issue",
+      "MediaItem"
+    ],
+    "purposes": [
+      "publish",
+      "inform"
+    ]
+  },
+  {
+    "id": "commerce-store",
+    "label": "Commerce / Store",
+    "baseArchetype": "marketplace",
+    "signals": [
+      "shop",
+      "store",
+      "ecommerce",
+      "e-commerce",
+      "products",
+      "catalog"
+    ],
+    "entities": [
+      "Product",
+      "Category",
+      "Cart",
+      "Order",
+      "Customer"
+    ],
+    "purposes": [
+      "sell",
+      "transact"
+    ]
+  },
+  {
+    "id": "hospitality",
+    "label": "Hospitality",
+    "baseArchetype": "local-service",
+    "signals": [
+      "hotel",
+      "restaurant",
+      "cafe",
+      "café",
+      "resort",
+      "hostel",
+      "spa"
+    ],
+    "entities": [
+      "Venue",
+      "Offering",
+      "Reservation",
+      "Menu",
+      "GalleryItem"
+    ],
+    "purposes": [
+      "experience",
+      "book"
+    ]
+  },
+  {
+    "id": "education-learning",
+    "label": "Education / Learning",
+    "baseArchetype": "web-app",
+    "signals": [
+      "school",
+      "course",
+      "academy",
+      "education",
+      "learning",
+      "camp",
+      "tábor",
+      "workshop"
+    ],
+    "entities": [
+      "Course",
+      "Learner",
+      "Instructor",
+      "Session",
+      "Enrollment"
+    ],
+    "purposes": [
+      "learn",
+      "register"
+    ]
+  },
+  {
+    "id": "civic-government",
+    "label": "Civic / Government Service",
+    "baseArchetype": "web-app",
+    "signals": [
+      "city portal",
+      "municipality",
+      "government",
+      "civic",
+      "report issue",
+      "hlášení závad",
+      "úřad"
+    ],
+    "entities": [
+      "Citizen",
+      "Issue",
+      "Location",
+      "Submission",
+      "Status"
+    ],
+    "purposes": [
+      "serve",
+      "submit"
+    ],
+    "trustBurden": "high"
+  },
+  {
+    "id": "nonprofit-impact",
+    "label": "Nonprofit / Impact",
+    "baseArchetype": "company",
+    "signals": [
+      "nonprofit",
+      "charity",
+      "foundation",
+      "donation",
+      "adopt",
+      "impact",
+      "tree adoption"
+    ],
+    "entities": [
+      "Supporter",
+      "ImpactObject",
+      "Contribution",
+      "Update",
+      "ImpactMetric"
+    ],
+    "purposes": [
+      "inform",
+      "fund"
+    ]
+  },
+  {
+    "id": "real-estate",
+    "label": "Real Estate",
+    "baseArchetype": "marketplace",
+    "signals": [
+      "real estate",
+      "property",
+      "properties",
+      "apartment",
+      "house listing",
+      "reality"
+    ],
+    "entities": [
+      "Property",
+      "Agent",
+      "Location",
+      "Viewing",
+      "Lead"
+    ],
+    "purposes": [
+      "discover",
+      "convert"
+    ]
+  },
+  {
+    "id": "jobs-careers",
+    "label": "Jobs / Careers",
+    "baseArchetype": "marketplace",
+    "signals": [
+      "job board",
+      "jobs",
+      "careers",
+      "recruitment",
+      "hiring"
+    ],
+    "entities": [
+      "Job",
+      "Employer",
+      "Candidate",
+      "Application",
+      "Profile"
+    ],
+    "purposes": [
+      "discover",
+      "apply"
+    ]
+  },
+  {
+    "id": "healthcare",
+    "label": "Healthcare",
+    "baseArchetype": "local-service",
+    "signals": [
+      "healthcare",
+      "medical",
+      "doctor",
+      "hospital",
+      "therapy",
+      "health clinic"
+    ],
+    "entities": [
+      "Service",
+      "Clinician",
+      "Appointment",
+      "Location",
+      "Resource"
+    ],
+    "purposes": [
+      "inform",
+      "book"
+    ],
+    "trustBurden": "critical"
+  },
+  {
+    "id": "finance",
+    "label": "Finance / Financial Service",
+    "baseArchetype": "web-app",
+    "signals": [
+      "bank",
+      "finance",
+      "investment",
+      "insurance",
+      "fintech",
+      "loan"
+    ],
+    "entities": [
+      "Account",
+      "Product",
+      "Transaction",
+      "Document",
+      "User"
+    ],
+    "purposes": [
+      "inform",
+      "transact"
+    ],
+    "trustBurden": "critical"
+  },
+  {
+    "id": "industrial-b2b",
+    "label": "Industrial / B2B",
+    "baseArchetype": "company",
+    "signals": [
+      "industrial",
+      "manufacturer",
+      "manufacturing",
+      "laser",
+      "machinery",
+      "engineering",
+      "b2b"
+    ],
+    "entities": [
+      "Product",
+      "Capability",
+      "Specification",
+      "Industry",
+      "Inquiry"
+    ],
+    "purposes": [
+      "inform",
+      "convert"
+    ]
+  },
+  {
+    "id": "digital-experience",
+    "label": "Digital Experience / Exhibition",
+    "baseArchetype": "portfolio",
+    "signals": [
+      "digital exhibition",
+      "interactive story",
+      "immersive exhibition",
+      "virtual exhibition",
+      "web experience"
+    ],
+    "entities": [
+      "Story",
+      "Scene",
+      "Artifact",
+      "MediaItem",
+      "Chapter"
+    ],
+    "purposes": [
+      "experience",
+      "explore"
+    ]
+  },
+  {
+    "id": "community-membership",
+    "label": "Community / Membership",
+    "baseArchetype": "web-app",
+    "signals": [
+      "community",
+      "members",
+      "membership",
+      "forum",
+      "club members"
+    ],
+    "entities": [
+      "Member",
+      "Post",
+      "Group",
+      "Event",
+      "Membership"
+    ],
+    "purposes": [
+      "connect",
+      "participate"
+    ]
+  },
+  {
+    "id": "generic-organization",
+    "label": "Organization / Company",
+    "baseArchetype": "company",
+    "signals": [
+      "company",
+      "business",
+      "agency",
+      "organization",
+      "firma",
+      "agentura"
+    ],
+    "entities": [
+      "Service",
+      "TeamMember",
+      "CaseStudy",
+      "Resource",
+      "Inquiry"
+    ],
+    "purposes": [
+      "inform",
+      "convert"
+    ]
+  }
+]

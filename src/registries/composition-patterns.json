@@ -1,0 +1,578 @@
+[
+  {
+    "id": "sticky-conversion-nav",
+    "category": "navigation",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "transparent-hero-nav",
+    "category": "navigation",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "editorial-nav",
+    "category": "navigation",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "mega-nav",
+    "category": "navigation",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "app-nav",
+    "category": "navigation",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "utility-nav",
+    "category": "navigation",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "minimal-nav",
+    "category": "navigation",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "dual-cta-nav",
+    "category": "navigation",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "cinematic-hero",
+    "category": "hero",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "split-value-hero",
+    "category": "hero",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "editorial-hero",
+    "category": "hero",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "product-stage-hero",
+    "category": "hero",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "trust-first-hero",
+    "category": "hero",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "search-first-hero",
+    "category": "hero",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "manifesto-hero",
+    "category": "hero",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "event-hero",
+    "category": "hero",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "logos-early",
+    "category": "proof",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "metrics-early",
+    "category": "proof",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "case-proof",
+    "category": "proof",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "testimonial-wall",
+    "category": "proof",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "review-summary",
+    "category": "proof",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "award-strip",
+    "category": "proof",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "before-after",
+    "category": "proof",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "security-proof",
+    "category": "proof",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "next-action-early",
+    "category": "conversion",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "ticket-urgency",
+    "category": "conversion",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "booking-fastlane",
+    "category": "conversion",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "pricing-focus",
+    "category": "conversion",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "demo-path",
+    "category": "conversion",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "newsletter-capture",
+    "category": "conversion",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "membership-upgrade",
+    "category": "conversion",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "contact-low-friction",
+    "category": "conversion",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "masonry-release",
+    "category": "media",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "portrait-rail",
+    "category": "media",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "cinematic-mosaic",
+    "category": "media",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "product-screenshot-stage",
+    "category": "media",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "before-after-media",
+    "category": "media",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "gallery-lightbox",
+    "category": "media",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "video-background",
+    "category": "media",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "editorial-feature-image",
+    "category": "media",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "latest-first",
+    "category": "content",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "topic-hub",
+    "category": "content",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "feature-story",
+    "category": "content",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "resource-grid",
+    "category": "content",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "case-study-story",
+    "category": "content",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "faq-objection",
+    "category": "content",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "process-explainer",
+    "category": "content",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "timeline-program",
+    "category": "content",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "paired-zone",
+    "category": "layout",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "asymmetric-zone",
+    "category": "layout",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "dense-grid",
+    "category": "layout",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "spacious-editorial",
+    "category": "layout",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "rail-composition",
+    "category": "layout",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "bento-composition",
+    "category": "layout",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "split-stack",
+    "category": "layout",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "full-bleed-release",
+    "category": "layout",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "security-panel",
+    "category": "trust",
+    "qualityScore": 88,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "house-policy",
+    "category": "trust",
+    "qualityScore": 89,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "local-proof",
+    "category": "trust",
+    "qualityScore": 90,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "enterprise-proof",
+    "category": "trust",
+    "qualityScore": 91,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "verified-listing",
+    "category": "trust",
+    "qualityScore": 92,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "transparent-pricing",
+    "category": "trust",
+    "qualityScore": 93,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "ownership-promise",
+    "category": "trust",
+    "qualityScore": 94,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  },
+  {
+    "id": "privacy-first",
+    "category": "trust",
+    "qualityScore": 95,
+    "maturity": "stable",
+    "compatible": [
+      "all"
+    ]
+  }
+]

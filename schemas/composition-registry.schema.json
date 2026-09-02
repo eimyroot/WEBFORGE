@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WEBFORGE composition-registry",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "counts"
+  ],
+  "properties": {
+    "schema": {
+      "const": "webforge.composition-registry.r1"
+    },
+    "version": {
+      "type": "string"
+    },
+    "counts": {
+      "type": "object"
+    }
+  }
+}

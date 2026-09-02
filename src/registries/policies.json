@@ -1,0 +1,32 @@
+[
+  {
+    "id": "deny-untrusted-resource",
+    "effect": "deny",
+    "condition": "resource.trust in [quarantine,blocked]"
+  },
+  {
+    "id": "deny-disallowed-license",
+    "effect": "deny",
+    "condition": "license not in allowlist"
+  },
+  {
+    "id": "require-runtime-compatibility",
+    "effect": "require",
+    "condition": "component.runtime contains selected runtime"
+  },
+  {
+    "id": "require-core-qa",
+    "effect": "require",
+    "condition": "qa.core enabled"
+  },
+  {
+    "id": "require-evidence",
+    "effect": "require",
+    "condition": "release evidence complete"
+  },
+  {
+    "id": "unknown-not-pass",
+    "effect": "deny",
+    "condition": "status in [UNKNOWN,MISSING,UNVERIFIED] treated as PASS"
+  }
+]

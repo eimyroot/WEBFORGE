@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WEBFORGE connector-contract",
+  "type": "object",
+  "required": [
+    "id",
+    "capability",
+    "authority",
+    "failClosed"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "capability": {
+      "type": "string"
+    },
+    "authority": {
+      "type": "array"
+    },
+    "failClosed": {
+      "type": "boolean"
+    }
+  }
+}

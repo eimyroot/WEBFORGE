@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tool",
+  "type": "object",
+  "required": [
+    "id",
+    "kind",
+    "conditional"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "conditional": {
+      "type": "boolean"
+    }
+  }
+}

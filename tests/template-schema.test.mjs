@@ -1,0 +1,7 @@
+
+import test from 'node:test';import assert from 'node:assert/strict';
+import {compose} from '../src/core/compose.mjs';import {templateCatalog} from '../src/core/template-schema.mjs';
+test('schema catalog has >=32 grammars and >=4 per archetype',()=>{const c=templateCatalog();assert.ok(c.length>=32);for(const a of ['venue','local-service','portfolio','company','saas','marketplace','web-app','editorial'])assert.ok(c.filter(x=>x.a.includes(a)).length>=4)});
+test('same archetype can select different schemas',()=>{const a=compose('Premium techno club VANTA dark cinematic immersive gallery DJs tickets visual atmosphere');const b=compose('Techno club GRID tickets weekly events program schedule categories practical information');assert.equal(a.project.archetype,'venue');assert.equal(b.project.archetype,'venue');assert.notEqual(a.layout.fingerprint,b.layout.fingerprint)});
+test('resolver exposes score reasons alternatives signals and constraints',()=>{const p=compose('B2B company enterprise clients case studies references outcomes team services');assert.ok(p.layout.score>0);assert.ok(p.layout.selectionReason.length>=3);assert.ok(p.layout.alternatives.length>=3);assert.equal(p.layout.constraints.find(x=>x.id==='hero-first').status,'PASS');assert.equal(p.layout.constraints.find(x=>x.id==='cta-last').status,'PASS')});
+test('editorial has first-class page grammar',()=>{const p=compose('Independent editorial magazine news articles categories newsletter');assert.equal(p.project.archetype,'editorial');assert.ok(p.layout.parents.some(x=>x.includes('editorial-')))});

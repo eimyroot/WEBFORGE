@@ -1,0 +1,434 @@
+[
+  {
+    "id": "sticky-nav",
+    "implementation": "css",
+    "qualityScore": 88,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": false,
+    "trust": "approved"
+  },
+  {
+    "id": "mobile-drawer",
+    "implementation": "css",
+    "qualityScore": 89,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": false,
+    "trust": "approved"
+  },
+  {
+    "id": "mega-menu",
+    "implementation": "css",
+    "qualityScore": 90,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": false,
+    "trust": "approved"
+  },
+  {
+    "id": "nav-active-state",
+    "implementation": "css",
+    "qualityScore": 91,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": false,
+    "trust": "approved"
+  },
+  {
+    "id": "card-hover-lift",
+    "implementation": "css",
+    "qualityScore": 92,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": false,
+    "trust": "approved"
+  },
+  {
+    "id": "card-hover-image-zoom",
+    "implementation": "css",
+    "qualityScore": 93,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": false,
+    "trust": "approved"
+  },
+  {
+    "id": "magnetic-cta",
+    "implementation": "css",
+    "qualityScore": 94,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": false,
+    "trust": "approved"
+  },
+  {
+    "id": "button-arrow-slide",
+    "implementation": "css",
+    "qualityScore": 95,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": false,
+    "trust": "approved"
+  },
+  {
+    "id": "image-lightbox",
+    "implementation": "motion",
+    "qualityScore": 96,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "gallery-filter",
+    "implementation": "motion",
+    "qualityScore": 97,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "horizontal-rail",
+    "implementation": "motion",
+    "qualityScore": 98,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "snap-carousel",
+    "implementation": "motion",
+    "qualityScore": 88,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "event-filter",
+    "implementation": "motion",
+    "qualityScore": 89,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "event-calendar-toggle",
+    "implementation": "motion",
+    "qualityScore": 90,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "accordion",
+    "implementation": "motion",
+    "qualityScore": 91,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "tabs",
+    "implementation": "motion",
+    "qualityScore": 92,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "modal",
+    "implementation": "motion",
+    "qualityScore": 93,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "drawer",
+    "implementation": "motion",
+    "qualityScore": 94,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "toast",
+    "implementation": "motion",
+    "qualityScore": 95,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "tooltip",
+    "implementation": "motion",
+    "qualityScore": 96,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "popover",
+    "implementation": "motion",
+    "qualityScore": 97,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "sticky-cta",
+    "implementation": "motion",
+    "qualityScore": 98,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "scroll-reveal",
+    "implementation": "motion",
+    "qualityScore": 88,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "section-reveal",
+    "implementation": "motion",
+    "qualityScore": 89,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "parallax-light",
+    "implementation": "motion",
+    "qualityScore": 90,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "counter",
+    "implementation": "motion",
+    "qualityScore": 91,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "video-controls",
+    "implementation": "motion",
+    "qualityScore": 92,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "video-autoplay-muted",
+    "implementation": "motion",
+    "qualityScore": 93,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "form-validation",
+    "implementation": "js",
+    "qualityScore": 94,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "newsletter-submit",
+    "implementation": "js",
+    "qualityScore": 95,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "booking-submit",
+    "implementation": "js",
+    "qualityScore": 96,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "checkout-redirect",
+    "implementation": "js",
+    "qualityScore": 97,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "search-command",
+    "implementation": "js",
+    "qualityScore": 98,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "search-filter",
+    "implementation": "js",
+    "qualityScore": 88,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "sort-control",
+    "implementation": "js",
+    "qualityScore": 89,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "pagination",
+    "implementation": "js",
+    "qualityScore": 90,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "infinite-scroll",
+    "implementation": "js",
+    "qualityScore": 91,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "load-more",
+    "implementation": "js",
+    "qualityScore": 92,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "copy-link",
+    "implementation": "js",
+    "qualityScore": 93,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "share-menu",
+    "implementation": "js",
+    "qualityScore": 94,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "language-switcher",
+    "implementation": "js",
+    "qualityScore": 95,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "theme-switcher",
+    "implementation": "js",
+    "qualityScore": 96,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "cookie-consent",
+    "implementation": "js",
+    "qualityScore": 97,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "map-interaction",
+    "implementation": "js",
+    "qualityScore": 98,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "map-directions",
+    "implementation": "js",
+    "qualityScore": 88,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "pricing-toggle",
+    "implementation": "js",
+    "qualityScore": 89,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "comparison-toggle",
+    "implementation": "js",
+    "qualityScore": 90,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  },
+  {
+    "id": "reduced-motion-fallback",
+    "implementation": "js",
+    "qualityScore": 91,
+    "a11yGate": true,
+    "mobile": true,
+    "requiresClientJs": true,
+    "trust": "approved"
+  }
+]

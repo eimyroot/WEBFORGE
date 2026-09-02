@@ -1,0 +1,120 @@
+[
+  {
+    "id": "puck",
+    "kind": "visual-composition",
+    "conditional": true,
+    "best_for": [
+      "marketing",
+      "content",
+      "portfolio"
+    ],
+    "trust": "approved"
+  },
+  {
+    "id": "onlook",
+    "kind": "code-visual-edit",
+    "conditional": true,
+    "best_for": [
+      "react-code-native"
+    ],
+    "trust": "approved"
+  },
+  {
+    "id": "webstudio",
+    "kind": "site-engine",
+    "conditional": true,
+    "best_for": [
+      "simple-marketing-visual"
+    ],
+    "trust": "conditional-license"
+  },
+  {
+    "id": "sanity",
+    "kind": "cms",
+    "conditional": true,
+    "best_for": [
+      "structured-content",
+      "frequent-editing"
+    ],
+    "trust": "approved"
+  },
+  {
+    "id": "supabase",
+    "kind": "backend",
+    "conditional": true,
+    "best_for": [
+      "auth",
+      "database",
+      "storage"
+    ],
+    "trust": "approved"
+  },
+  {
+    "id": "cloudinary",
+    "kind": "media",
+    "conditional": true,
+    "best_for": [
+      "large-gallery",
+      "responsive-media",
+      "video"
+    ],
+    "trust": "approved"
+  },
+  {
+    "id": "plausible",
+    "kind": "analytics",
+    "conditional": true,
+    "best_for": [
+      "simple-web"
+    ],
+    "trust": "approved"
+  },
+  {
+    "id": "posthog",
+    "kind": "analytics",
+    "conditional": true,
+    "best_for": [
+      "product-app"
+    ],
+    "trust": "approved"
+  },
+  {
+    "id": "vercel",
+    "kind": "deploy",
+    "conditional": true,
+    "best_for": [
+      "next",
+      "preview-heavy"
+    ],
+    "trust": "approved"
+  },
+  {
+    "id": "cloudflare",
+    "kind": "deploy",
+    "conditional": true,
+    "best_for": [
+      "astro",
+      "static",
+      "edge"
+    ],
+    "trust": "approved"
+  },
+  {
+    "id": "shadcn-registry",
+    "kind": "component-bus",
+    "conditional": false,
+    "best_for": [
+      "registry"
+    ],
+    "trust": "approved"
+  },
+  {
+    "id": "mcp",
+    "kind": "tool-bus",
+    "conditional": false,
+    "best_for": [
+      "capability-discovery"
+    ],
+    "trust": "policy-gated"
+  }
+]

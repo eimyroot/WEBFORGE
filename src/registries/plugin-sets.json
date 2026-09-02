@@ -1,0 +1,157 @@
+[
+  {
+    "id": "marketing-static",
+    "plugins": [
+      "shadcn-registry",
+      "puck",
+      "plausible",
+      "cloudflare"
+    ],
+    "qualityScore": 92,
+    "maturity": "stable",
+    "approvalRequired": true
+  },
+  {
+    "id": "venue-premium",
+    "plugins": [
+      "shadcn-registry",
+      "puck",
+      "cloudinary",
+      "sanity",
+      "plausible",
+      "cloudflare"
+    ],
+    "qualityScore": 93,
+    "maturity": "stable",
+    "approvalRequired": true
+  },
+  {
+    "id": "portfolio-premium",
+    "plugins": [
+      "shadcn-registry",
+      "puck",
+      "cloudinary",
+      "plausible",
+      "cloudflare"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "approvalRequired": true
+  },
+  {
+    "id": "local-service",
+    "plugins": [
+      "shadcn-registry",
+      "puck",
+      "plausible",
+      "openstreetmap",
+      "cloudflare"
+    ],
+    "qualityScore": 95,
+    "maturity": "stable",
+    "approvalRequired": true
+  },
+  {
+    "id": "saas-product",
+    "plugins": [
+      "shadcn-registry",
+      "base-ui",
+      "react-aria",
+      "onlook",
+      "posthog",
+      "vercel"
+    ],
+    "qualityScore": 96,
+    "maturity": "stable",
+    "approvalRequired": true
+  },
+  {
+    "id": "saas-data",
+    "plugins": [
+      "shadcn-registry",
+      "base-ui",
+      "react-aria",
+      "supabase",
+      "posthog",
+      "vercel"
+    ],
+    "qualityScore": 97,
+    "maturity": "stable",
+    "approvalRequired": true
+  },
+  {
+    "id": "marketplace",
+    "plugins": [
+      "shadcn-registry",
+      "base-ui",
+      "react-aria",
+      "supabase",
+      "stripe",
+      "posthog",
+      "vercel"
+    ],
+    "qualityScore": 98,
+    "maturity": "stable",
+    "approvalRequired": true
+  },
+  {
+    "id": "editorial",
+    "plugins": [
+      "shadcn-registry",
+      "puck",
+      "sanity",
+      "cloudinary",
+      "plausible",
+      "cloudflare"
+    ],
+    "qualityScore": 92,
+    "maturity": "stable",
+    "approvalRequired": true
+  },
+  {
+    "id": "cinematic",
+    "plugins": [
+      "shadcn-registry",
+      "puck",
+      "cloudinary",
+      "gsap",
+      "cloudflare"
+    ],
+    "qualityScore": 93,
+    "maturity": "stable",
+    "approvalRequired": true
+  },
+  {
+    "id": "accessibility-first",
+    "plugins": [
+      "shadcn-registry",
+      "base-ui",
+      "react-aria"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "approvalRequired": true
+  },
+  {
+    "id": "commerce-light",
+    "plugins": [
+      "shadcn-registry",
+      "stripe",
+      "plausible",
+      "vercel"
+    ],
+    "qualityScore": 95,
+    "maturity": "stable",
+    "approvalRequired": true
+  },
+  {
+    "id": "production-observability",
+    "plugins": [
+      "sentry",
+      "plausible"
+    ],
+    "qualityScore": 96,
+    "maturity": "stable",
+    "approvalRequired": true
+  }
+]

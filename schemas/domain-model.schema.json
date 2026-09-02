@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://webforge.local/schemas/domain-model.schema.json",
+  "title":"WEBFORGE Domain Intelligence",
+  "type":"object",
+  "required":["schema","primary","classification","confidence","entities","genome"],
+  "properties":{
+    "schema":{"const":"webforge.domain-intelligence.v1"},
+    "classification":{"enum":["KNOWN","HYBRID","NOVEL"]},
+    "confidence":{"type":"number","minimum":0,"maximum":1},
+    "primary":{"type":"object","required":["id","label","baseArchetype"]},
+    "secondary":{"type":["object","null"]},
+    "entities":{"type":"array","minItems":1,"items":{"type":"string"}},
+    "genome":{"$ref":"website-genome.schema.json"}
+  },
+  "additionalProperties":true
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Service",
+  "type": "object",
+  "required": [
+    "id",
+    "capabilities"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "capabilities": {
+      "type": "array"
+    }
+  }
+}

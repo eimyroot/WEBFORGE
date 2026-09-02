@@ -1,0 +1,2015 @@
+[
+  {
+    "id": "venue-nightclub",
+    "archetype": "venue",
+    "tags": [
+      "nightclub",
+      "techno",
+      "club",
+      "tickets"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Homepage",
+        "sectionHints": [
+          "hero",
+          "next-event",
+          "latest-content",
+          "artists",
+          "gallery",
+          "experience",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "events",
+        "path": "/events/",
+        "title": "Events",
+        "sectionHints": [
+          "latest-content",
+          "next-event",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "event-detail",
+        "path": "/events/[slug]/",
+        "title": "Event detail",
+        "sectionHints": [
+          "hero",
+          "next-event",
+          "artists",
+          "location",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "artists",
+        "path": "/artists/",
+        "title": "Artists",
+        "sectionHints": [
+          "artists",
+          "latest-content",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "gallery",
+        "path": "/gallery/",
+        "title": "Gallery",
+        "sectionHints": [
+          "gallery",
+          "experience",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "experience",
+        "path": "/experience/",
+        "title": "Experience",
+        "sectionHints": [
+          "experience",
+          "proof",
+          "location",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "tickets",
+        "path": "/tickets/",
+        "title": "Tickets",
+        "sectionHints": [
+          "pricing",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "contact",
+        "path": "/contact/",
+        "title": "Contact",
+        "sectionHints": [
+          "location",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "venue-festival",
+    "archetype": "venue",
+    "tags": [
+      "festival",
+      "lineup",
+      "stages"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Festival",
+        "sectionHints": [
+          "hero",
+          "next-event",
+          "artists",
+          "schedule",
+          "gallery",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "lineup",
+        "path": "/lineup/",
+        "title": "Lineup",
+        "sectionHints": [
+          "artists",
+          "schedule",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "schedule",
+        "path": "/schedule/",
+        "title": "Schedule",
+        "sectionHints": [
+          "schedule",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "tickets",
+        "path": "/tickets/",
+        "title": "Tickets",
+        "sectionHints": [
+          "pricing",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "info",
+        "path": "/info/",
+        "title": "Visitor info",
+        "sectionHints": [
+          "location",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "venue-conference",
+    "archetype": "venue",
+    "tags": [
+      "conference",
+      "speakers",
+      "agenda"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Conference",
+        "sectionHints": [
+          "hero",
+          "artists",
+          "schedule",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "agenda",
+        "path": "/agenda/",
+        "title": "Agenda",
+        "sectionHints": [
+          "schedule",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "speakers",
+        "path": "/speakers/",
+        "title": "Speakers",
+        "sectionHints": [
+          "artists",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "tickets",
+        "path": "/tickets/",
+        "title": "Registration",
+        "sectionHints": [
+          "pricing",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "venue",
+        "path": "/venue/",
+        "title": "Venue",
+        "sectionHints": [
+          "location",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "venue-hospitality",
+    "archetype": "venue",
+    "tags": [
+      "hotel",
+      "venue",
+      "events"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Venue",
+        "sectionHints": [
+          "hero",
+          "gallery",
+          "experience",
+          "next-event",
+          "location",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "spaces",
+        "path": "/spaces/",
+        "title": "Spaces",
+        "sectionHints": [
+          "gallery",
+          "experience",
+          "services",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "events",
+        "path": "/events/",
+        "title": "Events",
+        "sectionHints": [
+          "latest-content",
+          "next-event",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "visit",
+        "path": "/visit/",
+        "title": "Visit",
+        "sectionHints": [
+          "location",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "local-clinic",
+    "archetype": "local-service",
+    "tags": [
+      "clinic",
+      "doctor",
+      "dental",
+      "medical"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Clinic",
+        "sectionHints": [
+          "hero",
+          "services",
+          "proof",
+          "process",
+          "location",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "services",
+        "path": "/services/",
+        "title": "Services",
+        "sectionHints": [
+          "services",
+          "process",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "service-detail",
+        "path": "/services/[slug]/",
+        "title": "Service",
+        "sectionHints": [
+          "hero",
+          "services",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "about",
+        "path": "/about/",
+        "title": "About",
+        "sectionHints": [
+          "about",
+          "team",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "contact",
+        "path": "/contact/",
+        "title": "Contact",
+        "sectionHints": [
+          "location",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "local-beauty",
+    "archetype": "local-service",
+    "tags": [
+      "beauty",
+      "salon",
+      "spa"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Studio",
+        "sectionHints": [
+          "hero",
+          "services",
+          "gallery",
+          "proof",
+          "location",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "services",
+        "path": "/services/",
+        "title": "Services",
+        "sectionHints": [
+          "services",
+          "pricing",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "results",
+        "path": "/results/",
+        "title": "Results",
+        "sectionHints": [
+          "gallery",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "booking",
+        "path": "/booking/",
+        "title": "Booking",
+        "sectionHints": [
+          "pricing",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "local-trades",
+    "archetype": "local-service",
+    "tags": [
+      "plumber",
+      "electrician",
+      "repair",
+      "trade"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Local service",
+        "sectionHints": [
+          "hero",
+          "services",
+          "proof",
+          "process",
+          "location",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "services",
+        "path": "/services/",
+        "title": "Services",
+        "sectionHints": [
+          "services",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "areas",
+        "path": "/areas/",
+        "title": "Service areas",
+        "sectionHints": [
+          "location",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "contact",
+        "path": "/contact/",
+        "title": "Contact",
+        "sectionHints": [
+          "location",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "local-professional",
+    "archetype": "local-service",
+    "tags": [
+      "lawyer",
+      "accountant",
+      "consultant"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Professional service",
+        "sectionHints": [
+          "hero",
+          "services",
+          "proof",
+          "process",
+          "about",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "services",
+        "path": "/services/",
+        "title": "Services",
+        "sectionHints": [
+          "services",
+          "case-study",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "insights",
+        "path": "/insights/",
+        "title": "Insights",
+        "sectionHints": [
+          "latest-content",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "contact",
+        "path": "/contact/",
+        "title": "Contact",
+        "sectionHints": [
+          "location",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "local-wellness",
+    "archetype": "local-service",
+    "tags": [
+      "wellness",
+      "therapy",
+      "fitness"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Wellness",
+        "sectionHints": [
+          "hero",
+          "services",
+          "experience",
+          "proof",
+          "location",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "programs",
+        "path": "/programs/",
+        "title": "Programs",
+        "sectionHints": [
+          "services",
+          "pricing",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "about",
+        "path": "/about/",
+        "title": "About",
+        "sectionHints": [
+          "about",
+          "team",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "contact",
+        "path": "/contact/",
+        "title": "Contact",
+        "sectionHints": [
+          "location",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "portfolio-creative",
+    "archetype": "portfolio",
+    "tags": [
+      "creative",
+      "designer",
+      "visual"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Portfolio",
+        "sectionHints": [
+          "hero",
+          "selected-work",
+          "gallery",
+          "statement",
+          "about",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "work",
+        "path": "/work/",
+        "title": "Work",
+        "sectionHints": [
+          "selected-work",
+          "gallery",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "project",
+        "path": "/work/[slug]/",
+        "title": "Project",
+        "sectionHints": [
+          "hero",
+          "case-study",
+          "gallery",
+          "outcomes",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "about",
+        "path": "/about/",
+        "title": "About",
+        "sectionHints": [
+          "about",
+          "statement",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "contact",
+        "path": "/contact/",
+        "title": "Contact",
+        "sectionHints": [
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "portfolio-photographer",
+    "archetype": "portfolio",
+    "tags": [
+      "photographer",
+      "photo"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Photography",
+        "sectionHints": [
+          "hero",
+          "gallery",
+          "selected-work",
+          "about",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "stories",
+        "path": "/stories/",
+        "title": "Stories",
+        "sectionHints": [
+          "gallery",
+          "case-study",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "about",
+        "path": "/about/",
+        "title": "About",
+        "sectionHints": [
+          "about",
+          "statement",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "contact",
+        "path": "/contact/",
+        "title": "Contact",
+        "sectionHints": [
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "portfolio-architecture",
+    "archetype": "portfolio",
+    "tags": [
+      "architect",
+      "architecture"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Architecture",
+        "sectionHints": [
+          "hero",
+          "selected-work",
+          "case-study",
+          "about",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "projects",
+        "path": "/projects/",
+        "title": "Projects",
+        "sectionHints": [
+          "selected-work",
+          "gallery",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "project",
+        "path": "/projects/[slug]/",
+        "title": "Project",
+        "sectionHints": [
+          "hero",
+          "case-study",
+          "gallery",
+          "outcomes",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "studio",
+        "path": "/studio/",
+        "title": "Studio",
+        "sectionHints": [
+          "about",
+          "team",
+          "statement",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "portfolio-agency",
+    "archetype": "portfolio",
+    "tags": [
+      "agency",
+      "studio"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Agency",
+        "sectionHints": [
+          "hero",
+          "selected-work",
+          "services",
+          "proof",
+          "about",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "work",
+        "path": "/work/",
+        "title": "Work",
+        "sectionHints": [
+          "selected-work",
+          "case-study",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "services",
+        "path": "/services/",
+        "title": "Services",
+        "sectionHints": [
+          "services",
+          "process",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "studio",
+        "path": "/studio/",
+        "title": "Studio",
+        "sectionHints": [
+          "about",
+          "team",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "company-b2b-service",
+    "archetype": "company",
+    "tags": [
+      "b2b",
+      "consulting",
+      "services"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Company",
+        "sectionHints": [
+          "hero",
+          "services",
+          "outcomes",
+          "proof",
+          "process",
+          "team",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "services",
+        "path": "/services/",
+        "title": "Services",
+        "sectionHints": [
+          "services",
+          "case-study",
+          "process",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "cases",
+        "path": "/cases/",
+        "title": "Case studies",
+        "sectionHints": [
+          "case-study",
+          "outcomes",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "about",
+        "path": "/about/",
+        "title": "About",
+        "sectionHints": [
+          "about",
+          "team",
+          "statement",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "contact",
+        "path": "/contact/",
+        "title": "Contact",
+        "sectionHints": [
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "company-studio",
+    "archetype": "company",
+    "tags": [
+      "studio",
+      "creative company"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Studio",
+        "sectionHints": [
+          "hero",
+          "services",
+          "selected-work",
+          "team",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "work",
+        "path": "/work/",
+        "title": "Work",
+        "sectionHints": [
+          "selected-work",
+          "case-study",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "services",
+        "path": "/services/",
+        "title": "Services",
+        "sectionHints": [
+          "services",
+          "process",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "about",
+        "path": "/about/",
+        "title": "About",
+        "sectionHints": [
+          "about",
+          "team",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "company-enterprise",
+    "archetype": "company",
+    "tags": [
+      "enterprise",
+      "global"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Enterprise",
+        "sectionHints": [
+          "hero",
+          "outcomes",
+          "services",
+          "proof",
+          "security",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "solutions",
+        "path": "/solutions/",
+        "title": "Solutions",
+        "sectionHints": [
+          "services",
+          "outcomes",
+          "case-study",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "company",
+        "path": "/company/",
+        "title": "Company",
+        "sectionHints": [
+          "about",
+          "team",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "resources",
+        "path": "/resources/",
+        "title": "Resources",
+        "sectionHints": [
+          "latest-content",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "contact",
+        "path": "/contact/",
+        "title": "Contact",
+        "sectionHints": [
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "company-startup",
+    "archetype": "company",
+    "tags": [
+      "startup",
+      "new company"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Startup",
+        "sectionHints": [
+          "hero",
+          "services",
+          "proof",
+          "team",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "product",
+        "path": "/product/",
+        "title": "Product",
+        "sectionHints": [
+          "feature-grid",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "company",
+        "path": "/company/",
+        "title": "Company",
+        "sectionHints": [
+          "about",
+          "team",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "saas-product-led",
+    "archetype": "saas",
+    "tags": [
+      "saas",
+      "product",
+      "software"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "SaaS",
+        "sectionHints": [
+          "hero",
+          "product-proof",
+          "feature-grid",
+          "workflow",
+          "integrations",
+          "pricing",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "product",
+        "path": "/product/",
+        "title": "Product",
+        "sectionHints": [
+          "product-proof",
+          "feature-grid",
+          "workflow",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "pricing",
+        "path": "/pricing/",
+        "title": "Pricing",
+        "sectionHints": [
+          "pricing",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "customers",
+        "path": "/customers/",
+        "title": "Customers",
+        "sectionHints": [
+          "case-study",
+          "outcomes",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "resources",
+        "path": "/resources/",
+        "title": "Resources",
+        "sectionHints": [
+          "latest-content",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "saas-enterprise",
+    "archetype": "saas",
+    "tags": [
+      "enterprise",
+      "security",
+      "platform"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Enterprise SaaS",
+        "sectionHints": [
+          "hero",
+          "product-proof",
+          "security",
+          "integrations",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "platform",
+        "path": "/platform/",
+        "title": "Platform",
+        "sectionHints": [
+          "product-proof",
+          "feature-grid",
+          "workflow",
+          "security",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "security",
+        "path": "/security/",
+        "title": "Security",
+        "sectionHints": [
+          "security",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "customers",
+        "path": "/customers/",
+        "title": "Customers",
+        "sectionHints": [
+          "case-study",
+          "outcomes",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "contact",
+        "path": "/contact/",
+        "title": "Contact",
+        "sectionHints": [
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "saas-developer",
+    "archetype": "saas",
+    "tags": [
+      "developer",
+      "api",
+      "sdk"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Developer platform",
+        "sectionHints": [
+          "hero",
+          "product-proof",
+          "integrations",
+          "workflow",
+          "pricing",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "developers",
+        "path": "/developers/",
+        "title": "Developers",
+        "sectionHints": [
+          "product-proof",
+          "integrations",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "docs",
+        "path": "/docs/",
+        "title": "Docs",
+        "sectionHints": [
+          "latest-content",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "pricing",
+        "path": "/pricing/",
+        "title": "Pricing",
+        "sectionHints": [
+          "pricing",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "saas-ai",
+    "archetype": "saas",
+    "tags": [
+      "ai",
+      "agent",
+      "automation"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "AI product",
+        "sectionHints": [
+          "hero",
+          "product-proof",
+          "feature-grid",
+          "workflow",
+          "security",
+          "pricing",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "use-cases",
+        "path": "/use-cases/",
+        "title": "Use cases",
+        "sectionHints": [
+          "feature-grid",
+          "case-study",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "security",
+        "path": "/security/",
+        "title": "Security",
+        "sectionHints": [
+          "security",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "pricing",
+        "path": "/pricing/",
+        "title": "Pricing",
+        "sectionHints": [
+          "pricing",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "marketplace-two-sided",
+    "archetype": "marketplace",
+    "tags": [
+      "marketplace",
+      "buyers",
+      "sellers"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Marketplace",
+        "sectionHints": [
+          "hero",
+          "feature-grid",
+          "proof",
+          "workflow",
+          "security",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "browse",
+        "path": "/browse/",
+        "title": "Browse",
+        "sectionHints": [
+          "feature-grid",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "sell",
+        "path": "/sell/",
+        "title": "Sell",
+        "sectionHints": [
+          "workflow",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "trust",
+        "path": "/trust/",
+        "title": "Trust",
+        "sectionHints": [
+          "security",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "marketplace-catalog",
+    "archetype": "marketplace",
+    "tags": [
+      "catalog",
+      "directory"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Catalog",
+        "sectionHints": [
+          "hero",
+          "feature-grid",
+          "proof",
+          "latest-content",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "categories",
+        "path": "/categories/",
+        "title": "Categories",
+        "sectionHints": [
+          "feature-grid",
+          "latest-content",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "listing",
+        "path": "/listing/[slug]/",
+        "title": "Listing",
+        "sectionHints": [
+          "hero",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "marketplace-services",
+    "archetype": "marketplace",
+    "tags": [
+      "services marketplace",
+      "providers"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Services marketplace",
+        "sectionHints": [
+          "hero",
+          "feature-grid",
+          "workflow",
+          "proof",
+          "security",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "providers",
+        "path": "/providers/",
+        "title": "Providers",
+        "sectionHints": [
+          "feature-grid",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "how-it-works",
+        "path": "/how-it-works/",
+        "title": "How it works",
+        "sectionHints": [
+          "workflow",
+          "security",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "webapp-productivity",
+    "archetype": "web-app",
+    "tags": [
+      "productivity",
+      "workspace"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Web app",
+        "sectionHints": [
+          "hero",
+          "task-preview",
+          "feature-grid",
+          "workflow",
+          "integrations",
+          "security",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "product",
+        "path": "/product/",
+        "title": "Product",
+        "sectionHints": [
+          "task-preview",
+          "feature-grid",
+          "workflow",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "integrations",
+        "path": "/integrations/",
+        "title": "Integrations",
+        "sectionHints": [
+          "integrations",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "security",
+        "path": "/security/",
+        "title": "Security",
+        "sectionHints": [
+          "security",
+          "proof",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "webapp-dashboard",
+    "archetype": "web-app",
+    "tags": [
+      "dashboard",
+      "analytics"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Dashboard app",
+        "sectionHints": [
+          "hero",
+          "task-preview",
+          "outcomes",
+          "feature-grid",
+          "security",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "features",
+        "path": "/features/",
+        "title": "Features",
+        "sectionHints": [
+          "feature-grid",
+          "workflow",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "security",
+        "path": "/security/",
+        "title": "Security",
+        "sectionHints": [
+          "security",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "webapp-workflow",
+    "archetype": "web-app",
+    "tags": [
+      "workflow",
+      "operations"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Workflow app",
+        "sectionHints": [
+          "hero",
+          "task-preview",
+          "workflow",
+          "integrations",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "workflow",
+        "path": "/workflow/",
+        "title": "Workflow",
+        "sectionHints": [
+          "workflow",
+          "feature-grid",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "integrations",
+        "path": "/integrations/",
+        "title": "Integrations",
+        "sectionHints": [
+          "integrations",
+          "faq",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "editorial-magazine",
+    "archetype": "editorial",
+    "tags": [
+      "magazine",
+      "journal",
+      "culture"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Magazine",
+        "sectionHints": [
+          "hero",
+          "latest-content",
+          "gallery",
+          "statement",
+          "about",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "stories",
+        "path": "/stories/",
+        "title": "Stories",
+        "sectionHints": [
+          "latest-content",
+          "gallery",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "story",
+        "path": "/stories/[slug]/",
+        "title": "Story",
+        "sectionHints": [
+          "hero",
+          "statement",
+          "gallery",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "about",
+        "path": "/about/",
+        "title": "About",
+        "sectionHints": [
+          "about",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "editorial-newsroom",
+    "archetype": "editorial",
+    "tags": [
+      "news",
+      "newsroom"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Newsroom",
+        "sectionHints": [
+          "hero",
+          "latest-content",
+          "proof",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "latest",
+        "path": "/latest/",
+        "title": "Latest",
+        "sectionHints": [
+          "latest-content",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "article",
+        "path": "/article/[slug]/",
+        "title": "Article",
+        "sectionHints": [
+          "hero",
+          "statement",
+          "latest-content",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  },
+  {
+    "id": "editorial-knowledge",
+    "archetype": "editorial",
+    "tags": [
+      "knowledge",
+      "resources",
+      "insights"
+    ],
+    "qualityScore": 94,
+    "maturity": "stable",
+    "pages": [
+      {
+        "id": "home",
+        "path": "/",
+        "title": "Knowledge hub",
+        "sectionHints": [
+          "hero",
+          "latest-content",
+          "case-study",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "topics",
+        "path": "/topics/",
+        "title": "Topics",
+        "sectionHints": [
+          "latest-content",
+          "faq",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "article",
+        "path": "/articles/[slug]/",
+        "title": "Article",
+        "sectionHints": [
+          "hero",
+          "statement",
+          "proof",
+          "final-cta"
+        ]
+      },
+      {
+        "id": "about",
+        "path": "/about/",
+        "title": "About",
+        "sectionHints": [
+          "about",
+          "final-cta"
+        ]
+      }
+    ],
+    "requiredGates": [
+      "navigation",
+      "responsive",
+      "seo",
+      "a11y",
+      "performance",
+      "content-truth"
+    ]
+  }
+]

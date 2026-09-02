@@ -1,0 +1,22 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://webforge.local/schemas/website-genome.schema.json",
+  "title":"WEBFORGE Website Genome",
+  "type":"object",
+  "required":["schema","purpose","audience","content","interaction","visualMode","applicationDepth","dataDepth","trustBurden"],
+  "properties":{
+    "schema":{"const":"webforge.website-genome.v1"},
+    "purpose":{"type":"array","minItems":1,"items":{"type":"string"}},
+    "audience":{"type":"array","minItems":1,"items":{"type":"string"}},
+    "content":{"type":"array","minItems":1,"items":{"type":"string"}},
+    "interaction":{"type":"array","minItems":1,"items":{"type":"string"}},
+    "visualMode":{"type":"string"},
+    "applicationDepth":{"type":"integer","minimum":0,"maximum":4},
+    "dataDepth":{"type":"integer","minimum":0,"maximum":4},
+    "trustBurden":{"enum":["normal","medium","high","critical"]},
+    "mediaIntensity":{"type":"number","minimum":0,"maximum":100},
+    "conversionIntensity":{"type":"number","minimum":0,"maximum":100},
+    "novelty":{"type":"number","minimum":0,"maximum":100}
+  },
+  "additionalProperties":true
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "astro",
+    "best_for": [
+      "local-service",
+      "company",
+      "portfolio",
+      "editorial",
+      "venue"
+    ],
+    "scores": {
+      "performance": 1.0,
+      "content": 1.0,
+      "app": 0.35
+    },
+    "reason": "content-first, server-first and low client-JS default"
+  },
+  {
+    "id": "next",
+    "best_for": [
+      "saas",
+      "marketplace",
+      "web-app"
+    ],
+    "scores": {
+      "performance": 0.76,
+      "content": 0.78,
+      "app": 1.0
+    },
+    "reason": "full-stack React application capabilities"
+  },
+  {
+    "id": "vite-react",
+    "best_for": [
+      "spa",
+      "internal-tool",
+      "web-app"
+    ],
+    "scores": {
+      "performance": 0.82,
+      "content": 0.48,
+      "app": 0.86
+    },
+    "reason": "lean client-heavy application runtime"
+  }
+]

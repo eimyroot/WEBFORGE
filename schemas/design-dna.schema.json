@@ -1,0 +1,15 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://webforge.local/schemas/design-dna.schema.json",
+  "title":"WEBFORGE Design DNA",
+  "type":"object",
+  "required":["schema","mode","density","grid","shapeLanguage","motion","typography","surfaces","media","responsive","accessibility"],
+  "properties":{
+    "schema":{"const":"webforge.design-dna.v1"},
+    "mode":{"enum":["marketing","cinematic","editorial","commerce","application","data-dense","experiential","minimal"]},
+    "density":{"type":"string"},
+    "grid":{"type":"string"},
+    "motion":{"type":"string"}
+  },
+  "additionalProperties":true
+}

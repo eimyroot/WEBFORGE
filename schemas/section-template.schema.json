@@ -1,0 +1,12 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"webforge.section-template.schema.v1",
+  "type":"object",
+  "required":["id","template","responsive"],
+  "properties":{
+    "id":{"type":"string"},
+    "template":{"type":"string"},
+    "available":{"type":"array","items":{"type":"string"}},
+    "responsive":{"enum":["priority","normal"]}
+  }
+}

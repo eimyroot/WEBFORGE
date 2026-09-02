@@ -1,0 +1,272 @@
+[
+  {
+    "id": "sanity",
+    "capability": "content.cms",
+    "authority": [
+      "read"
+    ],
+    "status": "conditional",
+    "trustScore": 90,
+    "credentialMode": "none",
+    "failClosed": true
+  },
+  {
+    "id": "contentful",
+    "capability": "content.cms",
+    "authority": [
+      "read"
+    ],
+    "status": "conditional",
+    "trustScore": 91,
+    "credentialMode": "none",
+    "failClosed": true
+  },
+  {
+    "id": "mdx",
+    "capability": "content.cms",
+    "authority": [
+      "local-read"
+    ],
+    "status": "approved",
+    "trustScore": 92,
+    "credentialMode": "none",
+    "failClosed": true
+  },
+  {
+    "id": "local-json",
+    "capability": "content.cms",
+    "authority": [
+      "local-read"
+    ],
+    "status": "approved",
+    "trustScore": 93,
+    "credentialMode": "none",
+    "failClosed": true
+  },
+  {
+    "id": "rest",
+    "capability": "content.api",
+    "authority": [
+      "network-read"
+    ],
+    "status": "conditional",
+    "trustScore": 94,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "graphql",
+    "capability": "content.api",
+    "authority": [
+      "network-read"
+    ],
+    "status": "conditional",
+    "trustScore": 95,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "cloudinary",
+    "capability": "media.delivery",
+    "authority": [
+      "network-read",
+      "network-write"
+    ],
+    "status": "conditional",
+    "trustScore": 96,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "cms-media",
+    "capability": "media.library",
+    "authority": [
+      "network-read"
+    ],
+    "status": "conditional",
+    "trustScore": 97,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "image-generation",
+    "capability": "media.generate",
+    "authority": [
+      "generate"
+    ],
+    "status": "conditional",
+    "trustScore": 90,
+    "credentialMode": "none",
+    "failClosed": true
+  },
+  {
+    "id": "image-search",
+    "capability": "media.search",
+    "authority": [
+      "network-read"
+    ],
+    "status": "conditional",
+    "trustScore": 91,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "supabase",
+    "capability": "data.application",
+    "authority": [
+      "network-read",
+      "network-write"
+    ],
+    "status": "conditional",
+    "trustScore": 92,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "supabase-auth",
+    "capability": "identity.auth",
+    "authority": [
+      "network-read",
+      "network-write"
+    ],
+    "status": "conditional",
+    "trustScore": 93,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "stripe",
+    "capability": "commerce.checkout",
+    "authority": [
+      "network-write"
+    ],
+    "status": "conditional",
+    "trustScore": 94,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "ticketing-provider",
+    "capability": "conversion.tickets",
+    "authority": [
+      "network-read",
+      "network-write"
+    ],
+    "status": "conditional",
+    "trustScore": 95,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "booking-provider",
+    "capability": "conversion.booking",
+    "authority": [
+      "network-read",
+      "network-write"
+    ],
+    "status": "conditional",
+    "trustScore": 96,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "calendar",
+    "capability": "conversion.booking",
+    "authority": [
+      "network-read",
+      "network-write"
+    ],
+    "status": "conditional",
+    "trustScore": 97,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "plausible",
+    "capability": "analytics.site",
+    "authority": [
+      "network-write"
+    ],
+    "status": "conditional",
+    "trustScore": 90,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "posthog",
+    "capability": "analytics.product",
+    "authority": [
+      "network-write"
+    ],
+    "status": "conditional",
+    "trustScore": 91,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "mapbox",
+    "capability": "maps",
+    "authority": [
+      "network-read"
+    ],
+    "status": "conditional",
+    "trustScore": 92,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "openstreetmap",
+    "capability": "maps",
+    "authority": [
+      "network-read"
+    ],
+    "status": "approved",
+    "trustScore": 93,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "youtube",
+    "capability": "video.embed",
+    "authority": [
+      "network-read"
+    ],
+    "status": "conditional",
+    "trustScore": 94,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "vimeo",
+    "capability": "video.embed",
+    "authority": [
+      "network-read"
+    ],
+    "status": "conditional",
+    "trustScore": 95,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "vercel",
+    "capability": "deploy.preview",
+    "authority": [
+      "deploy"
+    ],
+    "status": "conditional",
+    "trustScore": 96,
+    "credentialMode": "required",
+    "failClosed": true
+  },
+  {
+    "id": "cloudflare",
+    "capability": "deploy.preview",
+    "authority": [
+      "deploy"
+    ],
+    "status": "conditional",
+    "trustScore": 97,
+    "credentialMode": "required",
+    "failClosed": true
+  }
+]
