@@ -1,0 +1,5 @@
+WEBFORGE 9.1.0 PR READY
+branch=feat/federated-component-pack-r1
+local_release_gate=PASS
+local_full_environment=PASS
+merge_requires=explicit user approval
