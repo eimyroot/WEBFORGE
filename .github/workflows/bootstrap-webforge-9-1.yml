@@ -89,12 +89,14 @@ jobs:
           test -s docs/FEDERATED_COMPONENT_PACK_R1.md
           test -s .github/workflows/ci.yml
 
-      - name: Remove one-time bootstrap transport
+      - name: Remove workflow files from bot-authored import
         shell: bash
         run: |
           set -euo pipefail
+          # The GITHUB_TOKEN has contents:write but cannot create/update workflow files.
+          # ci.yml will be added immediately afterwards through the GitHub connector.
+          rm -f .github/workflows/ci.yml
           rm -rf .bootstrap .bootstrap-fix
-          rm -f .github/workflows/bootstrap-webforge-9-1.yml
 
       - name: Commit expanded source tree
         shell: bash
