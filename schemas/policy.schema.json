@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Policy",
+  "type": "object",
+  "required": [
+    "id",
+    "effect",
+    "condition"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "effect": {
+      "enum": [
+        "allow",
+        "deny",
+        "require"
+      ]
+    },
+    "condition": {
+      "type": "string"
+    }
+  }
+}

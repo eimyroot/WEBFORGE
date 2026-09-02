@@ -1,0 +1,907 @@
+[
+  {
+    "id": "hero-editorial",
+    "capability": "marketing.hero",
+    "variant": "default",
+    "suitable_for": [
+      "portfolio",
+      "venue",
+      "company"
+    ],
+    "avoid_for": [
+      "documentation"
+    ],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "hero-product",
+    "capability": "marketing.hero",
+    "variant": "default",
+    "suitable_for": [
+      "saas",
+      "web-app"
+    ],
+    "avoid_for": [
+      "documentation"
+    ],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "hero-local",
+    "capability": "marketing.hero",
+    "variant": "default",
+    "suitable_for": [
+      "local-service"
+    ],
+    "avoid_for": [
+      "documentation"
+    ],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "medium"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "nav-compact-overlay",
+    "capability": "navigation",
+    "variant": "default",
+    "suitable_for": [
+      "venue",
+      "portfolio"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "nav-standard",
+    "capability": "navigation",
+    "variant": "default",
+    "suitable_for": [
+      "company",
+      "local-service"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "nav-app-shell",
+    "capability": "navigation",
+    "variant": "default",
+    "suitable_for": [
+      "saas",
+      "web-app",
+      "marketplace"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "medium"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "gallery-masonry",
+    "capability": "media.gallery",
+    "variant": "default",
+    "suitable_for": [
+      "portfolio",
+      "venue",
+      "local-service"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "gallery-grid",
+    "capability": "media.gallery",
+    "variant": "default",
+    "suitable_for": [
+      "company",
+      "portfolio"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "event-feed",
+    "capability": "content.events",
+    "variant": "default",
+    "suitable_for": [
+      "venue"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "medium"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "artist-grid",
+    "capability": "content.people",
+    "variant": "default",
+    "suitable_for": [
+      "venue",
+      "portfolio"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "team-grid",
+    "capability": "content.people",
+    "variant": "default",
+    "suitable_for": [
+      "company"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "feature-grid",
+    "capability": "marketing.features",
+    "variant": "default",
+    "suitable_for": [
+      "saas",
+      "company"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "medium"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "logo-cloud",
+    "capability": "marketing.proof",
+    "variant": "default",
+    "suitable_for": [
+      "saas",
+      "company"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "testimonial-stack",
+    "capability": "marketing.proof",
+    "variant": "default",
+    "suitable_for": [
+      "saas",
+      "local-service",
+      "company"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "pricing-table",
+    "capability": "commerce.pricing",
+    "variant": "default",
+    "suitable_for": [
+      "saas"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "medium"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "booking-cta",
+    "capability": "conversion.booking",
+    "variant": "default",
+    "suitable_for": [
+      "local-service"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "ticket-cta",
+    "capability": "conversion.tickets",
+    "variant": "default",
+    "suitable_for": [
+      "venue"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "contact-form",
+    "capability": "conversion.contact",
+    "variant": "default",
+    "suitable_for": [
+      "company",
+      "local-service",
+      "portfolio"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "medium"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "map-local",
+    "capability": "seo.local",
+    "variant": "default",
+    "suitable_for": [
+      "local-service",
+      "venue"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "opening-hours",
+    "capability": "content.local",
+    "variant": "default",
+    "suitable_for": [
+      "local-service",
+      "venue"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "faq",
+    "capability": "content.faq",
+    "variant": "default",
+    "suitable_for": [
+      "saas",
+      "company",
+      "local-service"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "medium"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "article-list",
+    "capability": "content.editorial",
+    "variant": "default",
+    "suitable_for": [
+      "editorial",
+      "company"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "article-detail",
+    "capability": "content.editorial",
+    "variant": "default",
+    "suitable_for": [
+      "editorial"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "dashboard-kpi",
+    "capability": "ui.dashboard",
+    "variant": "default",
+    "suitable_for": [
+      "saas",
+      "web-app"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "medium"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "dashboard-table",
+    "capability": "ui.dashboard",
+    "variant": "default",
+    "suitable_for": [
+      "saas",
+      "web-app",
+      "marketplace"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "auth-panel",
+    "capability": "identity.auth",
+    "variant": "default",
+    "suitable_for": [
+      "saas",
+      "web-app",
+      "marketplace"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "checkout-panel",
+    "capability": "commerce.checkout",
+    "variant": "default",
+    "suitable_for": [
+      "marketplace"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "medium"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "integration-grid",
+    "capability": "marketing.integrations",
+    "variant": "default",
+    "suitable_for": [
+      "saas"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "sticky-mobile-cta",
+    "capability": "conversion.mobile",
+    "variant": "default",
+    "suitable_for": [
+      "venue",
+      "local-service"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "low"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  },
+  {
+    "id": "evidence-panel",
+    "capability": "trust.evidence",
+    "variant": "default",
+    "suitable_for": [
+      "company",
+      "saas"
+    ],
+    "avoid_for": [],
+    "runtime": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "accessibility": {
+      "level": "AA",
+      "tested": true
+    },
+    "performance": {
+      "class": "medium"
+    },
+    "maturity": "stable",
+    "trust": "approved",
+    "license": "internal",
+    "evidence": {
+      "projects_used": 0,
+      "visual_failures": 0,
+      "repairs_mean": 0.0
+    }
+  }
+]

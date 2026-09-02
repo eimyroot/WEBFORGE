@@ -1,0 +1,210 @@
+[
+  {
+    "id": "static-marketing-delivery",
+    "domain": "marketing",
+    "stages": [
+      "brief",
+      "site-map",
+      "composition",
+      "content",
+      "media",
+      "build",
+      "browser-qa",
+      "preview",
+      "approval",
+      "production"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  },
+  {
+    "id": "venue-event-delivery",
+    "domain": "venue",
+    "stages": [
+      "brief",
+      "events-model",
+      "site-map",
+      "composition",
+      "media",
+      "ticketing",
+      "build",
+      "browser-qa",
+      "preview",
+      "approval",
+      "production"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  },
+  {
+    "id": "local-service-delivery",
+    "domain": "local-service",
+    "stages": [
+      "brief",
+      "local-proof",
+      "site-map",
+      "composition",
+      "booking",
+      "build",
+      "browser-qa",
+      "preview",
+      "approval",
+      "production"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  },
+  {
+    "id": "portfolio-delivery",
+    "domain": "portfolio",
+    "stages": [
+      "brief",
+      "projects-model",
+      "site-map",
+      "composition",
+      "media",
+      "build",
+      "browser-qa",
+      "preview",
+      "approval",
+      "production"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  },
+  {
+    "id": "saas-product-delivery",
+    "domain": "saas",
+    "stages": [
+      "brief",
+      "product-model",
+      "site-map",
+      "composition",
+      "integration-plan",
+      "build",
+      "browser-qa",
+      "preview",
+      "approval",
+      "production"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  },
+  {
+    "id": "marketplace-delivery",
+    "domain": "marketplace",
+    "stages": [
+      "brief",
+      "data-model",
+      "auth",
+      "checkout",
+      "composition",
+      "build",
+      "browser-qa",
+      "preview",
+      "approval",
+      "production"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  },
+  {
+    "id": "editorial-delivery",
+    "domain": "editorial",
+    "stages": [
+      "brief",
+      "content-model",
+      "site-map",
+      "composition",
+      "cms-binding",
+      "build",
+      "browser-qa",
+      "preview",
+      "approval",
+      "production"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  },
+  {
+    "id": "media-ingestion",
+    "domain": "media",
+    "stages": [
+      "inventory",
+      "rights",
+      "role-map",
+      "transform",
+      "approval",
+      "publish"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  },
+  {
+    "id": "content-ingestion",
+    "domain": "content",
+    "stages": [
+      "inventory",
+      "schema-map",
+      "normalize",
+      "truth-review",
+      "approval",
+      "publish"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  },
+  {
+    "id": "visual-qa",
+    "domain": "qa",
+    "stages": [
+      "render",
+      "viewport-matrix",
+      "a11y",
+      "performance",
+      "screenshot-diff",
+      "receipt"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  },
+  {
+    "id": "preview-release",
+    "domain": "release",
+    "stages": [
+      "gates",
+      "package",
+      "deploy-preview",
+      "health",
+      "receipt"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  },
+  {
+    "id": "production-release",
+    "domain": "release",
+    "stages": [
+      "gates",
+      "human-approval",
+      "deploy-production",
+      "health",
+      "rollback-anchor",
+      "receipt"
+    ],
+    "failClosed": true,
+    "evidenceRequired": true,
+    "qualityScore": 95
+  }
+]

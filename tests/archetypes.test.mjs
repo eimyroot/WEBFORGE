@@ -1,0 +1,3 @@
+import test from 'node:test'; import assert from 'node:assert/strict'; import fs from 'node:fs'; import { compose } from '../src/core/compose.mjs';
+const expected={'local-service.json':'local-service','company.json':'company','portfolio.json':'portfolio','saas.json':'saas','marketplace.json':'marketplace'};
+for(const [file,type] of Object.entries(expected)) test(`fixture ${type}`,()=>{const f=JSON.parse(fs.readFileSync(new URL(`../fixtures/${file}`,import.meta.url))); const p=compose(f.brief); assert.equal(p.project.archetype,type); assert.equal(p.policy.status,'PASS'); assert.ok(p.selection.runtime.score>=70);});

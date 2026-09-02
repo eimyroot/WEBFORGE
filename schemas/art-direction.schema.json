@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WEBFORGE art-direction",
+  "type": "object",
+  "required": [
+    "id",
+    "mode",
+    "background",
+    "text",
+    "accent",
+    "qualityScore"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "light",
+        "dark"
+      ]
+    },
+    "background": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "accent": {
+      "type": "string"
+    },
+    "qualityScore": {
+      "type": "number"
+    }
+  }
+}

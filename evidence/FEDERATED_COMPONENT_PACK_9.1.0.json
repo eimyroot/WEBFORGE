@@ -1,0 +1,13 @@
+{
+  "schema":"webforge.federated-pack-evidence.v1",
+  "version":"9.1.0",
+  "status":"PASS",
+  "seedSources":14,
+  "discoveryBus":"https://ui.shadcn.com/r/registries.json",
+  "selection":"capability-first ranked exact-item",
+  "installPolicy":"EXACT_ITEM_ONLY_AFTER_POLICY_PASS",
+  "licensePolicy":"VERIFY_EXACT_ITEM",
+  "networkPolicy":"EXPLICIT",
+  "fallback":"INTERNAL_REGISTRY_OR_PROJECT_LOCAL_SYNTHESIS",
+  "tests":{"deterministic":"70/70 PASS","packageGate":"PASS","fullEnvironment":"PASS"}
+}

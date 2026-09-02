@@ -1,0 +1,30 @@
+{
+  "schema": "webforge.factory-matrix.v1",
+  "status": "PASS",
+  "results": [
+    {
+      "brief": "Premium techno club in Prague with events, artists, tickets, gallery and a world-class dark cinematic identity.",
+      "projectId": "venue-entertainment-aa28a39d",
+      "status": "PASS",
+      "preview": "PREVIEW_READY",
+      "production": "BLOCKED",
+      "score": 100
+    },
+    {
+      "brief": "Marketplace for renting excavators with search, filters, maps, profiles, availability, booking and reviews.",
+      "projectId": "marketplace-platform-602b5707",
+      "status": "PASS",
+      "preview": "PREVIEW_READY",
+      "production": "BLOCKED",
+      "score": 100
+    },
+    {
+      "brief": "Interactive future-self ritual where people create promises represented as evolving constellations and timed unlocks.",
+      "projectId": "generic-organization-cc697aae",
+      "status": "PASS",
+      "preview": "PREVIEW_READY",
+      "production": "BLOCKED",
+      "score": 100
+    }
+  ]
+}

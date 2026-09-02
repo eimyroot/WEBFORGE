@@ -1,0 +1,381 @@
+[
+  {
+    "id": "shadcn-registry",
+    "capabilities": [
+      "component.discovery"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "read-only",
+    "trustScore": 88,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "base-ui",
+    "capabilities": [
+      "ui.primitives"
+    ],
+    "runtimes": [
+      "next",
+      "vite-react"
+    ],
+    "mode": "package",
+    "trustScore": 89,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "react-aria",
+    "capabilities": [
+      "ui.accessibility"
+    ],
+    "runtimes": [
+      "next",
+      "vite-react"
+    ],
+    "mode": "package",
+    "trustScore": 90,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "puck",
+    "capabilities": [
+      "visual.composition"
+    ],
+    "runtimes": [
+      "next",
+      "vite-react"
+    ],
+    "mode": "package",
+    "trustScore": 91,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "onlook",
+    "capabilities": [
+      "visual.editing"
+    ],
+    "runtimes": [
+      "next",
+      "vite-react"
+    ],
+    "mode": "external",
+    "trustScore": 92,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "webstudio",
+    "capabilities": [
+      "visual.composition"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "external",
+    "trustScore": 93,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "sanity",
+    "capabilities": [
+      "content.cms"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 94,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "contentful",
+    "capabilities": [
+      "content.cms"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 95,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "cloudinary",
+    "capabilities": [
+      "media.delivery"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 96,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "supabase",
+    "capabilities": [
+      "data.application",
+      "identity.auth"
+    ],
+    "runtimes": [
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 97,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "stripe",
+    "capabilities": [
+      "commerce.checkout"
+    ],
+    "runtimes": [
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 98,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "plausible",
+    "capabilities": [
+      "analytics.site"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 88,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "posthog",
+    "capabilities": [
+      "analytics.product"
+    ],
+    "runtimes": [
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 89,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "mapbox",
+    "capabilities": [
+      "maps"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 90,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "openstreetmap",
+    "capabilities": [
+      "maps"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 91,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "motion",
+    "capabilities": [
+      "motion.standard"
+    ],
+    "runtimes": [
+      "next",
+      "vite-react"
+    ],
+    "mode": "package",
+    "trustScore": 92,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "gsap",
+    "capabilities": [
+      "motion.cinematic"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "package",
+    "trustScore": 93,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "youtube",
+    "capabilities": [
+      "video.embed"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 94,
+    "maturity": "stable",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "vimeo",
+    "capabilities": [
+      "video.embed"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 95,
+    "maturity": "conditional",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "vercel",
+    "capabilities": [
+      "deploy.preview",
+      "deploy.production"
+    ],
+    "runtimes": [
+      "next",
+      "vite-react",
+      "astro"
+    ],
+    "mode": "connector",
+    "trustScore": 96,
+    "maturity": "conditional",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "cloudflare",
+    "capabilities": [
+      "deploy.preview",
+      "deploy.production"
+    ],
+    "runtimes": [
+      "astro",
+      "vite-react",
+      "next"
+    ],
+    "mode": "connector",
+    "trustScore": 97,
+    "maturity": "conditional",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "sentry",
+    "capabilities": [
+      "monitoring.errors"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "connector",
+    "trustScore": 98,
+    "maturity": "conditional",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "mdx",
+    "capabilities": [
+      "content.cms"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "local",
+    "trustScore": 88,
+    "maturity": "conditional",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  },
+  {
+    "id": "image-generation",
+    "capabilities": [
+      "media.generate"
+    ],
+    "runtimes": [
+      "astro",
+      "next",
+      "vite-react"
+    ],
+    "mode": "tool",
+    "trustScore": 89,
+    "maturity": "conditional",
+    "authority": "explicit",
+    "installPolicy": "resolver-approved-only"
+  }
+]

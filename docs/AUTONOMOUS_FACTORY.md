@@ -20,15 +20,3 @@ Research → Product Model → Design DNA → Component Synthesis → Content/Me
 ## Truth boundary
 
 Portable preview can PASS locally. Native framework dependency build, live external connector execution, external hosting and production release remain UNVERIFIED/BLOCKED until actually executed and evidenced. `READY != PASS`. Production requires all gates plus explicit approval.
-
-## 9.1 Federated Component Pack R1
-
-WEBFORGE can now resolve external component candidates through a governed federated registry layer. It uses the public shadcn registry directory as a discovery bus, ranks sources against the project's capabilities and Design DNA, inspects only the selected exact item, and requires policy/license approval before installation.
-
-```bash
-npm run federated:smoke
-node src/cli/webforge.mjs components sources
-node src/cli/webforge.mjs components search "cinematic event hero tickets"
-```
-
-External registry availability is never inferred from configuration alone: `UNVERIFIED != PASS`.

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://webforge.local/schemas/universal-plan.schema.json",
+  "title": "WEBFORGE Universal Plan",
+  "type": "object",
+  "required": [
+    "version",
+    "schema",
+    "project",
+    "domain",
+    "product",
+    "experience",
+    "designDNA",
+    "capabilities",
+    "selection",
+    "layout",
+    "siteBlueprint",
+    "visual",
+    "policy"
+  ],
+  "properties": {
+    "version": {
+      "const": "8.0.0"
+    },
+    "schema": {
+      "const": "webforge.universal-plan.v1"
+    },
+    "domain": {
+      "$ref": "domain-model.schema.json"
+    },
+    "product": {
+      "$ref": "product-model.schema.json"
+    },
+    "designDNA": {
+      "$ref": "design-dna.schema.json"
+    }
+  },
+  "additionalProperties": true
+}

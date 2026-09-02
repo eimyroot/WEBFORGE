@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WEBFORGE media-role",
+  "type": "object",
+  "required": [
+    "id",
+    "aspectRatio",
+    "minWidth",
+    "connectorOrder"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "aspectRatio": {
+      "type": "string"
+    },
+    "minWidth": {
+      "type": "number"
+    },
+    "connectorOrder": {
+      "type": "array"
+    }
+  }
+}

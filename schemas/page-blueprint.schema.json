@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WEBFORGE page-blueprint",
+  "type": "object",
+  "required": [
+    "id",
+    "archetype",
+    "pages"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "archetype": {
+      "type": "string"
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 1
+    }
+  }
+}

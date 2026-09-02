@@ -1,0 +1,650 @@
+[
+  {
+    "id": "hero-image",
+    "aspectRatio": "21:9",
+    "minWidth": 1800,
+    "focalPointRequired": true,
+    "loading": "eager",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "hero-video",
+    "aspectRatio": "16:9",
+    "minWidth": 1920,
+    "focalPointRequired": true,
+    "loading": "eager",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "event-card",
+    "aspectRatio": "16:9",
+    "minWidth": 1200,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "artist-portrait",
+    "aspectRatio": "4:5",
+    "minWidth": 900,
+    "focalPointRequired": true,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "gallery-landscape",
+    "aspectRatio": "4:3",
+    "minWidth": 1400,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "gallery-square",
+    "aspectRatio": "1:1",
+    "minWidth": 1000,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "gallery-wide",
+    "aspectRatio": "21:9",
+    "minWidth": 1800,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "experience-image",
+    "aspectRatio": "16:9",
+    "minWidth": 1600,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "case-hero",
+    "aspectRatio": "16:9",
+    "minWidth": 1800,
+    "focalPointRequired": true,
+    "loading": "eager",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "case-detail",
+    "aspectRatio": "4:3",
+    "minWidth": 1400,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "product-stage",
+    "aspectRatio": "16:10",
+    "minWidth": 1600,
+    "focalPointRequired": false,
+    "loading": "eager",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "product-detail",
+    "aspectRatio": "4:3",
+    "minWidth": 1400,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "team-portrait",
+    "aspectRatio": "4:5",
+    "minWidth": 900,
+    "focalPointRequired": true,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "testimonial-avatar",
+    "aspectRatio": "1:1",
+    "minWidth": 400,
+    "focalPointRequired": true,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "logo-mark",
+    "aspectRatio": "1:1",
+    "minWidth": 512,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "logo-wordmark",
+    "aspectRatio": "4:1",
+    "minWidth": 800,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "map-preview",
+    "aspectRatio": "16:9",
+    "minWidth": 1200,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "location-image",
+    "aspectRatio": "16:9",
+    "minWidth": 1600,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "service-image",
+    "aspectRatio": "4:3",
+    "minWidth": 1200,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "before-image",
+    "aspectRatio": "4:3",
+    "minWidth": 1200,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "after-image",
+    "aspectRatio": "4:3",
+    "minWidth": 1200,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "article-hero",
+    "aspectRatio": "16:9",
+    "minWidth": 1800,
+    "focalPointRequired": true,
+    "loading": "eager",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "article-card",
+    "aspectRatio": "16:9",
+    "minWidth": 1200,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "category-cover",
+    "aspectRatio": "4:3",
+    "minWidth": 1200,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "pricing-illustration",
+    "aspectRatio": "4:3",
+    "minWidth": 1200,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "integration-logo",
+    "aspectRatio": "1:1",
+    "minWidth": 512,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "security-diagram",
+    "aspectRatio": "16:9",
+    "minWidth": 1400,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "workflow-diagram",
+    "aspectRatio": "16:9",
+    "minWidth": 1400,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "background-texture",
+    "aspectRatio": "1:1",
+    "minWidth": 1200,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": false,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "cta-background",
+    "aspectRatio": "21:9",
+    "minWidth": 1800,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "social-card",
+    "aspectRatio": "1.91:1",
+    "minWidth": 1200,
+    "focalPointRequired": false,
+    "loading": "eager",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "favicon",
+    "aspectRatio": "1:1",
+    "minWidth": 512,
+    "focalPointRequired": false,
+    "loading": "eager",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "og-image",
+    "aspectRatio": "1.91:1",
+    "minWidth": 1200,
+    "focalPointRequired": false,
+    "loading": "eager",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "video-poster",
+    "aspectRatio": "16:9",
+    "minWidth": 1600,
+    "focalPointRequired": false,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "mobile-hero",
+    "aspectRatio": "4:5",
+    "minWidth": 1200,
+    "focalPointRequired": true,
+    "loading": "eager",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  },
+  {
+    "id": "story-portrait",
+    "aspectRatio": "3:4",
+    "minWidth": 1200,
+    "focalPointRequired": true,
+    "loading": "lazy",
+    "cropPolicy": "safe",
+    "altRequired": true,
+    "productionApproval": true,
+    "connectorOrder": [
+      "project-assets",
+      "cms-media",
+      "cloudinary",
+      "image-generation",
+      "procedural-fallback"
+    ],
+    "qualityScore": 95
+  }
+]

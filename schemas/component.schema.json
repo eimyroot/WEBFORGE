@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Component",
+  "type": "object",
+  "required": [
+    "id",
+    "capability",
+    "suitable_for",
+    "runtime",
+    "trust"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "capability": {
+      "type": "string"
+    },
+    "suitable_for": {
+      "type": "array"
+    },
+    "avoid_for": {
+      "type": "array"
+    },
+    "runtime": {
+      "type": "array"
+    },
+    "trust": {
+      "enum": [
+        "approved",
+        "quarantine",
+        "blocked"
+      ]
+    }
+  }
+}

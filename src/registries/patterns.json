@@ -1,0 +1,57 @@
+[
+  {
+    "id": "local-conversion",
+    "capabilities": [
+      "conversion.booking",
+      "seo.local",
+      "media.gallery"
+    ],
+    "best_for": [
+      "local-service"
+    ]
+  },
+  {
+    "id": "content-authority",
+    "capabilities": [
+      "content.cms",
+      "seo.content"
+    ],
+    "best_for": [
+      "company",
+      "editorial"
+    ]
+  },
+  {
+    "id": "creative-showcase",
+    "capabilities": [
+      "media.gallery",
+      "motion.cinematic"
+    ],
+    "best_for": [
+      "portfolio",
+      "venue"
+    ]
+  },
+  {
+    "id": "product-acquisition",
+    "capabilities": [
+      "analytics.product",
+      "identity.auth"
+    ],
+    "best_for": [
+      "saas"
+    ]
+  },
+  {
+    "id": "transactional-app",
+    "capabilities": [
+      "identity.auth",
+      "data.application",
+      "commerce.checkout"
+    ],
+    "best_for": [
+      "marketplace",
+      "web-app"
+    ]
+  }
+]

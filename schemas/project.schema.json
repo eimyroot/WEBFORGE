@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project Model",
+  "type": "object",
+  "required": [
+    "brief",
+    "archetype",
+    "primary_goal",
+    "priorities"
+  ],
+  "properties": {
+    "brief": {
+      "type": "string"
+    },
+    "archetype": {
+      "type": "string"
+    },
+    "primary_goal": {
+      "type": "string"
+    },
+    "priorities": {
+      "type": "array"
+    }
+  }
+}

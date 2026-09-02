@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence",
+  "type": "object",
+  "required": [
+    "check",
+    "status"
+  ],
+  "properties": {
+    "check": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "UNVERIFIED"
+      ]
+    },
+    "detail": {
+      "type": "string"
+    }
+  }
+}

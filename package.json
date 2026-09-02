@@ -1,0 +1,31 @@
+{
+  "name": "@caser/webforge",
+  "version": "9.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CASER WEBFORGE 9.1 \u2014 Autonomous Universal Web Product Factory with governed federated component resolution",
+  "scripts": {
+    "start": "node scripts/start.mjs",
+    "start:strict": "node src/api/server.mjs",
+    "cli": "node src/cli/webforge.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node --test integration/browser-qa.integration.mjs",
+    "build": "node scripts/build.mjs",
+    "verify": "node scripts/verify.mjs",
+    "audit": "node scripts/audit.mjs",
+    "selftest": "node scripts/selftest.mjs",
+    "release:gate": "node scripts/release-gate.mjs",
+    "release:full": "node scripts/full-release-gate.mjs",
+    "fulfill:demo": "node scripts/fulfill-demo.mjs",
+    "live:verify": "node scripts/live-verify.mjs",
+    "universal:demo": "node scripts/universal-demo.mjs",
+    "renderer:coverage": "node scripts/renderer-coverage.mjs",
+    "visual:matrix": "node scripts/visual-matrix.mjs",
+    "factory:matrix": "node scripts/factory-matrix.mjs",
+    "federated:smoke": "node scripts/federated-smoke.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

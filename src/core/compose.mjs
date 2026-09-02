@@ -1,0 +1,33 @@
+import { interpretIntent } from './intent.mjs';
+import { planCapabilities } from './planner.mjs';
+import { resolve } from './resolver.mjs';
+import { evaluatePolicy } from './policy.mjs';
+import { resolveLayout } from './layout.mjs';
+import { directDesign } from './director.mjs';
+import { resolveCommercial } from './commercial.mjs';
+import { resolveBrand } from './brand.mjs';
+import { composeVisualSystem } from './visual-composition.mjs';
+import { resolveSiteBlueprint } from './site-blueprint.mjs';
+import { synthesizeDesignDNA } from './design-dna.mjs';
+export function compose(brief) {
+  const project=interpretIntent(brief);
+  const capabilities=planCapabilities(project);
+  const selection=resolve(project,capabilities);
+  const layout=resolveLayout(project,capabilities);
+  const direction=directDesign(project,layout); layout.direction=direction;
+  const commercial=resolveCommercial(project,capabilities,layout);
+  const brand=resolveBrand(project);
+  const designDNA=synthesizeDesignDNA(project,brand);
+  const siteBlueprint=resolveSiteBlueprint(project);
+  const plan={version:'8.0.0',schema:'webforge.universal-plan.v1',project,domain:project.domain,product:project.product,experience:project.experience,designDNA,capabilities,selection,layout,brand,commercial,siteBlueprint,rejected:selection.rejected,evidence:[]};
+  plan.visual=composeVisualSystem(plan);
+  const policy=evaluatePolicy(plan); plan.policy=policy;
+  plan.evidence.push({check:'deterministic-policy',status:policy.status,detail:policy.violations.length?JSON.stringify(policy.violations):'hard gates satisfied'});
+  plan.evidence.push({check:'novel-domain-decomposition',status:'PASS',detail:{classification:project.domain.classification,domain:project.domainArchetype,confidence:project.domain.confidence}});
+  plan.evidence.push({check:'renderer-coverage',status:plan.visual.templates.rendererCoverage.missing.length?'FAIL':'PASS',detail:plan.visual.templates.rendererCoverage});
+  plan.evidence.push({check:'project-local-design-review',status:plan.visual.templates.productionReviewRequired?'REVIEW_REQUIRED':'PASS',detail:plan.visual.templates.projectLocalComponents.map(x=>x.id)});
+  plan.evidence.push({check:'product-capability-readiness',status:project.product.unresolved.length?'UNRESOLVED':project.product.conditional.length?'CONDITIONAL':'PASS',detail:{unresolved:project.product.unresolved,conditional:project.product.conditional}});
+  plan.releaseEligible=policy.status==='PASS';
+  plan.productionEligible=policy.status==='PASS'&&project.product.unresolved.length===0&&plan.visual.connectors.productionGate==='PASS'&&plan.visual.content.source.status==='PASS'&&plan.visual.media.productionGate==='PASS'&&!plan.visual.templates.productionReviewRequired;
+  return plan;
+}

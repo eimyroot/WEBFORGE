@@ -1,0 +1,7 @@
+dist/
+node_modules/
+.DS_Store
+
+generated/
+evidence/generated/
+evidence/screenshots/

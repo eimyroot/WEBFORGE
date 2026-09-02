@@ -1,0 +1,17 @@
+[
+  {"id":"sanity","domain":"content","capability":"structured-cms","status":"CONDITIONAL","authority":"credential-required"},
+  {"id":"contentful","domain":"content","capability":"structured-cms","status":"CONDITIONAL","authority":"credential-required"},
+  {"id":"local-json","domain":"content","capability":"local-content","status":"READY","authority":"project-owned"},
+  {"id":"rest","domain":"content","capability":"remote-data","status":"CONDITIONAL","authority":"endpoint-required"},
+  {"id":"graphql","domain":"content","capability":"remote-data","status":"CONDITIONAL","authority":"endpoint-required"},
+  {"id":"local-upload","domain":"media","capability":"user-assets","status":"READY","authority":"user-supplied"},
+  {"id":"cloudinary","domain":"media","capability":"media-delivery","status":"CONDITIONAL","authority":"credential-required"},
+  {"id":"cms-media","domain":"media","capability":"cms-library","status":"CONDITIONAL","authority":"cms-required"},
+  {"id":"image-generation","domain":"media","capability":"generated-media","status":"CONDITIONAL","authority":"provider-required"},
+  {"id":"stripe","domain":"commerce","capability":"checkout","status":"CONDITIONAL","authority":"credential-required"},
+  {"id":"ticketing-provider","domain":"commerce","capability":"event-ticketing","status":"CONDITIONAL","authority":"provider-required"},
+  {"id":"plausible","domain":"analytics","capability":"privacy-analytics","status":"CONDITIONAL","authority":"site-domain-required"},
+  {"id":"posthog","domain":"analytics","capability":"product-analytics","status":"CONDITIONAL","authority":"credential-required"},
+  {"id":"vercel","domain":"deploy","capability":"preview-production","status":"CONDITIONAL","authority":"credential-required"},
+  {"id":"cloudflare","domain":"deploy","capability":"preview-production","status":"CONDITIONAL","authority":"credential-required"}
+]

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WEBFORGE interaction",
+  "type": "object",
+  "required": [
+    "id",
+    "implementation",
+    "qualityScore"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "implementation": {
+      "type": "string"
+    },
+    "qualityScore": {
+      "type": "number"
+    }
+  }
+}

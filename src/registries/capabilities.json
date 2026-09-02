@@ -1,0 +1,77 @@
+[
+  {
+    "id": "content.static",
+    "category": "content",
+    "description": "Static or infrequently changing content"
+  },
+  {
+    "id": "content.cms",
+    "category": "content",
+    "description": "Structured content editing"
+  },
+  {
+    "id": "conversion.booking",
+    "category": "conversion",
+    "description": "Booking/reservation conversion flow"
+  },
+  {
+    "id": "conversion.tickets",
+    "category": "conversion",
+    "description": "Ticket purchase flow"
+  },
+  {
+    "id": "commerce.checkout",
+    "category": "commerce",
+    "description": "Checkout and transactional commerce"
+  },
+  {
+    "id": "identity.auth",
+    "category": "identity",
+    "description": "User authentication"
+  },
+  {
+    "id": "data.application",
+    "category": "data",
+    "description": "Persistent application data"
+  },
+  {
+    "id": "media.gallery",
+    "category": "media",
+    "description": "Rich image gallery"
+  },
+  {
+    "id": "analytics.simple",
+    "category": "analytics",
+    "description": "Privacy-oriented website analytics"
+  },
+  {
+    "id": "analytics.product",
+    "category": "analytics",
+    "description": "Product analytics and experiments"
+  },
+  {
+    "id": "seo.local",
+    "category": "seo",
+    "description": "Local business discoverability"
+  },
+  {
+    "id": "seo.content",
+    "category": "seo",
+    "description": "Content indexing and structured metadata"
+  },
+  {
+    "id": "ui.dashboard",
+    "category": "ui",
+    "description": "Dense authenticated application UI"
+  },
+  {
+    "id": "motion.cinematic",
+    "category": "motion",
+    "description": "Advanced visual storytelling"
+  },
+  {
+    "id": "qa.core",
+    "category": "quality",
+    "description": "Invariant quality gates"
+  }
+]
