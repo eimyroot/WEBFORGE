@@ -1,2 +1,21 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {runAutonomousFactory} from '../src/core/factory.mjs';
-test('factory produces preview but never silently production',async()=>{const r=await runAutonomousFactory('Premium techno club in Prague with events, artists, tickets and gallery.');assert.equal(r.status,'PASS');assert.equal(r.preview.status,'PREVIEW_READY');assert.equal(r.production.status,'BLOCKED');assert.ok(r.production.checks.some(x=>x.id==='explicit-production-approval'&&x.status==='BLOCKED'));});
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {runAutonomousFactory} from '../src/core/factory.mjs';
+
+const deterministicQa=async()=>({
+  schema:'webforge.browser-qa.test-double.v1',
+  status:'PASS',
+  checks:[{id:'deterministic-unit-qa',status:'PASS'}]
+});
+
+test('factory produces preview but never silently production',async()=>{
+  const r=await runAutonomousFactory(
+    'Premium techno club in Prague with events, artists, tickets and gallery.',
+    {qaRunner:deterministicQa}
+  );
+  assert.equal(r.status,'PASS');
+  assert.equal(r.preview.status,'PREVIEW_READY');
+  assert.equal(r.production.status,'BLOCKED');
+  assert.equal(r.truthBoundary.browserQaMode,'INJECTED_TEST_RUNNER');
+  assert.ok(r.production.checks.some(x=>x.id==='explicit-production-approval'&&x.status==='BLOCKED'));
+});
