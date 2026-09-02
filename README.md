@@ -1,6 +1,6 @@
-# WEBFORGE 9.0.0 — AUTONOMOUS FACTORY
+# WEBFORGE 9.1.0 — AUTONOMOUS FACTORY + FEDERATED COMPONENT PACK R1
 
-Universal autonomous web-product factory rebuilt on the verified 8.0 Composition Registry R2 baseline.
+Universal autonomous web-product factory rebuilt on the verified Composition Registry R2 baseline and extended with governed federated component resolution.
 
 ## One command
 
