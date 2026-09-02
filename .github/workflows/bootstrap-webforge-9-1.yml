@@ -6,6 +6,7 @@ on:
       - feat/federated-component-pack-r1
     paths:
       - '.bootstrap/**'
+      - '.bootstrap-fix/**'
       - '.github/workflows/bootstrap-webforge-9-1.yml'
 
 permissions:
@@ -31,7 +32,10 @@ jobs:
             .bootstrap/xzpart00 \
             .bootstrap/xzpart01 \
             .bootstrap/xzpart02 \
-            .bootstrap/xzpart03 \
+            .bootstrap-fix/xzpart03fix0 \
+            .bootstrap-fix/xzpart03fix1 \
+            .bootstrap-fix/xzpart03fix2 \
+            .bootstrap-fix/xzpart03fix3 \
             .bootstrap/xzpart04 \
             .bootstrap/xzpart05 \
             .bootstrap/xzpart06 \
@@ -54,7 +58,10 @@ jobs:
             .bootstrap/xzpart00 \
             .bootstrap/xzpart01 \
             .bootstrap/xzpart02 \
-            .bootstrap/xzpart03 \
+            .bootstrap-fix/xzpart03fix0 \
+            .bootstrap-fix/xzpart03fix1 \
+            .bootstrap-fix/xzpart03fix2 \
+            .bootstrap-fix/xzpart03fix3 \
             .bootstrap/xzpart04 \
             .bootstrap/xzpart05 \
             .bootstrap/xzpart06 \
@@ -86,7 +93,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf .bootstrap
+          rm -rf .bootstrap .bootstrap-fix
           rm -f .github/workflows/bootstrap-webforge-9-1.yml
 
       - name: Commit expanded source tree
