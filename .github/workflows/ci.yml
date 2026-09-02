@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Unit and contract tests
+        run: npm test
+
+      - name: Verify schemas and registry contracts
+        run: npm run verify
+
+      - name: Build
+        run: npm run build
+
+      - name: Audit
+        run: npm run audit
+
+      - name: Renderer coverage
+        run: npm run renderer:coverage
+
+      - name: Release gate
+        run: npm run release:gate
