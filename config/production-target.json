@@ -1,0 +1,40 @@
+{
+  "schema": "webforge.production-target.v1",
+  "status": "CANONICAL",
+  "scope": "production-hosting-target-identity",
+  "provider": "vercel",
+  "target": {
+    "teamId": "team_P8cB47XVLz6mGykUGFdfh0ki",
+    "projectId": "prj_At8RZceUAND02Y5Bxsu4lV6066Y5",
+    "projectName": "webforge-9-vanta-preview",
+    "canonicalDomain": null
+  },
+  "authority": {
+    "decision": "PROMOTED",
+    "approvedAt": "2026-09-06T00:35:14+02:00",
+    "scope": [
+      "target-identity-selection-only"
+    ],
+    "constraints": {
+      "deploymentAuthorized": false,
+      "branchGovernanceChangesAuthorized": false,
+      "deletionAuthorized": false,
+      "permissionExpansionAuthorized": false,
+      "crossProjectPromotionAuthorized": false
+    }
+  },
+  "promotionEvidence": {
+    "repository": "eimyroot/WEBFORGE",
+    "branch": "main",
+    "prePromotionHead": "d7c1c7a43bccb0826a7fd57f55ae9110c03ba13f",
+    "vercelProjectIdentityVerified": true
+  },
+  "deployment": {
+    "status": "NOT_EXECUTED",
+    "deploymentId": null,
+    "deploymentUrl": null,
+    "sourceSha": null,
+    "health": "UNVERIFIED",
+    "rollback": "NOT_APPLICABLE_UNTIL_DEPLOYMENT"
+  }
+}
