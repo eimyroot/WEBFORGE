@@ -1,0 +1,122 @@
+name: artifact-promotion
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: Exact canonical main SHA to promote
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: webforge-artifact-promotion
+  cancel-in-progress: false
+
+jobs:
+  promote-build-artifact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout exact requested source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha }}
+          fetch-depth: 0
+
+      - name: Verify exact canonical main SHA
+        env:
+          REQUESTED_SOURCE_SHA: ${{ inputs.source_sha }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = "refs/heads/main"
+          case "$REQUESTED_SOURCE_SHA" in
+            [0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]) ;;
+            *) echo "invalid source SHA" >&2; exit 1 ;;
+          esac
+          ACTUAL_SHA="$(git rev-parse HEAD)"
+          test "$ACTUAL_SHA" = "$REQUESTED_SOURCE_SHA"
+          git fetch --no-tags --depth=1 origin main
+          CANONICAL_MAIN_SHA="$(git rev-parse FETCH_HEAD)"
+          test "$CANONICAL_MAIN_SHA" = "$REQUESTED_SOURCE_SHA"
+          test -z "$(git status --porcelain)"
+          echo "canonicalSourceSha=$ACTUAL_SHA"
+
+      - name: Require Vercel authentication secret
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${VERCEL_TOKEN:-}" ]; then
+            echo "AUTH_BOOTSTRAP_REQUIRED"
+            exit 1
+          fi
+          echo "VERCEL_TOKEN_PRESENT=true"
+
+      - name: Setup canonical Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.20.0
+
+      - name: Pin canonical npm
+        run: npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
+
+      - name: Install pinned Vercel CLI
+        run: npm install --global vercel@59.11.7 --ignore-scripts --no-audit --no-fund
+
+      - name: Verify pinned toolchain
+        run: |
+          set -euo pipefail
+          test "$(node --version)" = "v24.20.0"
+          test "$(npm --version)" = "11.19.0"
+          test "$(vercel --version 2>&1 | sed -nE 's/.*([0-9]+\.[0-9]+\.[0-9]+).*/\1/p' | head -n1)" = "59.11.7"
+
+      - name: Build canonical artifact only
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          WEBFORGE_ALLOW_NETWORK: '1'
+          WEBFORGE_GENERATION_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
+          WEBFORGE_REPOSITORY: ${{ github.repository }}
+          WEBFORGE_SOURCE_SHA: ${{ inputs.source_sha }}
+        run: npm run artifact:canonical
+
+      - name: Upload canonical promotion evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: webforge-reference-promotion-${{ inputs.source_sha }}-${{ github.run_attempt }}
+          path: |
+            generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/runtime/**
+            !generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/runtime/node_modules/**
+            generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/runtime/package-lock.json
+            generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/runtime/.vercel/output/**
+            generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/source-artifact.receipt.json
+            generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/build-artifact.receipt.json
+            generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/artifact-run.summary.json
+          include-hidden-files: true
+          if-no-files-found: warn
+
+      - name: Enforce promotion gate invariant
+        if: always()
+        env:
+          BUILD_RECEIPT: generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/build-artifact.receipt.json
+          RUN_SUMMARY: generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/artifact-run.summary.json
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const receiptPath=process.env.BUILD_RECEIPT;
+          const summaryPath=process.env.RUN_SUMMARY;
+          if(!fs.existsSync(receiptPath)){
+            console.error('artifact promotion BLOCKED: build receipt missing');
+            process.exit(1);
+          }
+          const receipt=JSON.parse(fs.readFileSync(receiptPath,'utf8'));
+          const promotionPass=receipt.status==='PASS'&&receipt.outputTreeDigest!=null;
+          const productionDeploymentExecuted=fs.existsSync(summaryPath)
+            ? JSON.parse(fs.readFileSync(summaryPath,'utf8')).productionDeploymentExecuted
+            : false;
+          console.log(JSON.stringify({buildReceiptStatus:receipt.status,outputTreeDigest:receipt.outputTreeDigest??null,productionDeploymentExecuted},null,2));
+          if(!promotionPass) process.exit(1);
+          NODE

@@ -79,7 +79,7 @@ if(!state.verified||!state.sha){
         };
         fs.writeFileSync(path.join(outputRoot,'artifact-run.summary.json'),JSON.stringify(summary,null,2)+'\n');
         console.log(JSON.stringify(summary,null,2));
-        if(buildReceipt.status==='FAIL'||buildReceipt.status==='UNVERIFIED') process.exitCode=1;
+        if(buildReceipt.status!=='PASS'||buildReceipt.outputTreeDigest==null) process.exitCode=1;
       }
     }
   }

@@ -9,7 +9,7 @@ permissions:
 
 concurrency:
   group: webforge-ci-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false 
 
 jobs:
   verify:
@@ -91,5 +91,6 @@ jobs:
             !generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/runtime/node_modules/**
             generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/*.receipt.json
             generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/artifact-run.summary.json
-          include-hidden-files: true
+          include-hidden-files: 
+  
           if-no-files-found: warn
