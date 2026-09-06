@@ -3,7 +3,7 @@
   "version": "9.1.0",
   "private": true,
   "type": "module",
-  "description": "CASER WEBFORGE 9.1 \u2014 Autonomous Universal Web Product Factory with governed federated component resolution",
+  "description": "CASER WEBFORGE 9.1 — Autonomous Universal Web Product Factory with governed federated component resolution",
   "scripts": {
     "start": "node scripts/start.mjs",
     "start:strict": "node src/api/server.mjs",
@@ -17,6 +17,7 @@
     "selftest": "node scripts/selftest.mjs",
     "release:gate": "node scripts/release-gate.mjs",
     "release:full": "node scripts/full-release-gate.mjs",
+    "artifact:canonical": "node scripts/canonical-artifact.mjs",
     "fulfill:demo": "node scripts/fulfill-demo.mjs",
     "live:verify": "node scripts/live-verify.mjs",
     "universal:demo": "node scripts/universal-demo.mjs",
