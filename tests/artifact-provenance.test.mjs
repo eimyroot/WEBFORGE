@@ -137,3 +137,11 @@ test('canonical artifact CI path contains build only and no production deploy ac
   assert.equal(/vercel\s+deploy|deploy_to_vercel/.test(script),false);
   assert.equal(/vercel\s+deploy|deploy_to_vercel/.test(workflow),false);
 });
+
+test('canonical artifact summary exposes blocker names without secret values',()=>{
+  const script=fs.readFileSync(path.join(repoRoot,'scripts','canonical-artifact.mjs'),'utf8');
+  assert.match(script,/buildBlockers:buildReceipt\.blockers\|\|\[\]/);
+  assert.match(script,/buildAuth:buildReceipt\.auth/);
+  assert.match(script,/secretValueRecorded:false/);
+  assert.equal(/VERCEL_TOKEN\s*[:=]\s*['"][^'"]+['"]/.test(script),false);
+});
