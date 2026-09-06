@@ -1,0 +1,29 @@
+{
+  "schema": "webforge.product-target-binding.v1",
+  "status": "CANONICAL",
+  "bindingVersion": 1,
+  "productKey": "webforge-reference",
+  "productPurpose": "reference-demo",
+  "artifactClass": "generated-web-product",
+  "target": {
+    "provider": "vercel",
+    "teamId": "team_P8cB47XVLz6mGykUGFdfh0ki",
+    "projectId": "prj_At8RZceUAND02Y5Bxsu4lV6066Y5",
+    "targetPurpose": "reference-demo",
+    "permanentReferenceSlot": true
+  },
+  "contracts": {
+    "productSpec": "config/products/webforge-reference.json",
+    "hostingTarget": "config/production-target.json"
+  },
+  "constraints": {
+    "deploymentAuthorized": false,
+    "vantaProductPromotion": false,
+    "platformControlRoomTarget": false,
+    "customerProductsCovered": false,
+    "branchGovernanceChangesAuthorized": false,
+    "deletionAuthorized": false,
+    "permissionExpansionAuthorized": false,
+    "crossProjectPromotionAuthorized": false
+  }
+}
