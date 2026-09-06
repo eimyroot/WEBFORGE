@@ -73,7 +73,8 @@ if(!state.verified||!state.sha){
         const summary={
           schema:'webforge.canonical-artifact-run.v1',productKey:CANONICAL_PRODUCT_KEY,sourceSha:state.sha,generationRunId,
           runtimeSourceTreeDigest:sourceReceipt.runtimeSourceTreeDigest,lockfileDigest:sourceReceipt.lockfileDigest,
-          sourceArtifactIdentityDigest:sourceReceipt.sourceArtifactIdentityDigest,buildStatus:buildReceipt.status,outputTreeDigest:buildReceipt.outputTreeDigest||null,
+          sourceArtifactIdentityDigest:sourceReceipt.sourceArtifactIdentityDigest,buildStatus:buildReceipt.status,buildBlockers:buildReceipt.blockers||[],
+          buildAuth:buildReceipt.auth||{vercelTokenPresent:false,secretValueRecorded:false},outputTreeDigest:buildReceipt.outputTreeDigest||null,
           sourceReceipt:path.relative(repoRoot,sourceReceiptPath),buildReceipt:path.relative(repoRoot,buildReceiptPath),productionDeploymentExecuted:false
         };
         fs.writeFileSync(path.join(outputRoot,'artifact-run.summary.json'),JSON.stringify(summary,null,2)+'\n');
