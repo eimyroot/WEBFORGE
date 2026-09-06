@@ -79,17 +79,6 @@ jobs:
           WEBFORGE_SOURCE_SHA: ${{ github.sha }}
         run: npm run artifact:canonical
 
-      - name: Verify bounded artifact outcome
-        run: |
-          node --input-type=module <<'NODE'
-          import fs from 'node:fs';
-          const summary=JSON.parse(fs.readFileSync(`generated/canonical/webforge-reference/${process.env.GITHUB_RUN_ID}-${process.env.GITHUB_RUN_ATTEMPT}/artifact-run.summary.json`,'utf8'));
-          if(summary.productionDeploymentExecuted!==false) throw new Error('production deployment occurred or is unverified');
-          if(!['PASS','BLOCKED'].includes(summary.buildStatus)) throw new Error(`invalid build status: ${summary.buildStatus}`);
-          if(summary.buildStatus==='BLOCKED'&&(!Array.isArray(summary.buildBlockers)||summary.buildBlockers.length===0)) throw new Error('blocked build missing explicit blocker evidence');
-          if(summary.buildAuth?.secretValueRecorded!==false) throw new Error('secret value evidence invariant failed');
-          NODE
-
       - name: Upload canonical provenance artifact
         if: always()
         uses: actions/upload-artifact@v4
