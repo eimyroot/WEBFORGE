@@ -39,9 +39,9 @@ test('productionApproved false is blocked',()=>{
   assert.ok(out.blockers.includes('production-approval-missing'));
 });
 
-test('Vercel CLI invocation contains explicit project and team binding',()=>{
+test('Vercel production invocation is explicit prebuilt project/team deploy',()=>{
   const invocation=buildVercelInvocation({mode:'production',teamId:TEAM,projectId:PROJECT});
-  assert.deepEqual(invocation.args,['deploy','--yes','--project',PROJECT,'-T',TEAM,'--prod']);
+  assert.deepEqual(invocation.args,['deploy','--prebuilt','--yes','--project',PROJECT,'-T',TEAM,'--prod']);
   assert.equal(invocation.env.VERCEL_PROJECT_ID,PROJECT);
   assert.equal(invocation.env.VERCEL_ORG_ID,TEAM);
 });
