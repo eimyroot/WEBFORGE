@@ -55,8 +55,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout exact source
+      - name: Checkout exact canonical main source
         uses: actions/checkout@v4
+        with:
+          ref: 20ef0fcd45bcf5b8cdd4c9c61fd1eb07c48041d6
 
       - name: Setup canonical Node
         uses: actions/setup-node@v4
@@ -67,6 +69,7 @@ jobs:
         run: |
           test "$(node --version)" = "v24.20.0"
           test "$(npm --version)" = "11.19.0"
+          test "$(git rev-parse HEAD)" = "20ef0fcd45bcf5b8cdd4c9c61fd1eb07c48041d6"
 
       - name: Install pinned Vercel CLI
         run: npm install --global vercel@59.11.7 --ignore-scripts --no-audit --no-fund
@@ -76,14 +79,13 @@ jobs:
           WEBFORGE_ALLOW_NETWORK: '1'
           WEBFORGE_GENERATION_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
           WEBFORGE_REPOSITORY: ${{ github.repository }}
-          WEBFORGE_SOURCE_SHA: ${{ github.sha }}
-        run: npm run artifact:canonical
+        run: WEBFORGE_SOURCE_SHA="$(git rev-parse HEAD)" npm run artifact:canonical
 
       - name: Upload canonical provenance artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: webforge-reference-${{ github.sha }}-${{ github.run_attempt }}
+          name: webforge-reference-canonical-main-20ef0fcd-${{ github.run_attempt }}
           path: |
             generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/runtime/**
             !generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/runtime/node_modules/**
