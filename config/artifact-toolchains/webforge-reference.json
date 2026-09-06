@@ -1,0 +1,38 @@
+{
+  "schema": "webforge.artifact-toolchain.v1",
+  "status": "CANONICAL",
+  "productKey": "webforge-reference",
+  "nodeVersion": "24.20.0",
+  "npmVersion": "11.19.0",
+  "vercelCliVersion": "59.11.7",
+  "dependencyResolution": {
+    "mode": "explicit-lockfile-resolution",
+    "command": [
+      "npm",
+      "install",
+      "--package-lock-only",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund"
+    ],
+    "externalMutableStateCapturedBy": "package-lock.json"
+  },
+  "lockedInstall": {
+    "command": [
+      "npm",
+      "ci",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund"
+    ]
+  },
+  "vercelBuild": {
+    "command": [
+      "vercel",
+      "build",
+      "--prod"
+    ],
+    "outputRoot": ".vercel/output",
+    "deploymentAuthorized": false
+  }
+}

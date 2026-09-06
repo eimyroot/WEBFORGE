@@ -4,9 +4,10 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { evaluateDeployment } from './deployment.mjs';
 import { visualReadinessChecks } from './visual-readiness.mjs';
+import { CANONICAL_PRODUCT_KEY, validatePredeployOutputDigest } from './artifact-provenance.mjs';
 
 const REPO_ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
-const RECEIPT_SCHEMA='webforge.deployment-execution.v5';
+const RECEIPT_SCHEMA='webforge.deployment-execution.v6';
 const tail=s=>String(s||'').slice(-6000);
 const hasCommand=cmd=>spawnSync('sh',['-lc',`command -v ${cmd}`],{encoding:'utf8'}).status===0;
 const first=(...values)=>values.find(v=>typeof v==='string'&&v.trim())?.trim()||null;
@@ -50,7 +51,9 @@ export function validateCanonicalVercelProductionBinding({targetRecord,provider,
 
 export function buildVercelInvocation({mode,teamId,projectId}){
   if(!teamId||!projectId) throw new Error('explicit Vercel teamId and projectId are required');
-  const args=['deploy','--yes','--project',projectId,'-T',teamId];
+  const args=['deploy'];
+  if(mode==='production') args.push('--prebuilt');
+  args.push('--yes','--project',projectId,'-T',teamId);
   if(mode==='production') args.push('--prod');
   return {command:'vercel',args,env:{VERCEL_ORG_ID:teamId,VERCEL_PROJECT_ID:projectId}};
 }
@@ -79,6 +82,16 @@ export function deploymentResult({repository=null,branch=null,sourceSha:sha=null
   return {...base,status:'PASS',verificationStatus:'VERIFIED',deploymentUrl:url,url,detail:output};
 }
 
+function validateBuildReceiptBinding(buildReceipt,{sourceSha:sha,teamId,projectId}){
+  const blockers=[];
+  if(buildReceipt?.productKey!==CANONICAL_PRODUCT_KEY) blockers.push('build-product-key-mismatch');
+  if(buildReceipt?.sourceSha!==sha) blockers.push('build-source-sha-mismatch');
+  if(buildReceipt?.target?.provider!=='vercel') blockers.push('build-provider-mismatch');
+  if(buildReceipt?.target?.teamId!==teamId) blockers.push('build-team-mismatch');
+  if(buildReceipt?.target?.projectId!==projectId) blockers.push('build-project-mismatch');
+  return {eligible:blockers.length===0,status:blockers.length?'BLOCKED':'ELIGIBLE',blockers};
+}
+
 export function executeDeployment(projectDir,{mode='preview',provider='vercel',productionApproved=false,teamId=null,projectId=null,expectedSourceSha=null,repository=null,branch=null,repoRoot=REPO_ROOT}={}){
   if(!['preview','production'].includes(mode)) throw new Error('mode must be preview or production');
   if(!['vercel','cloudflare'].includes(provider)) throw new Error('provider must be vercel or cloudflare');
@@ -94,6 +107,7 @@ export function executeDeployment(projectDir,{mode='preview',provider='vercel',p
   if(!eligible) return {...base,status:'BLOCKED',verificationStatus:'BLOCKED'};
 
   const runtimeRoot=path.join(projectDir,'runtime');
+  let predeploy=null;
   if(provider==='vercel'){
     if(mode==='production'){
       let targetRecord;
@@ -101,6 +115,15 @@ export function executeDeployment(projectDir,{mode='preview',provider='vercel',p
       const checkout=readCheckoutState(repoRoot);
       const binding=validateCanonicalVercelProductionBinding({targetRecord,provider,teamId:resolvedTeamId,projectId:resolvedProjectId,sourceSha:sha,checkoutSha:checkout.sha,checkoutClean:checkout.verified&&checkout.clean,productionApproved});
       if(!binding.eligible) return {...base,status:'BLOCKED',verificationStatus:'BLOCKED',detail:`production provenance blocked: ${binding.blockers.join(', ')}`,provenance:binding};
+      const buildReceiptPath=path.join(projectDir,'build-artifact.receipt.json');
+      if(!fs.existsSync(buildReceiptPath)) return {...base,status:'BLOCKED',verificationStatus:'BLOCKED',detail:'prebuilt provenance blocked: build-artifact.receipt.json missing',provenance:{binding,predeploy:{status:'BLOCKED',blockers:['build-receipt-missing']}}};
+      let buildReceipt;
+      try{buildReceipt=JSON.parse(fs.readFileSync(buildReceiptPath,'utf8'));}catch(error){return {...base,status:'BLOCKED',verificationStatus:'BLOCKED',detail:`prebuilt provenance blocked: unreadable build receipt: ${error.message}`,provenance:{binding}};}
+      const receiptBinding=validateBuildReceiptBinding(buildReceipt,{sourceSha:sha,teamId:resolvedTeamId,projectId:resolvedProjectId});
+      const digestValidation=validatePredeployOutputDigest({runtimeRoot,buildReceipt});
+      const blockers=[...receiptBinding.blockers,...digestValidation.blockers];
+      predeploy={status:blockers.length?'BLOCKED':'ELIGIBLE',eligible:blockers.length===0,blockers,approvedBuildReceiptOutputTreeDigest:digestValidation.approvedBuildReceiptOutputTreeDigest,actualPredeployOutputTreeDigest:digestValidation.actualPredeployOutputTreeDigest};
+      if(blockers.length) return {...base,status:'BLOCKED',verificationStatus:'BLOCKED',detail:`prebuilt provenance blocked: ${blockers.join(', ')}`,provenance:{binding,predeploy}};
     }
     if(!hasCommand('vercel')) return {...base,status:'UNVERIFIED',verificationStatus:'UNVERIFIED',detail:'vercel CLI unavailable'};
     let invocation={command:'vercel',args:['deploy','--yes'],env:{}};
@@ -110,7 +133,8 @@ export function executeDeployment(projectDir,{mode='preview',provider='vercel',p
     const r=spawnSync(invocation.command,invocation.args,{cwd:runtimeRoot,encoding:'utf8',timeout:180000,env:{...process.env,...invocation.env}});
     const output=tail((r.stdout||'')+(r.stderr||''));
     const url=(output.match(/https:\/\/[^\s]+\.vercel\.app[^\s]*/)||[])[0]||null;
-    return deploymentResult({...base,commandStatus:r.status,output,url});
+    const result=deploymentResult({...base,commandStatus:r.status,output,url});
+    return predeploy?{...result,predeploy}:result;
   }
 
   if(!hasCommand('wrangler')) return {...base,status:'UNVERIFIED',verificationStatus:'UNVERIFIED',detail:'wrangler CLI unavailable'};
