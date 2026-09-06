@@ -1,0 +1,28 @@
+{
+  "schema": "webforge.product-spec.v1",
+  "status": "CANONICAL",
+  "specVersion": 1,
+  "productKey": "webforge-reference",
+  "productPurpose": "reference-demo",
+  "canonicalInput": {
+    "kind": "brief",
+    "encoding": "utf-8",
+    "normalization": "none",
+    "value": "Premium techno club in Prague with events, artists, tickets and gallery.",
+    "sha256": "b3f1110814999d1ec1e648e6378f1d71758fc0c1d3983031794335491d901d30"
+  },
+  "identityConstraints": {
+    "generationRunIdIsProductIdentity": false,
+    "vantaIsProductionProduct": false,
+    "customerProduct": false,
+    "platformControlRoomProduct": false
+  },
+  "authority": {
+    "decision": "PROMOTED",
+    "scope": [
+      "product-identity",
+      "canonical-product-input"
+    ],
+    "deploymentAuthorized": false
+  }
+}
