@@ -9,7 +9,7 @@ permissions:
 
 concurrency:
   group: webforge-ci-${{ github.ref }}
-  cancel-in-progress: false 
+  cancel-in-progress: false
 
 jobs:
   verify:
@@ -55,21 +55,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout exact canonical main source
+      - name: Checkout exact triggering source
         uses: actions/checkout@v4
         with:
-          ref: 20ef0fcd45bcf5b8cdd4c9c61fd1eb07c48041d6
+          ref: ${{ github.sha }}
 
       - name: Setup canonical Node
         uses: actions/setup-node@v4
         with:
           node-version: 24.20.0
 
-      - name: Verify pinned Node and npm
+      - name: Verify pinned Node, npm, and source SHA
+        env:
+          EXPECTED_SOURCE_SHA: ${{ github.sha }}
         run: |
           test "$(node --version)" = "v24.20.0"
           test "$(npm --version)" = "11.19.0"
-          test "$(git rev-parse HEAD)" = "20ef0fcd45bcf5b8cdd4c9c61fd1eb07c48041d6"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE_SHA"
 
       - name: Install pinned Vercel CLI
         run: npm install --global vercel@59.11.7 --ignore-scripts --no-audit --no-fund
@@ -85,12 +87,11 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: webforge-reference-canonical-main-20ef0fcd-${{ github.run_attempt }}
+          name: webforge-reference-candidate-${{ github.sha }}-${{ github.run_attempt }}
           path: |
             generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/runtime/**
             !generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/runtime/node_modules/**
             generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/*.receipt.json
             generated/canonical/webforge-reference/${{ github.run_id }}-${{ github.run_attempt }}/artifact-run.summary.json
-          include-hidden-files: 
-  
-          if-no-files-found: warn
+          include-hidden-files: true
+          if-no-files-found: error
