@@ -1,5 +1,9 @@
 # WEBFORGE 9.1.0 — AUTONOMOUS FACTORY + FEDERATED COMPONENT PACK R1
 
+> **Portfolio status:** Experimental reference prototype. Local preview can be verified; live connectors, external hosting and production release are not implied.
+
+WEBFORGE explores how far a structured brief can travel through research, product modeling, design, generation and browser QA before a human has to take over. The repository focuses on bounded automation and explicit verification rather than pretending that generated output is automatically production-ready.
+
 Universal autonomous web-product factory rebuilt on the verified Composition Registry R2 baseline and extended with governed federated component resolution.
 
 ## One command
