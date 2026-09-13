@@ -1,10 +1,30 @@
-# WEBFORGE 9.1.0 — AUTONOMOUS FACTORY + FEDERATED COMPONENT PACK R1
+<div align="center">
+  <h1>WEBFORGE</h1>
+  <p><strong>Experimental web-product factory: from a structured brief to a locally verified preview.</strong></p>
+  <p>
+    <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-runtime-F7DF1E?logo=javascript&logoColor=111827">
+    <img alt="Playwright" src="https://img.shields.io/badge/browser%20QA-Playwright-2EAD33?logo=playwright&logoColor=white">
+    <img alt="Automation" src="https://img.shields.io/badge/workflow-bounded%20automation-2563eb">
+    <img alt="Status" src="https://img.shields.io/badge/status-experimental-f59e0b">
+  </p>
+</div>
 
 > **Portfolio status:** Experimental reference prototype. Local preview can be verified; live connectors, external hosting and production release are not implied.
 
-WEBFORGE explores how far a structured brief can travel through research, product modeling, design, generation and browser QA before a human has to take over. The repository focuses on bounded automation and explicit verification rather than pretending that generated output is automatically production-ready.
+WEBFORGE explores how far a structured brief can travel through research, product modeling, design, generation and browser QA before a human has to take over.
 
-Universal autonomous web-product factory rebuilt on the verified Composition Registry R2 baseline and extended with governed federated component resolution.
+```mermaid
+flowchart LR
+    A[Brief] --> B[Research]
+    B --> C[Product model]
+    C --> D[Design DNA]
+    D --> E[Generate]
+    E --> F[Browser QA]
+    F --> G{Pass?}
+    G -- no --> H[Bounded repair]
+    H --> F
+    G -- yes --> I[Preview ready]
+```
 
 ## One command
 
