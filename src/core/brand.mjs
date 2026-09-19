@@ -1,3 +1,4 @@
+import { domainDisplayName } from './locale-contract.mjs';
 const STOP=new Set(['website','web','with','and','for','the','a','an','in','of','to','mobile','first','design','site','platform','app','page','portal','chci','udělej','pro','který','která','kde']);
 const titleCase=s=>s.replace(/\b\w/g,c=>c.toUpperCase());
 function inferName(brief,project){
@@ -10,6 +11,7 @@ function inferName(brief,project){
   const cs=project.locale?.language==='cs'||project.domain?.locale?.language==='cs';
   const domainLabels={'florist-retail':cs?'Místní květinářství':'Local Florist'};
   if(domainLabels[project.domainArchetype])return domainLabels[project.domainArchetype];
+  if(cs)return domainDisplayName(project.domainArchetype,project.locale);
   const labels={venue:'Night Signal','local-service':'Local Standard',portfolio:'Selected Practice',company:'Clear Company',saas:'Product Signal',marketplace:'Open Market','web-app':'Focused App',editorial:'Current Edition'};
   return titleCase(labels[project.archetype]||project.domain?.primary?.label||'WEBFORGE Project');
 }

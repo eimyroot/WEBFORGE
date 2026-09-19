@@ -13,7 +13,7 @@ const cases=[
   ['novel','Interaktivní digitální archiv rodinných předmětů, kde lidé přidávají vzpomínky a sledují příběh předmětu napříč generacemi.']
 ];
 const bannedVisible=/>\s*(Home|About|Contact|Pricing|Location|Booking|Rooms|Product|Security|Services|Capabilities|Industries|Case Studies|Support|Request Quote|Programmes|Programs|Admissions|Campus|Jobs|Companies|Career Advice|For Employers|Membership|Directory|Resources|Shop|Categories|Featured|Compare|Reviews|Help|Browse|Sell|Trust|How It Works|Integrations|Private Dining|Practice Areas|Professionals|Offices)\s*</i;
-const bannedUi=/(View all|View full gallery|Get directions|TRUTH BOUNDARY|Form state contract|Collection state contract|Choose plan|DECISION READY|PRODUCT EXPERIENCE|INDEPENDENT PUBLICATION|LATEST EDITION)/i;
+const bannedUi=/(View all|View full gallery|Get directions|TRUTH BOUNDARY|Form state contract|Collection state contract|Choose plan|DECISION READY|PRODUCT EXPERIENCE|INDEPENDENT PUBLICATION|LATEST EDITION|Local Standard|Visible evidence|Lower uncertainty|Verified professional profiles|Source-backed credentials|No fabricated case outcomes|Clearer decisions|Lower friction)/i;
 const czechSignal=/[ěščřžýáíéůúďťň]|\b(další|vyberte|prozkoumat|přehled|služby|produkt|rezervace|nabídka|důkazy|lidé|obsah|vstupte|rezervovat)\b/i;
 test('cs-CZ propagates through blueprint navigation and content across domains',()=>{
   for(const [id,brief] of cases){
@@ -24,6 +24,7 @@ test('cs-CZ propagates through blueprint navigation and content across domains',
     for(const item of plan.designStrategy.navigation_model.items)assert.doesNotMatch(item.label,bannedVisible,`${id}:${item.path}: nav label`);
     assert.match(plan.visual.content.model.hero?.headline||'',czechSignal,`${id}: hero headline`);
     assert.match(plan.visual.content.model.hero?.primary||'',czechSignal,`${id}: hero CTA`);
+    assert.doesNotMatch(plan.brand.identity.name,/Local Standard|Product Signal|Clear Company|Open Market|Focused App|Current Edition|Selected Practice/i,`${id}: localized fallback brand`);
   }
 });
 
