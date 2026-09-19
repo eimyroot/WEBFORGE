@@ -1,3 +1,4 @@
+import { pageLabel } from './locale-contract.mjs';
 const uniq=xs=>[...new Set(xs)];
 const slugify=s=>String(s||'item').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'item';
 
@@ -59,7 +60,7 @@ export function designExperience(domain,product,brief,strategy=null){
     primaryEntity,
     navigation:strategy?.navigation_model?.items?.length
       ? strategy.navigation_model.items.filter(item=>unique.some(p=>p.path===item.path&&!p.dynamic)).slice(0,strategy.navigation_model.maxPrimary||8).map(item=>({id:item.id,label:item.label,path:item.path,priority:item.priority}))
-      : unique.filter(p=>!p.dynamic&&!['transaction','admin'].includes(p.id)).slice(0,8).map(p=>({label:p.id.replaceAll('-',' '),path:p.path})),
+      : unique.filter(p=>!p.dynamic&&!['transaction','admin'].includes(p.id)).slice(0,8).map(p=>({id:p.id,label:pageLabel(p.id,p.id.replaceAll('-',' '),domain.locale),path:p.path})),
     synthesisReason:[`domain:${domain.primary.id}`,`classification:${domain.classification}`,`capabilities:${product.capabilityIds.length}`,`jobs:${product.userJobs.length}`]
   };
 }

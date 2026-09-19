@@ -1,3 +1,4 @@
+import { localizeContentModel } from './locale-contract.mjs';
 const pad=n=>String(n).padStart(2,'0');
 const words=(xs,i)=>xs[i%xs.length];
 
@@ -172,7 +173,8 @@ export function bindContent(plan){
   const d=plan.project.domainArchetype;
   const brief=String(plan.project.brief||'').toLowerCase(),isRestaurant=d==='hospitality'&&/(restaurant|dining|chef|menu)/.test(brief)&&!/(hotel|resort|hostel|room|rooms|suite|suites)/.test(brief),isProfessional=d==='local-professional-service'&&/(law|legal|lawyer|attorney|accounting|accountant|consulting|consultant|advisory|firm)/.test(brief);
   const isCorporate=d==='generic-organization'&&/(agency|studio|corporate|company|consultancy)/.test(brief);
-  const model=isCorporate?corporateContent(plan):useUniversal?universal(plan):d==='florist-retail'?florist(plan):d==='education-learning'?education(plan):d==='jobs-careers'?careers(plan):d==='industrial-b2b'?industrial(plan):d==='finance'?financeContent(plan):d==='community-membership'?community(plan):isRestaurant?restaurant(plan):isProfessional?professional(plan):d==='commerce-store'?richCommerce(plan):d==='editorial-publication'?editorial(plan):d==='hospitality'?hospitality(plan):d==='healthcare'?healthcare(plan):d==='nonprofit-impact'?nonprofit(plan):d==='real-estate'?realEstate(plan):a==='venue'?venue(plan):a==='local-service'?local(plan):['saas','web-app','marketplace'].includes(a)?product(plan):a==='portfolio'?portfolio(plan):company(plan);
+  let model=isCorporate?corporateContent(plan):useUniversal?universal(plan):d==='florist-retail'?florist(plan):d==='education-learning'?education(plan):d==='jobs-careers'?careers(plan):d==='industrial-b2b'?industrial(plan):d==='finance'?financeContent(plan):d==='community-membership'?community(plan):isRestaurant?restaurant(plan):isProfessional?professional(plan):d==='commerce-store'?richCommerce(plan):d==='editorial-publication'?editorial(plan):d==='hospitality'?hospitality(plan):d==='healthcare'?healthcare(plan):d==='nonprofit-impact'?nonprofit(plan):d==='real-estate'?realEstate(plan):a==='venue'?venue(plan):a==='local-service'?local(plan):['saas','web-app','marketplace'].includes(a)?product(plan):a==='portfolio'?portfolio(plan):company(plan);
   for(const id of plan.layout.sections) if(id!=='hero'&&id!=='final-cta'&&!model[id]) model[id]=fallbackSection(id,plan);
+  model=localizeContentModel(plan,model);
   return {version:'webforge.content-binding.universal.v1',archetype:a,domainArchetype:plan.project.domainArchetype,brand:plan.brand.identity.name,locale:plan.project.locale?.tag||'en',model,source:{kind:'generated-seed',status:'PROVISIONAL',productionRequirement:'replace or approve generated seed content'}};
 }

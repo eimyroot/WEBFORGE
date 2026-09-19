@@ -1,3 +1,4 @@
+import { pageLabel } from './locale-contract.mjs';
 const uniq=xs=>[...new Set(xs.filter(Boolean))];
 const words=s=>String(s||'').toLowerCase().normalize('NFKD').replace(/[^a-z0-9\s-]/g,' ').split(/\s+/).filter(Boolean);
 const has=(set,...xs)=>xs.some(x=>set.has(x));
@@ -196,7 +197,7 @@ function addDomainNavigation(domain,product,tokens,add){
 }
 function navItems(domain,product,briefTopics,tokens){
   const c=new Set(product.capabilityIds),entities=new Set(product.entities.map(x=>x.name.toLowerCase()));
-  const items=[]; const add=(id,label,path=`/${id}/`,priority=50,sections=[])=>{const existing=items.find(x=>x.id===id);if(existing){if(priority>existing.priority)Object.assign(existing,{label,path,priority,sections:sections.length?sections:existing.sections});return;}items.push({id,label,path,priority,sections});};
+  const items=[]; const add=(id,label,path=`/${id}/`,priority=50,sections=[])=>{const resolvedLabel=pageLabel(id,label,domain.locale);const existing=items.find(x=>x.id===id);if(existing){if(priority>existing.priority)Object.assign(existing,{label:resolvedLabel,path,priority,sections:sections.length?sections:existing.sections});return;}items.push({id,label:resolvedLabel,path,priority,sections});};
   add('home','Home','/',100,['hero']);
   if(domain.classification==='NOVEL'&&domain.synthesis?.topics?.length) for(const t of domain.synthesis.topics)add(t.id,t.label,`/${t.id}/`,t.priority||88,t.sections||[]);
   for(const t of briefTopics)add(t.id,t.label,t.path,88,t.sections);

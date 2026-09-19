@@ -1,3 +1,4 @@
+import { pageLabel, pagePurpose } from './locale-contract.mjs';
 import { registry } from './composition-registry.mjs';
 const blueprints=registry('pageBlueprints');
 function score(bp,project){
@@ -9,7 +10,7 @@ function score(bp,project){
   if(project.flags.auth&&['saas','web-app','marketplace'].includes(bp.archetype)){score+=8;reasons.push('authenticated product +8')}
   score+=Math.round((bp.qualityScore-90)/2);return {score,reasons};
 }
-function pageTitle(id){return id.split('-').map(x=>x.charAt(0).toUpperCase()+x.slice(1)).join(' ')}
+function pageTitle(id,locale,fallback=null){const base=fallback||id.split('-').map(x=>x.charAt(0).toUpperCase()+x.slice(1)).join(' ');return pageLabel(id,base,locale)}
 function sectionHints(sections=[]){const map={search:'categories',filters:'categories',featured:'featured',categories:'categories','detail-hero':'product-proof',facts:'services',media:'gallery','primary-action':'final-cta','event-featured':'next-event','event-grid':'latest-content',calendar:'schedule','event-hero':'next-event','event-meta':'services',lineup:'artists','people-grid':'team',bio:'about',related:'featured',availability:'availability','service-choice':'services','booking-form':'process',trust:'proof','order-summary':'pricing','payment-action':'final-cta',configurator:'product-proof',constraints:'workflow',summary:'outcomes',guidance:'problem-solution','submission-form':'process','what-happens-next':'how-it-works','account-summary':'task-preview',history:'latest-content','saved-items':'featured',settings:'services','task-summary':'task-preview',status:'workflow',activity:'latest-content','primary-actions':'final-cta',queues:'workflow',metrics:'outcomes',records:'featured',audit:'security','featured-content':'featured','topic-grid':'categories','article-hero':'statement','article-body':'latest-content',map:'location',address:'location',hours:'location',directions:'location',contact:'services',story:'about',people:'team',values:'statement','contact-options':'services',form:'process'};return [...new Set(sections.map(x=>map[x]||x).filter(x=>['hero','categories','featured','services','proof','process','faq','gallery','location','latest-content','team','artists','pricing','availability','product-proof','task-preview','workflow','security','outcomes','problem-solution','how-it-works','statement','about','next-event','schedule','final-cta'].includes(x)))]}
 function pageFamily(page={}){
   const id=String(page.id||'').toLowerCase(), path=String(page.path||'').toLowerCase();
@@ -41,7 +42,7 @@ function detailKind(page={},project={}){
 function universalBlueprint(project){
   const exp=project.experience;
   const pages=exp.sitemap.map((p,i)=>({
-    id:p.id,path:p.path,title:pageTitle(p.id),purpose:p.purpose,sections:p.sections,sectionHints:sectionHints(p.sections),family:pageFamily(p),detailKind:detailKind(p,project),
+    id:p.id,path:p.path,title:pageTitle(p.id,project.locale),purpose:pagePurpose(p.purpose,project.locale),sections:p.sections,sectionHints:sectionHints(p.sections),family:pageFamily(p),detailKind:detailKind(p,project),
     priority:i===0?'critical':i<4?'high':'normal',dynamic:!!p.dynamic
   }));
   return {
@@ -53,7 +54,7 @@ function universalBlueprint(project){
     score:100,
     reasons:exp.synthesisReason,
     pages,pageCount:pages.length,alternatives:[],qualityScore:95,maturity:'synthesized',
-    journeys:exp.journeys,navigation:exp.navigation
+    journeys:exp.journeys,navigation:(exp.navigation||[]).map(x=>({...x,label:pageLabel(x.id,x.label,project.locale)}))
   };
 }
 export function resolveSiteBlueprint(project){
@@ -73,13 +74,13 @@ export function resolveSiteBlueprint(project){
     const put=page=>{const current=byPath.get(page.path);if(!current||strategyIds.has(page.id)&&!strategyIds.has(current.id))byPath.set(page.path,page);};
     for(const page of pages) put(page);
     for(const ep of project.experience.sitemap){
-      put({id:ep.id,path:ep.path,title:pageTitle(ep.id),purpose:ep.purpose,sections:ep.sections,sectionHints:sectionHints(ep.sections),family:pageFamily(ep),detailKind:detailKind(ep,project),priority:'normal',dynamic:!!ep.dynamic,strategyAdded:true});
+      put({id:ep.id,path:ep.path,title:pageTitle(ep.id,project.locale),purpose:pagePurpose(ep.purpose,project.locale),sections:ep.sections,sectionHints:sectionHints(ep.sections),family:pageFamily(ep),detailKind:detailKind(ep,project),priority:'normal',dynamic:!!ep.dynamic,strategyAdded:true});
     }
     pages=[...byPath.values()];
     const rank=new Map(project.designStrategy.page_hierarchy.map((x,i)=>[x.path,i]));
     pages.sort((a,b)=>(rank.get(a.path)??999)-(rank.get(b.path)??999));
     pages=pages.map((p,i)=>({...p,priority:i===0?'critical':i<4?'high':p.priority||'normal'}));
   }
-  pages=pages.map(p=>({...p,family:p.family||pageFamily(p),detailKind:p.detailKind||detailKind(p,project)}));
-  return {schema:'webforge.site-blueprint.r1',id:best.id,archetype:best.archetype,domainArchetype:project.domainArchetype,score:best.score||0,reasons:best.reasons||[],pages,pageCount:pages.length,navigation:project.experience.navigation,alternatives:ranked.slice(1,4).map(x=>({id:x.id,score:x.score})),qualityScore:best.qualityScore,maturity:best.maturity};
+  pages=pages.map(p=>({...p,title:pageLabel(p.id,p.title,project.locale),purpose:pagePurpose(p.purpose,project.locale),family:p.family||pageFamily(p),detailKind:p.detailKind||detailKind(p,project)}));
+  return {schema:'webforge.site-blueprint.r1',id:best.id,archetype:best.archetype,domainArchetype:project.domainArchetype,score:best.score||0,reasons:best.reasons||[],pages,pageCount:pages.length,navigation:(project.experience.navigation||[]).map(x=>({...x,label:pageLabel(x.id,x.label,project.locale)})),alternatives:ranked.slice(1,4).map(x=>({id:x.id,score:x.score})),qualityScore:best.qualityScore,maturity:best.maturity};
 }
