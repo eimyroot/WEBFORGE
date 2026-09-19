@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import {
   BUILD_ARTIFACT_SCHEMA,
   buildReceiptResult,
+  buildVercelPrebuiltArtifact,
   canonicalVercelBuildInvocation,
   createTreeReceipt,
   generateCanonicalRuntimeSource,
@@ -127,6 +128,33 @@ test('build success without output digest is UNVERIFIED',()=>{
   const result=buildReceiptResult({base:{schema:BUILD_ARTIFACT_SCHEMA},commandStatus:0,outputManifest:[]});
   assert.equal(result.status,'UNVERIFIED');
   assert.equal(result.outputTreeDigest,null);
+});
+
+test('prebuilt build writes non-secret local project settings required by pinned Vercel CLI',()=>{
+  const runtime=out('project-settings'); fs.mkdirSync(runtime,{recursive:true});
+  fs.writeFileSync(path.join(runtime,'package.json'),'{}\n');
+  fs.writeFileSync(path.join(runtime,'package-lock.json'),'{}\n');
+  const expected={nodeVersion:process.version.replace(/^v/,''),npmVersion:contracts.toolchain.npmVersion,vercelCliVersion:contracts.toolchain.vercelCliVersion};
+  const toolchain={...contracts.toolchain,nodeVersion:expected.nodeVersion};
+  const sourceReceipt={repository:'eimyroot/WEBFORGE',sourceSha:'abc',productKey:'webforge-reference',artifactClass:contracts.binding.artifactClass,runtime:'astro',runtimeSourceTreeDigest:'a'.repeat(64),lockfileDigest:'b'.repeat(64),toolchainVersions:expected};
+  const spawn=(cmd,args,opts)=>{
+    if(cmd==='npm'&&args[0]==='--version')return {status:0,stdout:expected.npmVersion+'\n',stderr:''};
+    if(cmd==='vercel'&&args[0]==='--version')return {status:0,stdout:`Vercel CLI ${expected.vercelCliVersion}\n`,stderr:''};
+    if(cmd==='vercel'&&args[0]==='build'){
+      const project=JSON.parse(fs.readFileSync(path.join(opts.cwd,'.vercel','project.json'),'utf8'));
+      assert.deepEqual(project.settings,{});
+      assert.equal(project.orgId,contracts.binding.target.teamId);
+      assert.equal(project.projectId,contracts.binding.target.projectId);
+      const output=path.join(opts.cwd,'.vercel','output'); fs.mkdirSync(output,{recursive:true});
+      fs.writeFileSync(path.join(output,'index.html'),'ok');
+      return {status:0,stdout:'build ok\n',stderr:''};
+    }
+    throw new Error(`unexpected spawn: ${cmd} ${args.join(' ')}`);
+  };
+  const result=buildVercelPrebuiltArtifact({runtimeRoot:runtime,binding:contracts.binding,sourceReceipt,toolchain,spawn,env:{VERCEL_TOKEN:'test-only'}});
+  assert.equal(result.status,'PASS');
+  assert.ok(result.outputTreeDigest);
+  assert.equal(result.auth.secretValueRecorded,false);
 });
 
 test('canonical artifact CI path contains build only and no production deploy action',()=>{

@@ -59,7 +59,10 @@ test('Astro runtime emits native static dynamic routes with explicit static boun
     assert.ok(exists(x.dir,'src/pages/resources/[slug].astro'));
     assert.ok(exists(x.dir,'src/pages/404.astro'));
     assert.match(read(x.dir,'src/pages/services/[slug].astro'),/getStaticPaths/);
-    assert.match(read(x.dir,'src/pages/services/[slug].astro'),/listValidated\("product"/);
+    const serviceRoute=read(x.dir,'src/pages/services/[slug].astro');
+    assert.match(serviceRoute,/listValidated\("product"/);
+    assert.match(serviceRoute,/from '\.\.\/\.\.\/\.\.\/lib\/webforge\/provider\.mjs'/);
+    assert.ok(exists(x.dir,'lib/webforge/provider.mjs'));
     const contract=JSON.parse(read(x.dir,'runtime-data-contract.json'));
     assert.equal(contract.boundaries.loading,'NOT_APPLICABLE_STATIC_BUILD');
     assert.equal(contract.boundaries.error,'FAIL_CLOSED_BUILD');

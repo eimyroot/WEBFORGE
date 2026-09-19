@@ -218,7 +218,7 @@ export function buildVercelPrebuiltArtifact({runtimeRoot,binding,sourceReceipt,t
   if(!versionCheck.eligible) return {...base,status:'BLOCKED',blockers:versionCheck.blockers,actualToolchain:actual,outputManifest:[],outputTreeDigest:null};
   const projectDir=path.join(runtimeRoot,'.vercel');
   fs.mkdirSync(projectDir,{recursive:true});
-  fs.writeFileSync(path.join(projectDir,'project.json'),JSON.stringify({orgId:binding.target.teamId,projectId:binding.target.projectId},null,2)+'\n');
+  fs.writeFileSync(path.join(projectDir,'project.json'),JSON.stringify({orgId:binding.target.teamId,projectId:binding.target.projectId,settings:{}},null,2)+'\n');
   const invocation=canonicalVercelBuildInvocation({teamId:binding.target.teamId,projectId:binding.target.projectId});
   const r=spawn(invocation.command,invocation.args,{cwd:runtimeRoot,encoding:'utf8',timeout:300000,env:{...env,...invocation.env}});
   const detail=tail(`${r.stdout||''}\n${r.stderr||''}`);

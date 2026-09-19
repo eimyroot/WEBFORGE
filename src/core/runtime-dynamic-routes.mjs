@@ -37,7 +37,7 @@ function nextRoute(root,page){
 }
 function astroRoute(root,page){
   const rel=routeRel(page),file=`src/pages/${rel}.astro`,dir=path.posix.dirname(file);
-  const lib=importPath(dir,'src/lib/webforge');
+  const lib=importPath(dir,'lib/webforge');
   const styles=importPath(dir,'src/styles/global.css');
   const context=JSON.stringify({pageId:page.id,path:page.path});
   const kind=JSON.stringify(page.detailKind||'product');
