@@ -54,6 +54,7 @@ function personality(domain,tokens){
   if(has(tokens,'underground','techno','night','club'))traits.push('nocturnal','energetic');
   if(has(tokens,'family','kids','children'))traits.push('warm','playful');
   if(domain.primary.id==='florist-retail')traits.push('botanical','crafted','warm','image-led');
+  if(domain.classification==='NOVEL'&&domain.synthesis?.direction?.traits)traits.push(...domain.synthesis.direction.traits);
   return uniq(traits);
 }
 function hslToHex(h,s,l){
@@ -96,6 +97,7 @@ function domainGrammar(domain,tokens){
   if(domain.primary.id==='generic-organization'&&has(tokens,'agency','studio','corporate','company','consultancy'))return {primary:'corporate-system',hero:'manifesto-led',rhythm:'case-led',nav:'corporate-nav',density:'airy',type:'editorial-display',interaction:'evaluate-and-contact'};
   if(domain.primary.id==='hospitality'&&has(tokens,'restaurant','dining','chef','menu')&&!has(tokens,'hotel','resort','hostel','room','rooms','suite','suites'))return {primary:'culinary-system',hero:'menu-led',rhythm:'editorial-service',nav:'culinary-nav',density:'spacious',type:'editorial-display',interaction:'browse-and-reserve'};
   if(domain.primary.id==='local-professional-service'&&has(tokens,'law','legal','lawyer','attorney','accounting','accountant','consulting','consultant','advisory','firm'))return {primary:'professional-system',hero:'authority-led',rhythm:'expertise-evidence',nav:'professional-nav',density:'airy',type:'authority-serif',interaction:'evaluate-and-contact'};
+  if(domain.classification==='NOVEL'&&domain.synthesis?.direction){const d=domain.synthesis.direction;return {primary:`novel-${d.id}`,hero:d.hero,rhythm:d.rhythm,nav:d.nav,density:d.density,type:d.type,interaction:d.id==='interactive-system'?'task-oriented':d.id==='immersive-story'?'immerse-and-explore':'progressive'};}
   return DOMAIN_GRAMMARS[domain.primary.id]||null;
 }
 function semanticColorProfile(domain,tokens,traits){
@@ -196,6 +198,7 @@ function navItems(domain,product,briefTopics,tokens){
   const c=new Set(product.capabilityIds),entities=new Set(product.entities.map(x=>x.name.toLowerCase()));
   const items=[]; const add=(id,label,path=`/${id}/`,priority=50,sections=[])=>{const existing=items.find(x=>x.id===id);if(existing){if(priority>existing.priority)Object.assign(existing,{label,path,priority,sections:sections.length?sections:existing.sections});return;}items.push({id,label,path,priority,sections});};
   add('home','Home','/',100,['hero']);
+  if(domain.classification==='NOVEL'&&domain.synthesis?.topics?.length) for(const t of domain.synthesis.topics)add(t.id,t.label,`/${t.id}/`,t.priority||88,t.sections||[]);
   for(const t of briefTopics)add(t.id,t.label,t.path,88,t.sections);
   addDomainNavigation(domain,product,tokens,add);
   if(c.has('events.calendar'))add('events','Events','/events/',98,['next-event','latest-content','schedule']);
@@ -235,7 +238,7 @@ export function compileDesignStrategy(domain,product,brief){
     visual_density:grammar?.density||(domain.primary.id==='editorial-publication'?'balanced':g.applicationDepth>=3?'dense':g.mediaIntensity>=80?'spacious':g.content.includes('structured')?'balanced':'airy'),
     color_strategy:colorStrategy(domain,traits,tokenSet),
     typography_strategy:{character:grammar?.type||(domain.primary.id==='editorial-publication'?'editorial-display':g.applicationDepth>=3?'functional-grotesk':traits.includes('premium')?'editorial-display':g.visualMode==='cinematic'?'expressive-display':'modern-grotesk'),contrast:grammar||domain.primary.id==='editorial-publication'||traits.includes('premium')||g.visualMode==='cinematic'?'high':'moderate'},
-    media_strategy:{intensity:g.mediaIntensity,role:g.mediaIntensity>=80?'primary-storytelling':g.mediaIntensity>=50?'supporting-proof':'selective-support',treatment:g.visualMode==='cinematic'?'atmospheric':traits.includes('premium')?'art-directed':'contextual'},
+    media_strategy:{intensity:g.mediaIntensity,role:g.mediaIntensity>=80?'primary-storytelling':g.mediaIntensity>=50?'supporting-proof':'selective-support',treatment:domain.classification==='NOVEL'&&domain.synthesis?.direction?.mediaTreatment?domain.synthesis.direction.mediaTreatment:g.visualMode==='cinematic'?'atmospheric':traits.includes('premium')?'art-directed':'contextual'},
     interaction_strategy:{depth:g.applicationDepth,mode:grammar?.interaction||(domain.primary.id==='editorial-publication'?'browse-and-read':g.applicationDepth>=3?'task-oriented':g.conversionIntensity>=70?'decision-oriented':'progressive'),motion:g.visualMode==='cinematic'?'expressive':domain.primary.id==='editorial-publication'?'subtle':g.applicationDepth>=3?'functional':'subtle'},
     conversion_strategy:{intensity:g.conversionIntensity,primaryAction:businessGoal(domain,product),pattern:cap(new Set(product.capabilityIds),'conversion.booking','conversion.tickets')?'high-visibility-action':g.applicationDepth>=3?'activation-path':'progressive-cta'},
     provenance:{domain:domain.primary.id,classification:domain.classification,capabilities:product.capabilityIds.length,topicSignals:topics.map(x=>x.id)}

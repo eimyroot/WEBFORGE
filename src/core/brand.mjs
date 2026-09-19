@@ -6,7 +6,7 @@ function inferName(brief,project){
   const concepts=project.domain?.namedConcepts||[]; if(concepts.length)return concepts[0];
   const acronym=(brief.match(/(?:^|\s)([A-ZÁ-Ž0-9][A-ZÁ-Ž0-9&'-]{2,})(?=\s|[.,!?]|$)/u)||[])[1];
   if(acronym&&!STOP.has(acronym.toLowerCase()))return acronym;
-  if(project.domain?.classification==='NOVEL'){if(/future self/i.test(brief))return 'Future Self';if(project.domain?.genome?.visualMode==='experiential')return 'Untitled Experience';return 'Untitled Web Product';}
+  if(project.domain?.classification==='NOVEL'){if(project.domain?.synthesis?.subject)return project.domain.synthesis.subject;if(/future self/i.test(brief))return 'Future Self';return 'Distinct Idea';}
   const cs=project.locale?.language==='cs'||project.domain?.locale?.language==='cs';
   const domainLabels={'florist-retail':cs?'Místní květinářství':'Local Florist'};
   if(domainLabels[project.domainArchetype])return domainLabels[project.domainArchetype];
@@ -42,6 +42,7 @@ function styleSignals(brief,project){
   return {mood,voice,palette,imageStrategy:image,typography:type};
 }
 function copyByPurpose(project){
+  if(project.domain?.classification==='NOVEL'&&project.domain?.synthesis?.copy){const c=project.domain.synthesis.copy;return {eyebrow:c.eyebrow,headline:c.headline,subheadline:c.subheadline,primary:c.primary,secondary:c.secondary};}
   const p=project.domain?.genome?.purpose||[]; const label=project.domain?.primary?.label||'project';
   const cs=project.locale?.language==='cs'||project.domain?.locale?.language==='cs';
   if(project.domainArchetype==='florist-retail') return cs

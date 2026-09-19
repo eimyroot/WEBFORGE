@@ -1,0 +1,14 @@
+[
+  {"id":"future-promises","brief":"A web ritual where strangers exchange sealed future promises that unlock after a chosen date, with anonymous profiles and trust receipts."},
+  {"id":"object-memories","brief":"A living atlas of household objects where people attach memories, voice notes and hand-me-down stories to everyday things."},
+  {"id":"unsent-letters","brief":"A quiet digital room for two people to leave unsent letters that become visible only when both choose to open them."},
+  {"id":"sound-constellation","brief":"A participatory sound map made from tiny recordings people pin to moments in a city, forming an evolving audio constellation."},
+  {"id":"idea-garden","brief":"A shared garden of unfinished ideas where visitors plant fragments, combine them and grow new branches over time."},
+  {"id":"wardrobe-memory","brief":"A personal object lineage where each possession carries origin, care history, stories and future handoff notes."},
+  {"id":"family-time-capsule","brief":"A digital time capsule for families to collect small observations and reveal them together years later."},
+  {"id":"kindness-chain","brief":"An anonymous kindness exchange where one small act creates a chain that can be followed without exposing identities."},
+  {"id":"dream-atlas","brief":"A dream atlas where people place recurring symbols, connect patterns and compare how themes evolve over time."},
+  {"id":"question-tree","brief":"A collaborative question tree where each answer unlocks a deeper branch and participants can fork alternative lines of thought."},
+  {"id":"shared-ritual-log","brief":"A private ritual log where small groups record repeated gestures, mark changes and reveal patterns across seasons."},
+  {"id":"future-objects","brief":"A collection of imagined future objects where visitors inspect origin stories, alternate uses and speculative histories."}
+]

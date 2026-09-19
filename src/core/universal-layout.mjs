@@ -3,9 +3,9 @@ const VARIANTS={
   'next-event':'spotlight',schedule:'timeline',gallery:'masonry','task-preview':'app-stage',workflow:'timeline',
   integrations:'integration-grid',security:'trust-panel',proof:'case-proof',process:'timeline',faq:'accordion-list',
   'product-proof':'product-stage',location:'map-split','latest-content':'content-grid',newsletter:'conversion',
-  services:'cards',outcomes:'metrics','how-it-works':'timeline','trust-safety':'trust-panel','final-cta':'conversion'
+  services:'cards',outcomes:'metrics','how-it-works':'timeline','trust-safety':'trust-panel','final-cta':'conversion',statement:'quote',experience:'split',about:'split','case-study':'case-editorial','problem-solution':'split'
 };
-const ROLES={categories:'DISCOVER',featured:'DISCOVER','search-results':'DISCOVER',comparison:'VALUE',booking:'ACTION',testimonials:'PROOF','trust-strip':'TRUST','domain-signature':'MEDIA',team:'PEOPLE',artists:'DISCOVER',pricing:'ACTION','next-event':'ACTION',schedule:'PROCESS',gallery:'MEDIA','task-preview':'PRODUCT',workflow:'PROCESS',integrations:'ECOSYSTEM',security:'TRUST',proof:'PROOF',process:'PROCESS',faq:'OBJECTION','product-proof':'PRODUCT',location:'ORIENT','latest-content':'FRESHNESS',newsletter:'FRESHNESS',services:'VALUE',outcomes:'PROOF','how-it-works':'PROCESS','trust-safety':'TRUST'};
+const ROLES={statement:'POSITION',experience:'MEDIA',about:'PEOPLE','case-study':'PROOF','problem-solution':'POSITION',categories:'DISCOVER',featured:'DISCOVER','search-results':'DISCOVER',comparison:'VALUE',booking:'ACTION',testimonials:'PROOF','trust-strip':'TRUST','domain-signature':'MEDIA',team:'PEOPLE',artists:'DISCOVER',pricing:'ACTION','next-event':'ACTION',schedule:'PROCESS',gallery:'MEDIA','task-preview':'PRODUCT',workflow:'PROCESS',integrations:'ECOSYSTEM',security:'TRUST',proof:'PROOF',process:'PROCESS',faq:'OBJECTION','product-proof':'PRODUCT',location:'ORIENT','latest-content':'FRESHNESS',newsletter:'FRESHNESS',services:'VALUE',outcomes:'PROOF','how-it-works':'PROCESS','trust-safety':'TRUST'};
 const uniq=xs=>[...new Set(xs)];
 function wanted(project){
   const c=new Set(project.product?.capabilityIds||[]), g=project.domain?.genome||{}; const out=[];
@@ -43,7 +43,9 @@ export function applyUniversalLayout(layout,project){
   const items=wanted(project); if(!items.length)return layout;
   const out=structuredClone(layout);
   const florist=project.domain?.primary?.id==='florist-retail';
-  out.sections=florist?['hero',...items,'final-cta']:insertBeforeFinal(out.sections,items);
+  const novel=project.domain?.classification==='NOVEL'&&project.domain?.synthesis?.direction;
+  if(novel){const d=project.domain.synthesis.direction;const semantic=d.sections||[];const extras=items.filter(x=>!semantic.includes(x)&&x!=='how-it-works');out.sections=['hero',...uniq([...semantic,...extras]).filter(x=>x!=='hero'&&x!=='final-cta').slice(0,10),'final-cta'];out.family=d.family;out.hero=d.hero;out.rhythm=d.rhythm;out.density=d.density;}
+  else out.sections=florist?['hero',...items,'final-cta']:insertBeforeFinal(out.sections,items);
   if(florist){out.family='showcase';out.hero='editorial';out.rhythm='botanical';out.density='spacious';}
   out.variants=out.variants||{}; for(const id of out.sections) if(id!=='hero'&&!out.variants[id]) out.variants[id]=VARIANTS[id]||'content-grid';
   out.sectionPlan=out.sections.map((id,index)=>({id,variant:id==='hero'?out.hero:(out.variants[id]||VARIANTS[id]||'content-grid'),role:ROLES[id]||out.sectionPlan?.find(x=>x.id===id)?.role||'VALUE',priority:index===0?'critical':index<4?'high':'normal',slot:index}));

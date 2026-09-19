@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { synthesizeBriefModel } from './brief-synthesis.mjs';
 
 const here=path.dirname(fileURLToPath(import.meta.url));
 const ontology=JSON.parse(fs.readFileSync(path.join(here,'../registries/domain-ontology.json'),'utf8'));
@@ -156,7 +157,8 @@ export function analyzeDomain(brief){
     novelty:clamp(30+(isNovel?45:0)+(isHybrid?15:0)+(/experimental|unusual|unique|novel|something new|něco úplně|divn/i.test(text)?25:0)),
     locality:primary?.id==='florist-retail'||/\b(in|near|v|praha|prague|brno|local|lokal|city|municipality|město)\b/i.test(text)?'local-or-place-bound':'not-required'
   };
-  const baseEntities=isNovel&&primary?.id==='generic-organization'?['Concept','Participant','Experience','State']:(primary?.entities||[]);
+  const synthesis=isNovel?synthesizeBriefModel(original,{purposes,audiences,content,interactions,visualMode,genome,locale}):null;
+  const baseEntities=isNovel&&primary?.id==='generic-organization'?(synthesis?.entities||[]):(primary?.entities||[]);
   const lexicalEntities=[];
   if(/future self/i.test(text)) lexicalEntities.push('FutureSelf');
   if(/promise/i.test(text)) lexicalEntities.push('Promise');
@@ -178,8 +180,9 @@ export function analyzeDomain(brief){
     secondary:isHybrid&&second?{id:second.id,label:second.label,baseArchetype:second.baseArchetype,score:second.score,hits:second.hits}:null,
     classification:isNovel?'NOVEL':isHybrid?'HYBRID':'KNOWN',
     confidence:Number(confidence.toFixed(2)),
-    namedConcepts:extractNamedConcepts(original),
+    namedConcepts:uniq([...extractNamedConcepts(original),...(synthesis?.entities||[]).slice(0,2)]),
     locale,
+    synthesis,
     entities,
     genome,
     alternatives:ranked.slice(1,5).map(x=>({id:x.id,label:x.label,score:x.score,hits:x.hits})),

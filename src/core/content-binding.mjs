@@ -137,24 +137,29 @@ function fallbackSection(id,plan){
 }
 
 function universal(plan){
-  const brand=plan.brand.content, entities=(plan.product?.entities||[]).map(x=>x.name), jobs=plan.product?.userJobs||[], domain=plan.domain?.primary?.label||'Web product';
+  const brand=plan.brand.content, entities=(plan.product?.entities||[]).map(x=>x.name), jobs=plan.product?.userJobs||[], synth=plan.domain?.synthesis, domain=synth?.subject||plan.domain?.primary?.label||'Web product';
   const model={
     hero:{eyebrow:brand.eyebrow,headline:brand.headline,subheadline:brand.subheadline,primary:brand.primaryCta,secondary:brand.secondaryCta},
     navigation:(plan.siteBlueprint?.navigation||plan.experience?.navigation||[]).map(x=>typeof x==='string'?x:(x.label||x.id)).slice(0,7),
     final:{eyebrow:'NEXT STEP',headline:brand.primaryCta||'Take the next step.',primary:brand.primaryCta||'Continue',secondary:brand.secondaryCta||'Learn more'},
     footer:{location:brand.location||domain,newsletter:'Updates tied to this product, not generic filler.'}
   };
-  const entityItems=entities.slice(0,4).map((name,i)=>({title:name,body:`A structured ${name.toLowerCase()} view bound to the product model.`,mediaLabel:`${name} ${pad(i+1)}`}));
+  const topicItems=(synth?.topics||[]).slice(0,4).map((x,i)=>({title:x.label,body:x.description,mediaLabel:`${x.label} ${pad(i+1)}`}));
+  const entityItems=entities.slice(0,4).map((name,i)=>({title:name,body:`${name} is part of the ${domain} model described in the brief.`,mediaLabel:`${name} ${pad(i+1)}`}));
   const jobItems=jobs.slice(0,4).map((j,i)=>({title:j.goal,body:j.needs.join(' · '),mediaLabel:`Journey ${pad(i+1)}`}));
+  const semanticItems=topicItems.length?topicItems:(entityItems.length?entityItems:jobItems);
   for(const id of plan.layout.sections){
     if(id==='hero'||id==='final-cta'||model[id])continue;
     const title=id.replaceAll('-',' ').replace(/\b\w/g,m=>m.toUpperCase());
-    if(['categories','featured','search-results','comparison','testimonials','services','team','artists','gallery','feature-grid','latest-content','integrations'].includes(id)) model[id]={kicker:title.toUpperCase(),title,items:(entityItems.length?entityItems:jobItems)};
+    if(['categories','featured','search-results','comparison','testimonials','services','team','artists','gallery','feature-grid','latest-content','integrations'].includes(id)) model[id]={kicker:title.toUpperCase(),title:synth?.topics?.find(x=>x.sections?.includes(id))?.label||title,items:semanticItems};
     else if(['workflow','process','how-it-works','schedule'].includes(id)) model[id]={kicker:title.toUpperCase(),title,steps:jobs.slice(0,4).map(j=>j.goal)};
-    else if(['proof','outcomes','security','trust-safety','trust-strip'].includes(id)) model[id]={kicker:title.toUpperCase(),title,metrics:[['01',`Trust burden: ${plan.domain.genome.trustBurden}`],['02',`${plan.product.capabilityIds.length} resolved capabilities`],['03',`${plan.siteBlueprint.pageCount} synthesized pages`]]};
+    else if(['proof','outcomes','security','trust-safety','trust-strip'].includes(id)) model[id]={kicker:title.toUpperCase(),title,metrics:[["01",semanticItems[0]?.title||domain],["02",semanticItems[1]?.title||jobs[0]?.goal||'Clear next step'],["03",jobs[0]?.goal||brand.primaryCta||'Useful action']]};
     else if(['pricing','availability','booking','next-event'].includes(id)) model[id]={kicker:title.toUpperCase(),title,items:[{title:'Primary action',price:'Resolved by connector',body:'Commercial data remains provisional until a real provider is bound.'}]};
     else if(id==='location') model[id]={kicker:'LOCATION',title:brand.location||'Location-aware experience',body:'Location data is shown only when a verified source is available.'};
-    else if(id==='domain-signature') model[id]={kicker:'DOMAIN SIGNATURE',title:`A ${plan.domain.primary.label.toLowerCase()} experience synthesized from the idea itself.`,body:'No fixed industry template was used for this section.',items:[...entityItems.slice(0,3),...jobItems.slice(0,2)]};
+    else if(id==='domain-signature') model[id]={kicker:synth?.direction?.id?.replaceAll('-',' ').toUpperCase()||'DOMAIN SIGNATURE',title:synth?.copy?.headline||domain,body:synth?.copy?.subheadline||'The page structure is derived from this brief rather than a fixed industry template.',items:semanticItems.slice(0,4)};
+    else if(id==='statement') model[id]={kicker:'POINT OF VIEW',title:synth?.subject||domain,body:synth?.copy?.subheadline||brand.subheadline};
+    else if(id==='experience') model[id]={kicker:'EXPERIENCE',title:synth?.copy?.headline||domain,body:synth?.copy?.subheadline||brand.subheadline,features:semanticItems.slice(0,4).map(x=>[x.title,x.body])};
+    else if(id==='about') model[id]={kicker:'CONTEXT',title:`About ${synth?.subject||domain}`,body:synth?.copy?.subheadline||brand.subheadline};
     else if(id==='faq') model[id]={kicker:'FAQ',items:[['What can I do here?',jobs[0]?.goal||'Understand the offer and take the next useful action.'],['What data is real?','Production content must come from approved content or connector evidence.'],['What if a capability is missing?','WEBFORGE marks it UNRESOLVED rather than pretending it works.']]};
     else model[id]=fallbackSection(id,plan);
   }

@@ -89,7 +89,8 @@ function baseCapabilities(domain,brief){
 
 function inferUserJobs(domain,caps){
   const jobs=[];
-  const add=(id,goal,needs)=>jobs.push({id,goal,needs});
+  const add=(id,goal,needs)=>{if(!jobs.some(x=>x.id===id))jobs.push({id,goal,needs});};
+  if(domain.classification==='NOVEL'&&domain.synthesis?.jobs?.length) for(const job of domain.synthesis.jobs) add(job.id,job.goal,job.needs);
   if(domain.primary.id==='florist-retail'){
     add('choose-bouquet','Choose flowers for a specific occasion',['occasion-led browsing','clear bouquet style','gift context']);
     add('personalize','Personalize the arrangement and message',['size or style options','recipient note','special requests']);
