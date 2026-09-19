@@ -179,6 +179,35 @@
     ]
   },
   {
+    "id": "florist-retail",
+    "label": "Florist / Flower Shop",
+    "baseArchetype": "marketplace",
+    "signals": [
+      "flower shop",
+      "florist",
+      "flowers",
+      "bouquet",
+      "bouquets",
+      "floral",
+      "flower delivery",
+      "květinářství",
+      "květiny",
+      "kytice",
+      "rozvoz květin"
+    ],
+    "entities": [
+      "Bouquet",
+      "Occasion",
+      "Arrangement",
+      "Delivery",
+      "Subscription"
+    ],
+    "purposes": [
+      "sell",
+      "transact"
+    ]
+  },
+  {
     "id": "commerce-store",
     "label": "Commerce / Store",
     "baseArchetype": "marketplace",

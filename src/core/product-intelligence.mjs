@@ -77,6 +77,7 @@ function baseCapabilities(domain,brief){
   if(g.dataDepth>=2) caps.push('data.application');
   if(g.dataDepth>=3) caps.push('data.realtime');
   if(g.purpose.includes('sell')) caps.push('commerce.catalog','commerce.checkout');
+  if(domain.primary.id==='florist-retail') caps.push('media.gallery','discovery.categories','content.cms','communication.newsletter','seo.local','geo.location');
   if(g.purpose.includes('book')) caps.push('conversion.booking','booking.availability');
   if(g.purpose.includes('register')) caps.push('workflow.submission');
   if(g.purpose.includes('fund')) caps.push('commerce.donation');
@@ -89,6 +90,11 @@ function baseCapabilities(domain,brief){
 function inferUserJobs(domain,caps){
   const jobs=[];
   const add=(id,goal,needs)=>jobs.push({id,goal,needs});
+  if(domain.primary.id==='florist-retail'){
+    add('choose-bouquet','Choose flowers for a specific occasion',['occasion-led browsing','clear bouquet style','gift context']);
+    add('personalize','Personalize the arrangement and message',['size or style options','recipient note','special requests']);
+    add('delivery','Confirm delivery or pickup details',['delivery area','available date','recipient details']);
+  }
   if(caps.includes('discovery.search')||caps.includes('commerce.catalog')) add('discover','Find the right option quickly',['searchable information','filters','clear detail']);
   if(caps.includes('conversion.booking')) add('book','Choose a suitable time and reserve it',['availability','confirmation','low-friction form']);
   if(caps.includes('commerce.checkout')||caps.includes('conversion.tickets')) add('purchase','Complete a transaction safely',['price','trust','checkout action','receipt']);

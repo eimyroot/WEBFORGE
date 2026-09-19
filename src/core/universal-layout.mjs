@@ -9,6 +9,7 @@ const ROLES={categories:'DISCOVER',featured:'DISCOVER','search-results':'DISCOVE
 const uniq=xs=>[...new Set(xs)];
 function wanted(project){
   const c=new Set(project.product?.capabilityIds||[]), g=project.domain?.genome||{}; const out=[];
+  if(project.domain?.primary?.id==='florist-retail') return ['categories','featured','services','gallery','process','latest-content','location','faq'];
   if(c.has('discovery.search')||c.has('commerce.catalog')) out.push('categories','featured');
   if(c.has('discovery.search')) out.push('search-results');
   if(c.has('profile.public')) out.push(project.archetype==='venue'?'artists':'team');
@@ -40,7 +41,10 @@ function insertBeforeFinal(sections,items){
 }
 export function applyUniversalLayout(layout,project){
   const items=wanted(project); if(!items.length)return layout;
-  const out=structuredClone(layout); out.sections=insertBeforeFinal(out.sections,items);
+  const out=structuredClone(layout);
+  const florist=project.domain?.primary?.id==='florist-retail';
+  out.sections=florist?['hero',...items,'final-cta']:insertBeforeFinal(out.sections,items);
+  if(florist){out.family='showcase';out.hero='editorial';out.rhythm='botanical';out.density='spacious';}
   out.variants=out.variants||{}; for(const id of out.sections) if(id!=='hero'&&!out.variants[id]) out.variants[id]=VARIANTS[id]||'content-grid';
   out.sectionPlan=out.sections.map((id,index)=>({id,variant:id==='hero'?out.hero:(out.variants[id]||VARIANTS[id]||'content-grid'),role:ROLES[id]||out.sectionPlan?.find(x=>x.id===id)?.role||'VALUE',priority:index===0?'critical':index<4?'high':'normal',slot:index}));
   out.fingerprint=out.sections.map((x,i)=>`${i}:${x}:${x==='hero'?out.hero:out.variants[x]}`).join('|');

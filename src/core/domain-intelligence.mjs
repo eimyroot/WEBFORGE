@@ -8,6 +8,11 @@ const ontology=JSON.parse(fs.readFileSync(path.join(here,'../registries/domain-o
 const clamp=(n,min=0,max=100)=>Math.max(min,Math.min(max,n));
 const has=(text,rx)=>rx.test(text);
 const uniq=xs=>[...new Set(xs.filter(Boolean))];
+function detectLocale(text){
+  const value=String(text||'');
+  const cs=/[ěščřžýáíéůúďťň]|květ|kvet|kytice|doruč|doruc|svatb|narozen|pohřeb|pohreb|objedn|česk|cesk/i.test(value);
+  return cs?{language:'cs',tag:'cs-CZ',region:'CZ'}:{language:'en',tag:'en',region:null};
+}
 
 const PURPOSE_RULES=[
   ['sell',/sell|shop|store|e-?commerce|product catalog|buy|purchase|prodat|obchod|e-shop/i],
@@ -128,25 +133,28 @@ export function analyzeDomain(brief){
   const purposes=uniq([...PURPOSE_RULES.filter(([,rx])=>has(text,rx)).map(([id])=>id),...(primary?.purposes||[]),...(isHybrid&&second?.purposes?second.purposes:[])]);
   const audiences=uniq(AUDIENCE_RULES.filter(([,rx])=>has(text,rx)).map(([id])=>id));
   const content=uniq(CONTENT_RULES.filter(([,rx])=>has(text,rx)).map(([id])=>id));
+  if(primary?.id==='florist-retail'){if(!content.includes('catalog'))content.unshift('catalog');if(!content.includes('media'))content.push('media');}
   const interactions=uniq(INTERACTION_RULES.filter(([,rx])=>has(text,rx)).map(([id])=>id));
   if(!content.length) content.push(/update|frequent|manage content/i.test(text)?'editorial':'static');
   if(!interactions.length) interactions.push('browse');
   if(!audiences.length) audiences.push(isNovel?'consumer':primary?.baseArchetype==='company'?'enterprise':'consumer');
   const trustBurden=inferTrust(text,primary,isHybrid?second:null);
+  const locale=detectLocale(original);
+  const visualMode=primary?.id==='florist-retail'?'editorial':inferVisualMode(text);
   const genome={
     schema:'webforge.website-genome.v1',
     purpose:purposes.length?purposes:['inform','convert'],
     audience:audiences,
     content,
     interaction:interactions,
-    visualMode:inferVisualMode(text),
+    visualMode,
     applicationDepth:inferApplicationDepth(text,interactions),
     dataDepth:inferDataDepth(text,content),
     trustBurden,
-    mediaIntensity:clamp(20+(content.includes('media')?45:0)+(/cinematic|gallery|video|photo|portfolio|visual/i.test(text)?30:0)+(inferVisualMode(text)==='experiential'?30:0)),
+    mediaIntensity:primary?.id==='florist-retail'?92:clamp(20+(content.includes('media')?45:0)+(/cinematic|gallery|video|photo|portfolio|visual/i.test(text)?30:0)+(visualMode==='experiential'?30:0)),
     conversionIntensity:clamp(20+(['sell','transact','book','register','fund','activate'].some(x=>purposes.includes(x))?55:0)+(/strong conversion|cta|lead/i.test(text)?20:0)),
     novelty:clamp(30+(isNovel?45:0)+(isHybrid?15:0)+(/experimental|unusual|unique|novel|something new|něco úplně|divn/i.test(text)?25:0)),
-    locality:/\b(in|near|v|praha|prague|brno|local|lokal|city|municipality|město)\b/i.test(text)?'local-or-place-bound':'not-required'
+    locality:primary?.id==='florist-retail'||/\b(in|near|v|praha|prague|brno|local|lokal|city|municipality|město)\b/i.test(text)?'local-or-place-bound':'not-required'
   };
   const baseEntities=isNovel&&primary?.id==='generic-organization'?['Concept','Participant','Experience','State']:(primary?.entities||[]);
   const lexicalEntities=[];
@@ -171,6 +179,7 @@ export function analyzeDomain(brief){
     classification:isNovel?'NOVEL':isHybrid?'HYBRID':'KNOWN',
     confidence:Number(confidence.toFixed(2)),
     namedConcepts:extractNamedConcepts(original),
+    locale,
     entities,
     genome,
     alternatives:ranked.slice(1,5).map(x=>({id:x.id,label:x.label,score:x.score,hits:x.hits})),

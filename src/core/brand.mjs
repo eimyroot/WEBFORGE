@@ -2,12 +2,14 @@ const STOP=new Set(['website','web','with','and','for','the','a','an','in','of',
 const titleCase=s=>s.replace(/\b\w/g,c=>c.toUpperCase());
 function inferName(brief,project){
   const quoted=brief.match(/["“]([^"”]{2,40})["”]/); if(quoted)return quoted[1].trim();
-  const named=brief.match(/\b(?:called|named|brand|project|platform called|for)\s+([A-ZÁ-Ž][A-Za-zÁ-ž0-9&'’-]*(?:\s+[A-ZÁ-Ž][A-Za-zÁ-ž0-9&'’-]*){0,2})/u); if(named)return named[1].trim();
+  const named=brief.match(/(?:\b(?:called|named|brand|project|platform called)\s+|(?:jmenuje se|s názvem|značka)\s+)([A-ZÁ-Ž][A-Za-zÁ-ž0-9&'’-]*(?:\s+[A-ZÁ-Ž][A-Za-zÁ-ž0-9&'’-]*){0,2})/u); if(named)return named[1].trim();
   const concepts=project.domain?.namedConcepts||[]; if(concepts.length)return concepts[0];
-  const words=brief.replace(/[^\p{L}\p{N}\s&'-]/gu,' ').split(/\s+/).filter(Boolean);
-  const candidates=words.filter(w=>!STOP.has(w.toLowerCase())&&w.length>2&&/^[A-ZÁ-Ž]/.test(w)).slice(0,2);
-  if(candidates.length)return candidates.join(' ');
+  const acronym=(brief.match(/(?:^|\s)([A-ZÁ-Ž0-9][A-ZÁ-Ž0-9&'-]{2,})(?=\s|[.,!?]|$)/u)||[])[1];
+  if(acronym&&!STOP.has(acronym.toLowerCase()))return acronym;
   if(project.domain?.classification==='NOVEL'){if(/future self/i.test(brief))return 'Future Self';if(project.domain?.genome?.visualMode==='experiential')return 'Untitled Experience';return 'Untitled Web Product';}
+  const cs=project.locale?.language==='cs'||project.domain?.locale?.language==='cs';
+  const domainLabels={'florist-retail':cs?'Místní květinářství':'Local Florist'};
+  if(domainLabels[project.domainArchetype])return domainLabels[project.domainArchetype];
   const labels={venue:'Night Signal','local-service':'Local Standard',portfolio:'Selected Practice',company:'Clear Company',saas:'Product Signal',marketplace:'Open Market','web-app':'Focused App',editorial:'Current Edition'};
   return titleCase(labels[project.archetype]||project.domain?.primary?.label||'WEBFORGE Project');
 }
@@ -41,6 +43,15 @@ function styleSignals(brief,project){
 }
 function copyByPurpose(project){
   const p=project.domain?.genome?.purpose||[]; const label=project.domain?.primary?.label||'project';
+  const cs=project.locale?.language==='cs'||project.domain?.locale?.language==='cs';
+  if(project.domainArchetype==='florist-retail') return cs
+    ?{eyebrow:'KVĚTINY / PŘÍLEŽITOST',headline:'Květiny pro chvíle, na kterých záleží.',subheadline:'Sezónní kytice, osobní vazba a jasná cesta k doručení nebo vyzvednutí.',primary:'Vybrat kytici',secondary:'Kytice na přání'}
+    :{eyebrow:'FLOWERS / OCCASION',headline:'Flowers for the moments that matter.',subheadline:'Seasonal bouquets, personal floristry and a clear path to delivery or pickup.',primary:'Shop bouquets',secondary:'Create a custom bouquet'};
+  if(cs){
+    if(p.includes('book'))return {eyebrow:'VYBRAT / REZERVOVAT',headline:'Další krok má být jednoduchý.',subheadline:'Jasná nabídka, důvěra a přímá cesta k rezervaci.',primary:'Zjistit dostupnost',secondary:'Zobrazit detaily'};
+    if(p.includes('transact')||p.includes('sell'))return {eyebrow:'OBJEVIT / VYBRAT',headline:'Najděte správnou možnost bez zbytečné cesty okolo.',subheadline:'Výběr, kontext a jasný další krok v jednom toku.',primary:'Prozkoumat nabídku',secondary:'Jak to funguje'};
+    return {eyebrow:'JASNĚ / K VĚCI',headline:'Hodnota má být zřejmá dřív než výzva k akci.',subheadline:'Obsah a struktura podle skutečné potřeby návštěvníka.',primary:'Začít',secondary:'Zjistit více'};
+  }
   if(p.includes('book')) return {eyebrow:'CLEAR / AVAILABLE',headline:'Make the next step easy to choose.',subheadline:`A ${label.toLowerCase()} experience organized around clarity, trust and booking.`,primary:'Check availability',secondary:'See details'};
   if(p.includes('transact')||p.includes('sell')) return {eyebrow:'DISCOVER / DECIDE',headline:'Find the right option and act with confidence.',subheadline:`A ${label.toLowerCase()} experience built around discovery, proof and a clear transaction path.`,primary:'Explore options',secondary:'How it works'};
   if(p.includes('fund')) return {eyebrow:'IMPACT / PROOF',headline:'Turn interest into visible impact.',subheadline:'Show what support enables, where it goes and what happens next.',primary:'See the impact',secondary:'How support works'};

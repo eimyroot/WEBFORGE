@@ -53,6 +53,7 @@ function personality(domain,tokens){
   if(has(tokens,'luxury','premium','boutique','elegant'))traits.push('premium','restrained');
   if(has(tokens,'underground','techno','night','club'))traits.push('nocturnal','energetic');
   if(has(tokens,'family','kids','children'))traits.push('warm','playful');
+  if(domain.primary.id==='florist-retail')traits.push('botanical','crafted','warm','image-led');
   return uniq(traits);
 }
 function hslToHex(h,s,l){
@@ -68,6 +69,7 @@ const DOMAIN_COLOR_PROFILES={
   'marketplace-platform':{hue:158,temperature:'fresh',saturation:58},
   'editorial-publication':{hue:352,temperature:'editorial',saturation:58},
   'commerce-store':{hue:328,temperature:'vivid',saturation:62},
+  'florist-retail':{hue:342,temperature:'floral',saturation:46},
   hospitality:{hue:32,temperature:'warm',saturation:46},
   'education-learning':{hue:248,temperature:'scholarly',saturation:56},
   'civic-government':{hue:198,temperature:'civic',saturation:58},
@@ -87,7 +89,8 @@ const DOMAIN_GRAMMARS={
   'industrial-b2b':{primary:'industrial-system',hero:'specification-led',rhythm:'technical-evidence',nav:'industrial-nav',density:'balanced',type:'technical-grotesk',interaction:'specify-and-enquire'},
   finance:{primary:'finance-system',hero:'trust-led',rhythm:'advisory-evidence',nav:'finance-nav',density:'airy',type:'authority-serif',interaction:'understand-and-consult'},
   'community-membership':{primary:'community-system',hero:'people-led',rhythm:'community-flow',nav:'community-nav',density:'balanced',type:'humanist-grotesk',interaction:'discover-and-join'},
-  'commerce-store':{primary:'commerce-system',hero:'catalog-led',rhythm:'merchandising',nav:'commerce-nav',density:'balanced',type:'modern-grotesk',interaction:'browse-compare-buy'}
+  'commerce-store':{primary:'commerce-system',hero:'catalog-led',rhythm:'merchandising',nav:'commerce-nav',density:'balanced',type:'modern-grotesk',interaction:'browse-compare-buy'},
+  'florist-retail':{primary:'florist-system',hero:'botanical-editorial',rhythm:'occasion-to-bouquet',nav:'florist-nav',density:'airy',type:'editorial-display',interaction:'browse-personalize-deliver'}
 };
 function domainGrammar(domain,tokens){
   if(domain.primary.id==='generic-organization'&&has(tokens,'agency','studio','corporate','company','consultancy'))return {primary:'corporate-system',hero:'manifesto-led',rhythm:'case-led',nav:'corporate-nav',density:'airy',type:'editorial-display',interaction:'evaluate-and-contact'};
@@ -138,7 +141,8 @@ const LIGHT_CANVASES={
   clinical:{background:'#edf6f5',surface:'#fbfefd',surface2:'#daebe8',line:'#bfd6d2'},
   fresh:{background:'#edf6f1',surface:'#fbfefa',surface2:'#d9ebe0',line:'#bdd5c5'},
   warm:{background:'#f7f2e9',surface:'#fffaf3',surface2:'#e9dec9',line:'#d2c2a9'},
-  fashion:{background:'#f7eff4',surface:'#fffafd',surface2:'#eadde5',line:'#d3c3cd'}
+  fashion:{background:'#f7eff4',surface:'#fffafd',surface2:'#eadde5',line:'#d3c3cd'},
+  floral:{background:'#f7f3ef',surface:'#fffdf9',surface2:'#e7eee4',line:'#d0d9cb'}
 };
 function colorStrategy(domain,traits,tokens){
   const g=domain.genome,profile=semanticColorProfile(domain,tokens,traits);
@@ -179,6 +183,7 @@ function addDomainNavigation(domain,product,tokens,add){
   if(id==='finance'){add('services','Services','/services/',98,['services','proof']);add('planning','Planning','/planning/',92,['process','outcomes']);add('insights','Insights','/insights/',82,['latest-content','proof']);add('security','Security','/security/',88,['security','proof']);add('documents','Documents','/documents/',72,['latest-content','faq']);}
   if(id==='community-membership'){add('membership','Membership','/membership/',98,['services','proof']);add('events','Events','/events/',90,['next-event','schedule']);add('directory','Directory','/directory/',84,['team','search-results']);add('resources','Resources','/resources/',78,['latest-content','categories']);add('committees','Committees','/committees/',70,['team','about']);add('join','Join','/join/',88,['pricing','final-cta']);}
   if(id==='commerce-store'){add('shop','Shop','/shop/',99,['categories','featured']);add('categories','Categories','/categories/',94,['categories','featured']);add('featured','Featured','/featured/',88,['featured','gallery']);add('compare','Compare','/compare/',82,['comparison','proof']);add('reviews','Reviews','/reviews/',74,['testimonials','proof']);add('help','Help','/help/',66,['faq','trust-safety']);}
+  if(id==='florist-retail'){const cs=domain.locale?.language==='cs';add('bouquets',cs?'Kytice':'Bouquets','/bouquets/',99,['featured','gallery']);add('occasions',cs?'Podle příležitosti':'By Occasion','/occasions/',96,['categories','featured']);add('weddings',cs?'Svatby a události':'Weddings & Events','/weddings/',86,['services','gallery']);add('subscriptions',cs?'Květinové předplatné':'Flower Subscriptions','/subscriptions/',78,['services','latest-content']);add('delivery',cs?'Doručení a vyzvednutí':'Delivery & Pickup','/delivery/',90,['process','location','faq']);add('story',cs?'O nás':'Our Florists','/about/',68,['about','gallery']);}
   if(id==='marketplace-platform'&&!has(tokens,'jobs','job','careers','hiring')){add('browse','Browse','/browse/',98,['categories','featured']);add('how-it-works','How It Works','/how-it-works/',78,['how-it-works','proof']);}
   if(id==='software-product'&&has(tokens,'api','developer','monitoring')){add('integrations','Integrations','/integrations/',86,['integrations','proof']);if(c.has('content.documentation'))add('docs','Docs','/docs/',78,['latest-content','how-it-works']);}
   if(id==='local-professional-service'&&has(tokens,'funeral','memorial')){add('services','Services','/services/',96,['services','proof']);add('guidance','Guidance','/guidance/',88,['how-it-works','faq']);add('process','Arrangements','/arrangements/',84,['process','proof']);}

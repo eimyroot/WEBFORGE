@@ -64,6 +64,7 @@ export function compileUniversalBrief(brief){
   const priorities=[domain.genome.visualMode==='cinematic'&&'visual-impact',domain.genome.mediaIntensity>60&&'media',domain.genome.applicationDepth>=3&&'application-depth',domain.genome.trustBurden!=='normal'&&'trust',domain.classification!=='KNOWN'&&'novel-domain'].filter(Boolean);
   return {
     brief:text,
+    locale:domain.locale,
     archetype:domain.primary.baseArchetype,
     domainArchetype:domain.primary.id,
     primary_goal:primaryGoal(domain,product),
