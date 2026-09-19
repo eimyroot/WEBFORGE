@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 const here=path.dirname(fileURLToPath(import.meta.url)),dir=path.join(here,'../registries');
 const read=name=>JSON.parse(fs.readFileSync(path.join(dir,name),'utf8'));
 const CACHE={
-  primitives:read('primitives.json'),sectionTemplates:read('section-templates.json'),pageBlueprints:read('page-blueprints.json'),artDirections:read('art-directions.json'),mediaRoles:read('media-roles.json'),interactions:read('interactions.json'),connectors:read('connector-contracts.json'),plugins:read('plugins.json'),pluginSets:read('plugin-sets.json'),workflows:read('workflows.json'),patterns:read('composition-patterns.json'),rendererContracts:read('renderer-contracts.json'),domainOntology:read('domain-ontology.json'),capabilityOntology:read('capability-ontology.json')
+  primitives:read('primitives.json'),sectionTemplates:read('section-templates.json'),sectionTemplatesR3:read('section-templates-r3.json'),pageBlueprints:read('page-blueprints.json'),artDirections:read('art-directions.json'),mediaRoles:read('media-roles.json'),interactions:read('interactions.json'),connectors:read('connector-contracts.json'),plugins:read('plugins.json'),pluginSets:read('plugin-sets.json'),workflows:read('workflows.json'),patterns:read('composition-patterns.json'),rendererContracts:read('renderer-contracts.json'),rendererContractsR3:read('renderer-contracts-r3.json'),domainOntology:read('domain-ontology.json'),capabilityOntology:read('capability-ontology.json')
 };
 export function registry(name){if(!(name in CACHE))throw new Error(`Unknown registry: ${name}`);return structuredClone(CACHE[name]);}
 export function registrySummary(){

@@ -1,6 +1,7 @@
 import { analyzeDomain } from './domain-intelligence.mjs';
 import { modelProduct } from './product-intelligence.mjs';
 import { designExperience } from './experience-intelligence.mjs';
+import { compileDesignStrategy } from './design-strategy.mjs';
 
 
 function reconcileGenome(domain,product){
@@ -57,7 +58,8 @@ export function compileUniversalBrief(brief){
   const domain=analyzeDomain(text);
   const product=modelProduct(domain,text);
   reconcileGenome(domain,product);
-  const experience=designExperience(domain,product,text);
+  const designStrategy=compileDesignStrategy(domain,product,text);
+  const experience=designExperience(domain,product,text,designStrategy);
   const flags=baseFlags(text,domain,product);
   const priorities=[domain.genome.visualMode==='cinematic'&&'visual-impact',domain.genome.mediaIntensity>60&&'media',domain.genome.applicationDepth>=3&&'application-depth',domain.genome.trustBurden!=='normal'&&'trust',domain.classification!=='KNOWN'&&'novel-domain'].filter(Boolean);
   return {
@@ -67,7 +69,7 @@ export function compileUniversalBrief(brief){
     primary_goal:primaryGoal(domain,product),
     flags,
     priorities:[...new Set(priorities)],
-    domain,product,experience,
-    universal:{schema:'webforge.universal-project.v1',classification:domain.classification,genome:domain.genome,productModel:product,experienceModel:experience}
+    domain,product,experience,designStrategy,
+    universal:{schema:'webforge.universal-project.v1',classification:domain.classification,genome:domain.genome,productModel:product,experienceModel:experience,designStrategy}
   };
 }

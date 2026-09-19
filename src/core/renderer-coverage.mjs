@@ -1,8 +1,8 @@
 import { registry } from './composition-registry.mjs';
 
-export function rendererCoverage(){
-  const templates=registry('sectionTemplates');
-  const contracts=registry('rendererContracts');
+export function rendererCoverage({includeExtensions=false}={}){
+  const templates=includeExtensions?[...registry('sectionTemplates'),...registry('sectionTemplatesR3')]:registry('sectionTemplates');
+  const contracts=includeExtensions?[...registry('rendererContracts'),...registry('rendererContractsR3')]:registry('rendererContracts');
   const byId=new Map(contracts.map(x=>[x.id,x]));
   const records=templates.map(t=>{
     const c=byId.get(t.rendererKey);
@@ -11,7 +11,7 @@ export function rendererCoverage(){
   });
   const count=k=>records.filter(x=>x[k]).length;
   return {
-    schema:'webforge.renderer-coverage.r2',
+    schema:includeExtensions?'webforge.renderer-coverage.r3':'webforge.renderer-coverage.r2',
     registered:records.length,
     rendererBacked:count('backed'),
     responsiveContract:count('responsive'),

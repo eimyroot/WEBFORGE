@@ -3,7 +3,7 @@ const slugify=s=>String(s||'item').toLowerCase().normalize('NFKD').replace(/[^a-
 
 function makePage(id,path,purpose,sections,dynamic=false){return {id,path,purpose,sections,dynamic};}
 
-export function designExperience(domain,product,brief){
+export function designExperience(domain,product,brief,strategy=null){
   const caps=new Set(product.capabilityIds); const pages=[];
   const primaryEntity=product.entities[0]?.name||'Item';
   const entitySlug=slugify(primaryEntity).replace(/-?(item|object)$/,'')||'item';
@@ -37,8 +37,18 @@ export function designExperience(domain,product,brief){
   pages.push(makePage('about','/about/','trust',['story','people','proof','values']));
   pages.push(makePage('contact','/contact/','contact',['contact-options','form','location','faq']));
 
+  for(const item of strategy?.page_hierarchy||[]){
+    if(!item.path||pages.some(p=>p.path===item.path)) continue;
+    const sections=item.sections?.length?item.sections:['services','proof','final-cta'];
+    pages.push(makePage(item.id,item.path,item.purpose||'strategic-page',sections));
+  }
+
   const unique=[]; const seen=new Set();
   for(const p of pages){if(seen.has(p.path))continue;seen.add(p.path);unique.push(p);}
+  if(strategy?.page_hierarchy?.length){
+    const rank=new Map(strategy.page_hierarchy.map((x,i)=>[x.path,i]));
+    unique.sort((a,b)=>(rank.get(a.path)??999)-(rank.get(b.path)??999));
+  }
   const journeys=product.userJobs.map(job=>({id:job.id,goal:job.goal,path:job.id==='purchase'?['home','discover','detail','transaction']:job.id==='book'?['home','booking']:job.id==='submit'?['home','submit','account']:job.id==='configure'?['home','configure','contact']:job.id==='participate'?['home','profiles','account']:['home','discover','detail'].filter(x=>unique.some(p=>p.id===x)),successEvidence:job.needs}));
   return {
     schema:'webforge.experience-intelligence.v1',
@@ -47,7 +57,9 @@ export function designExperience(domain,product,brief){
     pageCount:unique.length,
     journeys,
     primaryEntity,
-    navigation:unique.filter(p=>!p.dynamic&&!['transaction','admin'].includes(p.id)).slice(0,8).map(p=>({label:p.id.replaceAll('-',' '),path:p.path})),
+    navigation:strategy?.navigation_model?.items?.length
+      ? strategy.navigation_model.items.filter(item=>unique.some(p=>p.path===item.path&&!p.dynamic)).slice(0,strategy.navigation_model.maxPrimary||8).map(item=>({id:item.id,label:item.label,path:item.path,priority:item.priority}))
+      : unique.filter(p=>!p.dynamic&&!['transaction','admin'].includes(p.id)).slice(0,8).map(p=>({label:p.id.replaceAll('-',' '),path:p.path})),
     synthesisReason:[`domain:${domain.primary.id}`,`classification:${domain.classification}`,`capabilities:${product.capabilityIds.length}`,`jobs:${product.userJobs.length}`]
   };
 }

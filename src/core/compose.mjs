@@ -19,7 +19,7 @@ export function compose(brief) {
   const brand=resolveBrand(project);
   const designDNA=synthesizeDesignDNA(project,brand);
   const siteBlueprint=resolveSiteBlueprint(project);
-  const plan={version:'8.0.0',schema:'webforge.universal-plan.v1',project,domain:project.domain,product:project.product,experience:project.experience,designDNA,capabilities,selection,layout,brand,commercial,siteBlueprint,rejected:selection.rejected,evidence:[]};
+  const plan={version:'8.0.0',schema:'webforge.universal-plan.v1',project,domain:project.domain,product:project.product,experience:project.experience,designStrategy:project.designStrategy,designDNA,capabilities,selection,layout,brand,commercial,siteBlueprint,rejected:selection.rejected,evidence:[]};
   plan.visual=composeVisualSystem(plan);
   const policy=evaluatePolicy(plan); plan.policy=policy;
   plan.evidence.push({check:'deterministic-policy',status:policy.status,detail:policy.violations.length?JSON.stringify(policy.violations):'hard gates satisfied'});

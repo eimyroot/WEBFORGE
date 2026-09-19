@@ -1,0 +1,1340 @@
+[
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 98,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.product-stage.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-product-stage",
+    "layoutMode": "split",
+    "semanticRole": "product-value",
+    "contentBias": "product-led",
+    "bestFor": [
+      "saas",
+      "web-app"
+    ],
+    "strategyFor": [
+      "product-system"
+    ],
+    "heroFor": [
+      "product-stage"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 98,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.editorial-center.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-editorial-center",
+    "layoutMode": "editorial",
+    "semanticRole": "position",
+    "contentBias": "content-led",
+    "bestFor": [
+      "editorial",
+      "portfolio",
+      "company"
+    ],
+    "strategyFor": [
+      "narrative-balanced"
+    ],
+    "heroFor": [
+      "editorial",
+      "value-led"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 98,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.conversion-focus.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-conversion-focus",
+    "layoutMode": "conversion",
+    "semanticRole": "convert",
+    "contentBias": "cta-led",
+    "bestFor": [
+      "local-service",
+      "marketplace",
+      "company"
+    ],
+    "strategyFor": [
+      "conversion-led",
+      "evidence-led"
+    ],
+    "heroFor": [
+      "value-led"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 98,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "services.stack.r3",
+    "family": "services",
+    "sectionId": "services",
+    "rendererKey": "service-stack",
+    "layoutMode": "editorial",
+    "semanticRole": "value",
+    "contentBias": "content-led",
+    "bestFor": [
+      "local-service",
+      "company",
+      "portfolio"
+    ],
+    "strategyFor": [
+      "narrative-balanced",
+      "evidence-led",
+      "media-led"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 98,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "feature-grid.stack.r3",
+    "family": "feature-grid",
+    "sectionId": "feature-grid",
+    "rendererKey": "service-stack",
+    "layoutMode": "split",
+    "semanticRole": "value",
+    "contentBias": "balanced",
+    "bestFor": [
+      "saas",
+      "web-app",
+      "company"
+    ],
+    "strategyFor": [
+      "product-system",
+      "narrative-balanced"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 98,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "gallery.filmstrip.r3",
+    "family": "gallery",
+    "sectionId": "gallery",
+    "rendererKey": "gallery-filmstrip",
+    "layoutMode": "mosaic",
+    "semanticRole": "media",
+    "contentBias": "media-heavy",
+    "bestFor": [
+      "local-service",
+      "portfolio",
+      "editorial"
+    ],
+    "strategyFor": [
+      "media-led",
+      "narrative-balanced"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 98,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "testimonials.quote-grid.r3",
+    "family": "testimonials",
+    "sectionId": "testimonials",
+    "rendererKey": "quote-grid",
+    "layoutMode": "split",
+    "semanticRole": "proof",
+    "contentBias": "proof-led",
+    "bestFor": [
+      "local-service",
+      "company",
+      "saas",
+      "marketplace"
+    ],
+    "strategyFor": [
+      "conversion-led",
+      "evidence-led",
+      "narrative-balanced",
+      "corporate-system"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 98,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "pricing.featured.r3",
+    "family": "pricing",
+    "sectionId": "pricing",
+    "rendererKey": "pricing-featured",
+    "layoutMode": "conversion",
+    "semanticRole": "convert",
+    "contentBias": "cta-led",
+    "bestFor": [
+      "saas",
+      "marketplace",
+      "local-service"
+    ],
+    "strategyFor": [
+      "product-system",
+      "conversion-led"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 98,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "latest-content.article-grid.r3",
+    "family": "latest-content",
+    "sectionId": "latest-content",
+    "rendererKey": "article-grid",
+    "layoutMode": "editorial",
+    "semanticRole": "freshness",
+    "contentBias": "content-led",
+    "bestFor": [
+      "editorial",
+      "company",
+      "portfolio"
+    ],
+    "strategyFor": [
+      "narrative-balanced",
+      "product-system",
+      "editorial-system"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 98,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "newsletter.editorial-signup.r3",
+    "family": "newsletter",
+    "sectionId": "newsletter",
+    "rendererKey": "cta-split",
+    "layoutMode": "conversion",
+    "semanticRole": "convert",
+    "contentBias": "cta-led",
+    "bestFor": [
+      "editorial",
+      "company",
+      "portfolio"
+    ],
+    "strategyFor": [
+      "narrative-balanced",
+      "product-system",
+      "editorial-system"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 98,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "final-cta.split.r3",
+    "family": "final-cta",
+    "sectionId": "final-cta",
+    "rendererKey": "cta-split",
+    "layoutMode": "conversion",
+    "semanticRole": "convert",
+    "contentBias": "cta-led",
+    "bestFor": [
+      "local-service",
+      "portfolio",
+      "company",
+      "saas",
+      "marketplace",
+      "web-app",
+      "editorial"
+    ],
+    "strategyFor": [
+      "narrative-balanced",
+      "product-system",
+      "conversion-led",
+      "evidence-led"
+    ]
+  },
+  {
+    "id": "hero.publication-cover.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-publication-cover",
+    "layoutMode": "editorial",
+    "density": "medium",
+    "semanticRole": "position",
+    "motion": "subtle",
+    "contentBias": "content-led",
+    "bestFor": [
+      "editorial"
+    ],
+    "domainFor": [
+      "editorial-publication"
+    ],
+    "strategyFor": [
+      "narrative-balanced",
+      "product-system",
+      "editorial-system"
+    ],
+    "heroFor": [
+      "value-led",
+      "editorial",
+      "product-stage",
+      "editorial-cover"
+    ],
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3"
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.academic-campus.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-academic-campus",
+    "layoutMode": "split",
+    "semanticRole": "position",
+    "contentBias": "content-led",
+    "bestFor": [
+      "web-app"
+    ],
+    "strategyFor": [
+      "academic-system"
+    ],
+    "heroFor": [
+      "academic-campus"
+    ],
+    "domainFor": [
+      "education-learning"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "categories.programme-grid.r3",
+    "family": "categories",
+    "sectionId": "categories",
+    "rendererKey": "programme-grid",
+    "layoutMode": "editorial",
+    "semanticRole": "discover",
+    "contentBias": "content-led",
+    "bestFor": [
+      "web-app"
+    ],
+    "strategyFor": [
+      "academic-system"
+    ],
+    "domainFor": [
+      "education-learning"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.careers-search.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-careers-search",
+    "layoutMode": "conversion",
+    "semanticRole": "convert",
+    "contentBias": "task-led",
+    "bestFor": [
+      "marketplace"
+    ],
+    "strategyFor": [
+      "careers-system"
+    ],
+    "heroFor": [
+      "job-search"
+    ],
+    "domainFor": [
+      "jobs-careers"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "categories.vacancy-grid.r3",
+    "family": "categories",
+    "sectionId": "categories",
+    "rendererKey": "vacancy-grid",
+    "layoutMode": "bento",
+    "semanticRole": "discover",
+    "contentBias": "collection",
+    "bestFor": [
+      "marketplace"
+    ],
+    "strategyFor": [
+      "careers-system"
+    ],
+    "domainFor": [
+      "jobs-careers"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.industrial-spec.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-industrial-spec",
+    "layoutMode": "split",
+    "semanticRole": "position",
+    "contentBias": "proof-led",
+    "bestFor": [
+      "company"
+    ],
+    "strategyFor": [
+      "industrial-system"
+    ],
+    "heroFor": [
+      "specification-led"
+    ],
+    "domainFor": [
+      "industrial-b2b"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "services.capability-matrix.r3",
+    "family": "services",
+    "sectionId": "services",
+    "rendererKey": "capability-matrix",
+    "layoutMode": "split",
+    "semanticRole": "proof",
+    "contentBias": "proof-led",
+    "bestFor": [
+      "company"
+    ],
+    "strategyFor": [
+      "industrial-system"
+    ],
+    "domainFor": [
+      "industrial-b2b"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.finance-trust.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-finance-trust",
+    "layoutMode": "minimal",
+    "semanticRole": "position",
+    "contentBias": "proof-led",
+    "bestFor": [
+      "web-app",
+      "company"
+    ],
+    "strategyFor": [
+      "finance-system"
+    ],
+    "heroFor": [
+      "trust-led"
+    ],
+    "domainFor": [
+      "finance"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "security.finance-ledger.r3",
+    "family": "security",
+    "sectionId": "security",
+    "rendererKey": "finance-trust-ledger",
+    "layoutMode": "split",
+    "semanticRole": "trust",
+    "contentBias": "proof-led",
+    "bestFor": [
+      "web-app",
+      "company"
+    ],
+    "strategyFor": [
+      "finance-system"
+    ],
+    "domainFor": [
+      "finance"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.community-membership.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-community-membership",
+    "layoutMode": "editorial",
+    "semanticRole": "position",
+    "contentBias": "people-led",
+    "bestFor": [
+      "web-app",
+      "company"
+    ],
+    "strategyFor": [
+      "community-system"
+    ],
+    "heroFor": [
+      "people-led"
+    ],
+    "domainFor": [
+      "community-membership"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "feature-grid.membership-grid.r3",
+    "family": "feature-grid",
+    "sectionId": "feature-grid",
+    "rendererKey": "membership-grid",
+    "layoutMode": "bento",
+    "semanticRole": "value",
+    "contentBias": "people-led",
+    "bestFor": [
+      "web-app",
+      "company"
+    ],
+    "strategyFor": [
+      "community-system"
+    ],
+    "domainFor": [
+      "community-membership"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.restaurant-menu.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-restaurant-menu",
+    "layoutMode": "editorial",
+    "semanticRole": "position",
+    "contentBias": "media-heavy",
+    "bestFor": [
+      "local-service"
+    ],
+    "strategyFor": [
+      "culinary-system"
+    ],
+    "heroFor": [
+      "menu-led"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "services.menu-grid.r3",
+    "family": "services",
+    "sectionId": "services",
+    "rendererKey": "menu-grid",
+    "layoutMode": "editorial",
+    "semanticRole": "value",
+    "contentBias": "content-led",
+    "bestFor": [
+      "local-service"
+    ],
+    "strategyFor": [
+      "culinary-system"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.professional-authority.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-professional-authority",
+    "layoutMode": "minimal",
+    "semanticRole": "position",
+    "contentBias": "proof-led",
+    "bestFor": [
+      "local-service",
+      "company"
+    ],
+    "strategyFor": [
+      "professional-system"
+    ],
+    "heroFor": [
+      "authority-led"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "services.practice-index.r3",
+    "family": "services",
+    "sectionId": "services",
+    "rendererKey": "practice-index",
+    "layoutMode": "editorial",
+    "semanticRole": "value",
+    "contentBias": "content-led",
+    "bestFor": [
+      "local-service",
+      "company"
+    ],
+    "strategyFor": [
+      "professional-system"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.commerce-catalog.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-commerce-catalog",
+    "layoutMode": "split",
+    "semanticRole": "convert",
+    "contentBias": "product-led",
+    "bestFor": [
+      "marketplace"
+    ],
+    "strategyFor": [
+      "commerce-system"
+    ],
+    "heroFor": [
+      "catalog-led"
+    ],
+    "domainFor": [
+      "commerce-store"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "featured.product-catalog.r3",
+    "family": "featured",
+    "sectionId": "featured",
+    "rendererKey": "product-catalog-grid",
+    "layoutMode": "bento",
+    "semanticRole": "discover",
+    "contentBias": "product-led",
+    "bestFor": [
+      "marketplace"
+    ],
+    "strategyFor": [
+      "commerce-system"
+    ],
+    "domainFor": [
+      "commerce-store"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "hero.corporate-manifesto.r3",
+    "family": "hero",
+    "sectionId": "hero",
+    "rendererKey": "hero-corporate-manifesto",
+    "layoutMode": "editorial",
+    "semanticRole": "position",
+    "contentBias": "content-led",
+    "bestFor": [
+      "company"
+    ],
+    "strategyFor": [
+      "corporate-system"
+    ],
+    "heroFor": [
+      "manifesto-led"
+    ],
+    "domainFor": [
+      "generic-organization"
+    ]
+  },
+  {
+    "density": "medium",
+    "motion": "subtle",
+    "avoidFor": [],
+    "mediaRoles": [],
+    "requiredPrimitives": [
+      "primitive.container",
+      "primitive.eyebrow",
+      "primitive.display-section"
+    ],
+    "qualityScore": 99,
+    "maturity": "verified",
+    "trust": "approved",
+    "responsive": {
+      "desktop": "native",
+      "tablet": "reflow",
+      "mobile": "stack"
+    },
+    "gates": [
+      "a11y",
+      "responsive",
+      "content-contract",
+      "media-contract",
+      "renderer-contract"
+    ],
+    "registryRevision": "R3",
+    "id": "services.capability-index.r3",
+    "family": "services",
+    "sectionId": "services",
+    "rendererKey": "capability-index",
+    "layoutMode": "editorial",
+    "semanticRole": "value",
+    "contentBias": "content-led",
+    "bestFor": [
+      "company"
+    ],
+    "strategyFor": [
+      "corporate-system"
+    ],
+    "domainFor": [
+      "generic-organization"
+    ]
+  }
+]

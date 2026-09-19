@@ -12,6 +12,19 @@ function inferName(brief,project){
   return titleCase(labels[project.archetype]||project.domain?.primary?.label||'WEBFORGE Project');
 }
 function styleSignals(brief,project){
+  const strategy=project.designStrategy;
+  if(strategy){
+    const traits=strategy.brand_personality?.traits||[];
+    const mood=traits.includes('nocturnal')||traits.includes('immersive')?'cinematic':traits.includes('premium')?'premium':traits.includes('playful')?'warm':traits.includes('refined')?'minimal':project.domain?.genome?.visualMode==='application'?'product':'precise';
+    return {
+      mood,
+      voice:strategy.brand_personality?.voice||'clear',
+      palette:`${strategy.color_strategy.mode}-${strategy.color_strategy.temperature}`,
+      colorTokens:strategy.color_strategy.tokens,
+      imageStrategy:strategy.media_strategy?.treatment||'contextual',
+      typography:strategy.typography_strategy?.character||'modern-grotesk'
+    };
+  }
   const b=brief.toLowerCase(),has=(...xs)=>xs.some(x=>b.includes(x)); let mood='precise',voice='clear',palette='neutral-contrast',image='documentary',type='modern-grotesk';
   const mode=project.domain?.genome?.visualMode;
   if(mode==='experiential'){mood='experimental';palette='immersive-contrast';image='conceptual-art-directed';type='expressive-display';}

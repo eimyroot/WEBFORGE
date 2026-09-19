@@ -24,7 +24,12 @@
     "renderer:coverage": "node scripts/renderer-coverage.mjs",
     "visual:matrix": "node scripts/visual-matrix.mjs",
     "factory:matrix": "node scripts/factory-matrix.mjs",
-    "federated:smoke": "node scripts/federated-smoke.mjs"
+    "federated:smoke": "node scripts/federated-smoke.mjs",
+    "design:benchmark": "node scripts/design-diversity-benchmark.mjs",
+    "visual:diversity": "node scripts/rendered-diversity-benchmark.mjs",
+    "visual:domains": "node scripts/domain-visual-benchmark.mjs",
+    "qa:routes": "node scripts/subpage-route-qa.mjs",
+    "runtime:dynamic:smoke": "node scripts/runtime-dynamic-smoke.mjs"
   },
   "engines": {
     "node": ">=22"
