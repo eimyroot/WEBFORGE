@@ -1,14 +1,96 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WEBFORGE — Adaptive Web Composition</title><meta name="description" content="Explainable, governed adaptive web composition platform"><link rel="stylesheet" href="/styles.css"></head><body>
-<header class="top"><div class="brand"><span class="mark">WF</span><span>WEBFORGE</span><small>ADAPTIVE WEB COMPOSITION</small></div><nav><a href="#composer">Composer</a><a href="#graph">Graph</a><a href="#verify">Verify</a><a href="#evidence">Evidence</a></nav></header>
-<main>
-<section class="hero"><div class="eyebrow">CASER / GOVERNED BUILD SYSTEM</div><h1>Don't choose a template.<br><span>Describe what needs to exist.</span></h1><p class="lede">WEBFORGE understands the job, chooses the method, resolves the stack, verifies the combination and explains every decision.</p>
-<div id="composer" class="forge"><label for="brief">DESCRIBE THE WEBSITE</label><textarea id="brief">Premium techno club in Prague. Dark cinematic, mobile-first, events, DJs, tickets and gallery.</textarea><div class="actions"><button id="forge">ANALYZE PROJECT</button><span id="status">READY</span></div></div></section>
-<section class="grid"><article class="panel"><div class="panel-head">PROJECT MODEL <span>01</span></div><div id="project" class="content muted">Run the composer.</div></article><article class="panel"><div class="panel-head">SELECTED STACK <span>02</span></div><div id="stack" class="content muted">Awaiting resolution.</div></article></section>
-<section id="graph" class="panel graph"><div class="panel-head">COMPOSITION GRAPH <span>03</span></div><div id="capabilities" class="chips"></div><div class="flow"><b>INTENT</b><i>→</i><b>CAPABILITIES</b><i>→</i><b>PATTERN</b><i>→</i><b>RUNTIME</b><i>→</i><b>COMPONENTS</b><i>→</i><b>TOOLS</b><i>→</i><b>POLICY</b></div></section>
-<section class="grid"><article class="panel"><div class="panel-head">APPROVED COMPONENT + VISUAL PALETTE <span>04</span></div><div id="components" class="component-list"></div></article><article class="panel"><div class="panel-head">WHY NOT? <span>05</span></div><div id="rejected" class="decision-list"></div></article></section>
-<section id="verify" class="panel"><div class="panel-head">GOVERNED VERIFICATION <span>06</span></div><div class="verify-grid"><div><strong>POLICY</strong><span id="policy">UNVERIFIED</span></div><div><strong>QA BASELINE</strong><span id="qa-state">REQUIRED</span></div><div><strong>SUPPLY CHAIN</strong><span>FAIL-CLOSED</span></div><div><strong>RELEASE</strong><span id="release">BLOCKED</span></div></div></section>
-<section class="build-zone"><div><div class="eyebrow">FINAL EXECUTION GATE</div><h2>Ready to turn the blueprint into a real site?</h2><p id="build-copy">Analyze the project first. WEBFORGE will only enable generation after the deterministic policy gate passes.</p></div><div class="build-card"><div class="build-state"><span id="build-dot"></span><strong id="build-state">NOT READY</strong></div><button id="generate" disabled>VYROBIT STRÁNKU →</button><button id="dryrun" class="secondary" disabled>DRY RUN</button></div></section>
-<section id="progress-panel" class="panel progress-panel hidden"><div class="panel-head">FORGING WEBSITE <span>07</span></div><div id="progress" class="progress"></div></section>
-<section id="result-panel" class="panel result-panel hidden"><div class="panel-head">WEBSITE READY <span>08</span></div><div class="result-grid"><div><small>PROJECT</small><strong id="result-id">—</strong></div><div><small>RUNTIME</small><strong id="result-runtime">—</strong></div><div><small>POLICY</small><strong>PASS</strong></div><div><small>ARTIFACTS</small><strong id="result-artifacts">—</strong></div></div><div class="result-actions"><a id="preview" class="button-link" target="_blank" rel="noopener">OTEVŘÍT WEB →</a><button id="run-qa" class="secondary">RUN PRODUCTION QA</button><button id="release-eval" class="secondary">RELEASE GATE</button><button id="approve-visual" class="secondary">APPROVE CONTENT + MEDIA</button><button id="show-receipt" class="secondary">EVIDENCE</button></div></section>
-<section id="evidence" class="panel"><div class="panel-head">EVIDENCE LEDGER <span>09</span></div><pre id="evidence">No execution evidence yet.</pre></section>
-</main><footer><span>WEBFORGE / 9.1.0</span><span>METHOD BEFORE TOOL · EVIDENCE BEFORE RELEASE</span></footer><script type="module" src="/app.js"></script></body></html>
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>WEBFORGE Control Room</title>
+  <meta name="description" content="WEBFORGE operator dashboard for adaptive website composition">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#composer">Přejít na zadání</a>
+  <header class="top">
+    <a class="brand" href="#composer" aria-label="WEBFORGE Control Room">
+      <span class="mark" aria-hidden="true">WF</span>
+      <span class="brand-copy"><strong>WEBFORGE</strong><small>CONTROL ROOM</small></span>
+    </a>
+    <nav aria-label="Hlavní navigace"><a href="#composer">Zadání</a><a href="#analysis">Analýza</a><a href="#result-panel">Výsledek</a><a href="#evidence-section">Evidence</a></nav>
+    <div class="mode-badge"><span></span> STATELESS PREVIEW</div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="eyebrow">BRIEF → STRUKTURA → WEB</div>
+      <h1 id="page-title">Popiš, co má vzniknout.<br><span>WEBFORGE složí web podle zadání.</span></h1>
+      <p class="lede">Nejdřív pochopí doménu, návštěvníka a úkol. Potom vybere strukturu, vizuální směr a runtime. Výsledkem je okamžitý preview, ne další univerzální šablona.</p>
+
+      <div class="journey" aria-label="Workflow">
+        <div class="journey-step active" id="journey-brief"><span>01</span><div><strong>Zadání</strong><small>Připraveno</small></div></div>
+        <div class="journey-step" id="journey-analysis"><span>02</span><div><strong>Analýza</strong><small>Čeká</small></div></div>
+        <div class="journey-step" id="journey-preview"><span>03</span><div><strong>Web</strong><small>Čeká</small></div></div>
+      </div>
+
+      <div id="composer" class="forge">
+        <div class="field-head"><label for="brief">CO CHCEŠ VYTVOŘIT?</label><span id="brief-meta">Brief může být česky i anglicky</span></div>
+        <textarea id="brief" spellcheck="true">Webové stránky pro květinářství v Praze. Kytice, svatby, doručení květin a vazba na přání.</textarea>
+        <div class="presets" aria-label="Rychlé příklady">
+          <button type="button" class="preset" data-brief="Webové stránky pro květinářství v Praze. Kytice, svatby, doručení květin a vazba na přání.">Květinářství</button>
+          <button type="button" class="preset" data-brief="Boutique hotel in Prague with rooms, spa, restaurant, local guide and direct booking.">Hotel</button>
+          <button type="button" class="preset" data-brief="B2B analytics SaaS with dashboard, integrations, security, pricing and enterprise demo.">SaaS</button>
+          <button type="button" class="preset" data-brief="A living atlas of household objects where families attach memories, follow an object through generations and explore its story over time.">Neznámý koncept</button>
+        </div>
+        <div class="actions"><button id="forge" type="button">ANALYZOVAT ZADÁNÍ →</button><span id="status" role="status" aria-live="polite">PŘIPRAVENO</span></div>
+      </div>
+    </section>
+
+    <section id="analysis" class="analysis-shell" aria-labelledby="analysis-title">
+      <div class="section-title"><div><span class="eyebrow">VÝSLEDEK ANALÝZY</span><h2 id="analysis-title">Co WEBFORGE pochopil</h2></div><span id="analysis-state" class="state-pill">ČEKÁ NA ZADÁNÍ</span></div>
+      <div class="summary-grid">
+        <article class="summary-card"><div class="panel-head">PROJEKT <span>01</span></div><div id="project" class="content muted">Spusť analýzu zadání.</div></article>
+        <article class="summary-card"><div class="panel-head">SMĚR WEBU <span>02</span></div><div id="stack" class="content muted">Po analýze se zobrazí doména, design a runtime.</div></article>
+      </div>
+    </section>
+
+    <section id="verify" class="panel verification-panel">
+      <div class="panel-head">STAV PŘED GENEROVÁNÍM <span>03</span></div>
+      <div class="verify-grid">
+        <div><strong>ANALÝZA</strong><span id="analysis-check">ČEKÁ</span></div>
+        <div><strong>POLICY</strong><span id="policy">NEOVĚŘENO</span></div>
+        <div><strong>PREVIEW QA</strong><span id="qa-state">ČEKÁ</span></div>
+        <div><strong>VÝSLEDEK</strong><span id="release">BLOKOVÁNO</span></div>
+      </div>
+    </section>
+
+    <section class="build-zone">
+      <div><div class="eyebrow">KROK 03 / GENEROVÁNÍ</div><h2>Vytvořit skutečný preview web</h2><p id="build-copy">Nejdřív spusť analýzu. Generování se odemkne pouze po průchodu policy gate.</p></div>
+      <div class="build-card"><div class="build-state"><span id="build-dot"></span><strong id="build-state">ČEKÁ NA ANALÝZU</strong></div><button id="generate" type="button" disabled>VYROBIT WEB →</button><button id="dryrun" type="button" class="secondary" disabled>ZOBRAZIT PLÁN</button></div>
+    </section>
+
+    <section id="progress-panel" class="panel progress-panel hidden" aria-live="polite"><div class="panel-head">GENEROVÁNÍ <span>04</span></div><div id="progress" class="progress"></div></section>
+
+    <section id="result-panel" class="panel result-panel hidden" aria-labelledby="result-title">
+      <div class="panel-head"><span id="result-title">WEB JE PŘIPRAVENÝ</span><span>05</span></div>
+      <div class="result-grid"><div><small>PROJEKT</small><strong id="result-id">—</strong></div><div><small>RUNTIME</small><strong id="result-runtime">—</strong></div><div><small>POLICY</small><strong>PASS</strong></div><div><small>CHECKS</small><strong id="result-artifacts">—</strong></div></div>
+      <div class="preview-shell"><div class="preview-toolbar"><strong>LIVE PREVIEW</strong><span>Izolovaný preview výstup</span></div><iframe id="preview-frame" title="Vygenerovaný WEBFORGE preview" sandbox="allow-scripts allow-forms allow-popups"></iframe></div>
+      <div class="result-actions"><a id="preview" class="button-link" target="_blank" rel="noopener">OTEVŘÍT WEB V NOVÉM OKNĚ →</a><button id="run-qa" type="button" class="secondary">QA DETAIL</button><button id="release-eval" type="button" class="secondary">PREVIEW GATE</button><button id="approve-visual" type="button" class="secondary">APPROVE CONTENT + MEDIA</button><button id="show-receipt" type="button" class="secondary">EVIDENCE</button></div>
+    </section>
+
+    <details class="technical" id="technical-details">
+      <summary><span>TECHNICKÉ DETAILY</span><small>Composition graph, registry, rozhodnutí a odmítnuté možnosti</small></summary>
+      <div class="technical-body">
+        <section id="graph" class="panel graph"><div class="panel-head">COMPOSITION GRAPH <span>A</span></div><div id="capabilities" class="chips"></div><div class="flow"><b>INTENT</b><i>→</i><b>CAPABILITIES</b><i>→</i><b>STRUCTURE</b><i>→</i><b>RUNTIME</b><i>→</i><b>COMPONENTS</b><i>→</i><b>POLICY</b></div></section>
+        <div class="summary-grid"><article class="panel"><div class="panel-head">COMPONENTS <span>B</span></div><div id="components" class="component-list"></div></article><article class="panel"><div class="panel-head">WHY NOT? <span>C</span></div><div id="rejected" class="decision-list"></div></article></div>
+        <section class="panel"><div class="panel-head">TECHNICAL PLAN <span>D</span></div><div id="technical-plan" class="technical-plan muted">Po analýze se zde zobrazí detailní rozhodnutí.</div></section>
+      </div>
+    </details>
+
+    <details id="evidence-section" class="technical evidence-panel">
+      <summary><span>EVIDENCE LEDGER</span><small>Receipty, QA a interní důkazy</small></summary>
+      <pre id="evidence">Zatím nebyla provedena žádná operace.</pre>
+    </details>
+  </main>
+
+  <footer><span>WEBFORGE / CONTROL ROOM</span><span>BRIEF → STRUCTURE → VERIFY → PREVIEW</span></footer>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
