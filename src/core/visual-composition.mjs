@@ -8,6 +8,7 @@ import {resolvePlugins} from './plugin-resolver.mjs';
 import {resolveWorkflow} from './workflow-resolver.mjs';
 import {resolveCompositionPatterns} from './pattern-resolver.mjs';
 import {registry,registrySummary} from './composition-registry.mjs';
+import {compileSpatialComposition} from './spatial-composition.mjs';
 
 function legacyZones(archetype,sections){
  const ids=new Set(sections.map(x=>x.id)),used=new Set(),zones=[];
@@ -53,9 +54,10 @@ function choosePrimitives(plan,templates){
 export function composeVisualSystem(plan){
  const artDirection=resolveArtDirection(plan),content=bindContent(plan),templates=resolveSectionTemplates(plan),media=resolveMedia(plan,content,artDirection);
  const mediaBySection=Object.groupBy?Object.groupBy(media.slots,x=>x.section):media.slots.reduce((a,x)=>((a[x.section]??=[]).push(x),a),{});
- const sections=templates.sections.map(s=>({...s,role:plan.layout.sectionPlan.find(x=>x.id===s.id)?.role||null,variant:plan.layout.sectionPlan.find(x=>x.id===s.id)?.variant||null,content:s.id==='final-cta'?content.model.final:(content.model[s.id]||null),media:mediaBySection[s.id]||[]}));
- const useUniversal=plan.project.domain?.classification!=='KNOWN'||plan.domain?.genome?.applicationDepth>=2;
- const zones=useUniversal?universalZones(plan,sections):legacyZones(plan.project.archetype,sections);
+ const baseSections=templates.sections.map(s=>({...s,role:plan.layout.sectionPlan.find(x=>x.id===s.id)?.role||null,variant:plan.layout.sectionPlan.find(x=>x.id===s.id)?.variant||null,content:s.id==='final-cta'?content.model.final:(content.model[s.id]||null),media:mediaBySection[s.id]||[]}));
+ const spatial=compileSpatialComposition(plan,baseSections),spatialById=new Map(spatial.sections.map(x=>[x.id,x]));
+ const sections=baseSections.map(s=>({...s,spatial:spatialById.get(s.id)||null}));
+ const zones=spatial.zones;
  const interactions=resolveInteractions(plan),connectors=resolveConnectors(plan),plugins=resolvePlugins(plan),workflow=resolveWorkflow(plan),patterns=resolveCompositionPatterns(plan),primitives=choosePrimitives(plan,templates);
- return {version:'webforge.visual-composition.r2',registry:registrySummary(),siteBlueprint:plan.siteBlueprint,designDNA:plan.designDNA,artDirection,content,media,templates,projectLocalComponents:templates.projectLocalComponents,rendererCoverage:templates.rendererCoverage,sections,zones,patterns,primitives,interactions,connectors,plugins,workflow,responsive:{breakpoints:{compact:640,tablet:900,desktop:1200,wide:1440},rules:['stack-priority-content-first','minimum-touch-target-44','no-horizontal-overflow','media-crop-per-slot','navigation-collapses-under-900','route-navigation-remains-keyboard-accessible','recompose-not-shrink']} };
+ return {version:'webforge.visual-composition.r2',registry:registrySummary(),siteBlueprint:plan.siteBlueprint,designDNA:plan.designDNA,artDirection,content,media,templates,projectLocalComponents:templates.projectLocalComponents,rendererCoverage:templates.rendererCoverage,sections,zones,spatial,patterns,primitives,interactions,connectors,plugins,workflow,responsive:{breakpoints:{compact:640,tablet:900,desktop:1200,wide:1440},rules:['stack-priority-content-first','minimum-touch-target-44','no-horizontal-overflow','media-crop-per-slot','navigation-collapses-under-900','route-navigation-remains-keyboard-accessible','recompose-not-shrink']} };
 }
