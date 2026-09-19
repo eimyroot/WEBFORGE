@@ -9,7 +9,7 @@ permissions:
 
 concurrency:
   group: webforge-ci-${{ github.ref }}
-  cancel-in-progress: false 
+  cancel-in-progress: false
 
 jobs:
   verify:
