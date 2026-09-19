@@ -29,7 +29,8 @@
     "visual:diversity": "node scripts/rendered-diversity-benchmark.mjs",
     "visual:domains": "node scripts/domain-visual-benchmark.mjs",
     "qa:routes": "node scripts/subpage-route-qa.mjs",
-    "runtime:dynamic:smoke": "node scripts/runtime-dynamic-smoke.mjs"
+    "runtime:dynamic:smoke": "node scripts/runtime-dynamic-smoke.mjs",
+    "build:control-room": "node scripts/build-control-room.mjs"
   },
   "engines": {
     "node": ">=22"
