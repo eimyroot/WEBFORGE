@@ -4,15 +4,17 @@ const ACTION=new Set(`find search explore discover browse choose compare buy pur
 const GENERIC=new Set(['website','web','site','platform','app','portal','project','product','experience','organization','organisation','company','business','service','solution','system','tool']);
 const normalize=s=>String(s||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9\s-]/g,' ').replace(/\s+/g,' ').trim();
 const ACRONYMS=new Set(['ai','api','b2b','b2c','ui','ux','cms','crm']);
-const title=s=>String(s||'').trim().split(/\s+/).filter(Boolean).map(w=>ACRONYMS.has(w.toLowerCase())?w.toUpperCase():w[0].toUpperCase()+w.slice(1)).join(' ');
+const title=s=>String(s||'').trim().split(/\s+/).filter(Boolean).map(w=>ACRONYMS.has(normalize(w))?w.toUpperCase():w[0].toUpperCase()+w.slice(1)).join(' ');
+const displayWords=s=>String(s||'').normalize('NFC').replace(/[^\p{L}\p{N}\s-]/gu,' ').replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
+const keepDisplayWord=w=>{const n=normalize(w);return n.length>2&&!STOP.has(n)&&!STYLE.has(n)};
 const slug=s=>normalize(s).replace(/\s+/g,'-')||'topic';
 const uniq=xs=>[...new Set(xs.filter(Boolean))];
 function hash(text){let h=2166136261;for(const ch of String(text)){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)>>>0;}return h>>>0;}
 function contentWords(text){return normalize(text).split(' ').filter(w=>w.length>2&&!STOP.has(w)&&!STYLE.has(w));}
 function cleanPhrase(raw){
-  const ws=normalize(raw).split(' ').filter(w=>w.length>2&&!STOP.has(w)&&!STYLE.has(w)&&!['including','featuring','contains','offers','offer'].includes(w));
-  while(ws.length&&ACTION.has(ws[0]))ws.shift();
-  while(ws.length&&['that','where','when','after','before'].includes(ws.at(-1)))ws.pop();
+  const ws=displayWords(raw).filter(w=>keepDisplayWord(w)&&!['including','featuring','contains','offers','offer'].includes(normalize(w)));
+  while(ws.length&&ACTION.has(normalize(ws[0])))ws.shift();
+  while(ws.length&&['that','where','when','after','before'].includes(normalize(ws.at(-1))))ws.pop();
   return title(ws.slice(0,4).join(' '));
 }
 function subjectFromBrief(brief){
@@ -24,7 +26,7 @@ function subjectFromBrief(brief){
     /-\s*([^,.;]+)/
   ];
   for(const rx of patterns){const m=original.match(rx);if(!m)continue;const c=cleanPhrase(m[1]);if(c&&normalize(c).split(' ').some(w=>!GENERIC.has(w)))return c;}
-  const ws=contentWords(original).filter(w=>!GENERIC.has(w));
+  const ws=displayWords(original).filter(w=>keepDisplayWord(w)&&!GENERIC.has(normalize(w)));
   return title(ws.slice(0,3).join(' '))||'Distinct Idea';
 }
 function entityPhrases(brief,subject){
@@ -33,7 +35,7 @@ function entityPhrases(brief,subject){
   const tails=[...original.matchAll(/\b(?:with|including|featuring|contains?|offers?)\s+([^.;]+)/gi)].map(m=>m[1]);
   for(const tail of tails){for(const part of tail.split(/,|\band\b|\bplus\b/i)){const c=cleanPhrase(part);if(c)out.push(c);}}
   for(const m of original.matchAll(/\b(?:exchange|collect|attach|place|pin|share|compare|follow|reveal|unlock|track|grow|combine)\s+([^,.;]+?)(?=\s+(?:that|where|when|after|before|with|and)\b|[,.;]|$)/gi)){const c=cleanPhrase(m[1]);if(c)out.push(c);}
-  const ws=contentWords(original).filter(w=>!GENERIC.has(w)&&!ACTION.has(w));
+  const ws=displayWords(original).filter(w=>keepDisplayWord(w)&&!GENERIC.has(normalize(w))&&!ACTION.has(normalize(w)));
   for(let i=0;i<ws.length-1;i++){const p=title(`${ws[i]} ${ws[i+1]}`);if(p.length>=7)out.push(p);}
   const seen=new Set(),result=[];
   for(const x of out){const key=normalize(x);if(!key||seen.has(key)||[...GENERIC].includes(key))continue;seen.add(key);result.push(x);if(result.length>=6)break;}
@@ -107,7 +109,10 @@ function copyFor(subject,primaryPurpose,direction,locale,seed){
     'action-led':[`${subject}, without the detour.`,`Every section supports a concrete decision and a useful next step.`]
   };
   const pair=variants[direction.id]||variants['action-led'];
-  const eyebrow=direction.id.replaceAll('-',' / ').toUpperCase();
+  const CS_DIRECTION={
+    'immersive-story':'PROŽITEK / PŘÍBĚH','editorial-narrative':'OBSAH / PŘÍBĚH','interactive-system':'INTERAKCE / SYSTÉM','discovery-explorer':'OBJEVOVÁNÍ / PROCHÁZENÍ','community-flow':'KOMUNITA / ZAPOJENÍ','evidence-led':'DŮKAZY / DŮVĚRA','action-led':'AKCE / DALŠÍ KROK'
+  };
+  const eyebrow=cs?(CS_DIRECTION[direction.id]||'PŘÍSTUP / ZÁMĚR'):direction.id.replaceAll('-',' / ').toUpperCase();
   return {eyebrow,headline:pair[0],subheadline:pair[1],primary:labels[0],secondary:labels[1]};
 }
 export function synthesizeBriefModel(brief,ctx={}){
@@ -116,13 +121,14 @@ export function synthesizeBriefModel(brief,ctx={}){
   const ranked=DIRECTIONS.map(d=>({...d,score:scoreDirection(d,ctx,seed)})).sort((a,b)=>b.score-a.score);
   const direction={...ranked[0],candidates:ranked.slice(0,3).map(x=>({id:x.id,score:Number(x.score.toFixed(1))}))};
   direction.sections=tailorSections(direction.sections,entities,seed,ctx);
-  const topics=entities.slice(0,5).map((label,i)=>({id:slug(label),label,priority:90-i*7,sections:sectionFor(label),description:`${label} is a first-class part of ${subject}, derived from the brief rather than a generic slot.`}));
+  const cs=ctx.locale?.language==='cs';
+  const topics=entities.slice(0,5).map((label,i)=>({id:slug(label),label,priority:90-i*7,sections:sectionFor(label),description:cs?`${label} je důležitou součástí ${subject} a vychází přímo ze zadání.`:`${label} is a first-class part of ${subject}, derived from the brief rather than a generic slot.`}));
   const primaryPurpose=(ctx.purposes||[])[0]||'inform';
   const copy=copyFor(subject,primaryPurpose,direction,ctx.locale,seed);
-  const labels=(ctx.locale?.language==='cs'?ACTION_LABELS_CS:ACTION_LABELS)[primaryPurpose]||['Explore','Learn more'];
+  const labels=(cs?ACTION_LABELS_CS:ACTION_LABELS)[primaryPurpose]||(cs?['Prozkoumat','Zjistit více']:['Explore','Learn more']);
   const jobs=[
     {id:`${slug(primaryPurpose)}-${slug(subject)}`,goal:`${labels[0]} ${subject}`,needs:topics.slice(0,3).map(x=>x.label)},
-    ...(topics[1]?[{id:`understand-${topics[1].id}`,goal:`Understand ${topics[1].label}`,needs:[topics[1].label,topics[2]?.label||subject,'clear next state']}]:[])
+    ...(topics[1]?[{id:`understand-${topics[1].id}`,goal:cs?`Pochopit ${topics[1].label}`:`Understand ${topics[1].label}`,needs:[topics[1].label,topics[2]?.label||subject,cs?'jasný další krok':'clear next state']}]:[])
   ];
   return {schema:'webforge.brief-synthesis.v1',subject,signature:hash(seed).toString(16).padStart(8,'0'),entities,topics,actions:uniq([primaryPurpose,...(ctx.interactions||[])]),jobs,direction,copy,source:{method:'deterministic brief decomposition + semantic direction scoring',competitorPatterns:['structure-first','multi-direction-theme-selection','section-context','design-system-context']}};
 }

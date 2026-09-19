@@ -41,10 +41,11 @@ function detailKind(page={},project={}){
 }
 function universalBlueprint(project){
   const exp=project.experience;
-  const pages=exp.sitemap.map((p,i)=>({
-    id:p.id,path:p.path,title:pageTitle(p.id,project.locale),purpose:pagePurpose(p.purpose,project.locale),sections:p.sections,sectionHints:sectionHints(p.sections),family:pageFamily(p),detailKind:detailKind(p,project),
+  const topicById=new Map((project.domain?.synthesis?.topics||[]).map(x=>[x.id,x]));
+  const pages=exp.sitemap.map((p,i)=>{const topic=topicById.get(p.id);return ({
+    id:p.id,path:p.path,title:pageTitle(p.id,project.locale,topic?.label),purpose:topic?.description||pagePurpose(p.purpose,project.locale),sections:p.sections,sectionHints:sectionHints(p.sections),family:pageFamily(p),detailKind:detailKind(p,project),
     priority:i===0?'critical':i<4?'high':'normal',dynamic:!!p.dynamic
-  }));
+  })});
   return {
     schema:'webforge.site-blueprint.universal.v1',
     id:`universal-${project.domainArchetype}`,

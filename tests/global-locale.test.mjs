@@ -12,7 +12,7 @@ const cases=[
   ['commerce','Český internetový obchod s elektronikou, kategoriemi, srovnáním, recenzemi, dopravou a podporou.'],
   ['novel','Interaktivní digitální archiv rodinných předmětů, kde lidé přidávají vzpomínky a sledují příběh předmětu napříč generacemi.']
 ];
-const bannedVisible=/>\s*(Home|About|Contact|Pricing|Location|Booking|Rooms|Product|Security|Services|Capabilities|Industries|Case Studies|Support|Request Quote|Programmes|Admissions|Campus|Jobs|Companies|Career Advice|For Employers|Membership|Directory|Resources|Shop|Categories|Featured|Compare|Reviews|Help|Browse|How It Works|Integrations|Private Dining|Practice Areas|Professionals|Offices)\s*</i;
+const bannedVisible=/>\s*(Home|About|Contact|Pricing|Location|Booking|Rooms|Product|Security|Services|Capabilities|Industries|Case Studies|Support|Request Quote|Programmes|Programs|Admissions|Campus|Jobs|Companies|Career Advice|For Employers|Membership|Directory|Resources|Shop|Categories|Featured|Compare|Reviews|Help|Browse|Sell|Trust|How It Works|Integrations|Private Dining|Practice Areas|Professionals|Offices)\s*</i;
 const bannedUi=/(View all|View full gallery|Get directions|TRUTH BOUNDARY|Form state contract|Collection state contract|Choose plan|DECISION READY|PRODUCT EXPERIENCE|INDEPENDENT PUBLICATION|LATEST EDITION)/i;
 const czechSignal=/[ěščřžýáíéůúďťň]|\b(další|vyberte|prozkoumat|přehled|služby|produkt|rezervace|nabídka|důkazy|lidé|obsah|vstupte|rezervovat)\b/i;
 test('cs-CZ propagates through blueprint navigation and content across domains',()=>{
@@ -38,4 +38,26 @@ test('every generated static cs-CZ page stays localized at the public render bou
       assert.doesNotMatch(html,bannedUi,`${id}:${page.path}: hardcoded renderer English`);
     }
   }
+});
+
+
+test('cs-CZ novel synthesis preserves display-language diacritics and Czech interaction copy',()=>{
+  const plan=compose(cases.at(-1)[1]);
+  assert.match(plan.domain.synthesis.subject,/[íěščřžýáéůúďťň]/i);
+  assert.doesNotMatch(plan.domain.synthesis.copy.eyebrow,/EDITORIAL|IMMERSIVE|SYSTEM|DISCOVERY|COMMUNITY|EVIDENCE|ACTION/i);
+  for(const job of plan.domain.synthesis.jobs){
+    assert.doesNotMatch(job.goal,/\b(Understand|Explore|Learn|Browse|Continue)\b/i);
+    assert.ok(job.needs.every(x=>!/^clear next state$/i.test(x)));
+  }
+});
+
+test('cs-CZ preserves primary domain semantics and novel display labels',()=>{
+  const hotel=compose('Boutique hotel v Praze s pokoji, wellness, restaurací, lokálním průvodcem a přímou rezervací.');
+  assert.equal(hotel.project.domainArchetype,'hospitality');
+  assert.match(hotel.visual.content.model.hero.headline,/Pobyt/i);
+  assert.doesNotMatch(hotel.visual.content.model.hero.headline,/Jídlo/i);
+  const novel=compose('Interaktivní digitální archiv rodinných předmětů, kde lidé přidávají vzpomínky a sledují příběh předmětu napříč generacemi.');
+  const page=novel.siteBlueprint.pages.find(p=>p.id==='interaktivni-digitalni-archiv');
+  assert.equal(page?.title,'Interaktivní Digitální Archiv');
+  assert.match(page?.purpose||'',/vychází přímo ze zadání/i);
 });
