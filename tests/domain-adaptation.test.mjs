@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {compose} from '../src/core/compose.mjs';
 import {generateStatelessPreview} from '../src/core/stateless-preview.mjs';
 import {buildMediaDataUris} from '../src/core/media-assets.mjs';
+import {buildMediaRequests} from '../src/core/media-requests.mjs';
 
 const en='Website creation inquiry – flower shop website.';
 const cs='Webové stránky pro květinářství v Praze. Kytice, svatby, doručení květin a vazba na přání.';
@@ -51,4 +52,22 @@ test('florist output remains materially distinct from SaaS output',()=>{
   assert.notEqual(florist.layout.fingerprint,saas.layout.fingerprint);
   assert.notEqual(florist.designStrategy.layout_strategy.primary,saas.designStrategy.layout_strategy.primary);
   assert.notDeepEqual(florist.siteBlueprint.navigation,saas.siteBlueprint.navigation);
+});
+
+test('florist procedural fallback varies composition per media slot',()=>{
+  const plan=compose(cs),media=buildMediaDataUris(plan.visual,`${cs}|florist-diversity`);
+  const variants=plan.visual.media.slots.filter(x=>x.section==='gallery').map(slot=>{
+    const svg=Buffer.from(media[slot.id].split(',')[1],'base64').toString('utf8');
+    return svg.match(/data-florist-variant="(\d+)"/)?.[1];
+  });
+  assert.equal(variants.length,6);
+  assert.equal(new Set(variants).size,6);
+});
+
+test('florist media requests carry distinct subjects and composition hints',()=>{
+  const plan=compose(cs),gallery=buildMediaRequests(plan).requests.filter(x=>x.section==='gallery');
+  assert.equal(gallery.length,6);
+  assert.equal(new Set(gallery.map(x=>x.subject)).size,6);
+  assert.equal(new Set(gallery.map(x=>x.variantKey)).size,6);
+  assert.ok(gallery.every(x=>/keep sibling slots materially different/i.test(x.prompt)));
 });

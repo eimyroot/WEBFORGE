@@ -67,8 +67,9 @@ async function connectCdp(port){
   return {ws,send};
 }
 
-export async function runBrowserQa(projectDir,{baseline=true,budgets={loadMs:1500,htmlBytes:250000,cssBytes:250000},entry='index.html',evidenceKey=null,uiState=null,formInteraction=null,visualRegression=true}={}){
+export async function runBrowserQa(projectDir,{baseline=true,budgets={loadMs:1500,htmlBytes:250000,cssBytes:250000},entry='index.html',evidenceKey=null,uiState=null,formInteraction=null,visualRegression=true,viewport={width:1440,height:1200,mobile:false},cleanupProfile=true}={}){
   const checks=[]; const safeKey=evidenceKey?String(evidenceKey).replace(/[^a-z0-9_-]+/gi,'-'):null; const evidenceDir=safeKey?path.join(projectDir,'qa',safeKey):path.join(projectDir,'qa'); fs.mkdirSync(evidenceDir,{recursive:true});
+  const viewportWidth=Math.max(320,Number(viewport?.width)||1440),viewportHeight=Math.max(480,Number(viewport?.height)||1200),mobile=Boolean(viewport?.mobile);
   const root=path.resolve(projectDir), entryPath=path.resolve(projectDir,entry); if(!(entryPath===root||entryPath.startsWith(root+path.sep))||!fs.existsSync(entryPath)) throw new Error(`Browser QA entry unavailable: ${entry}`);
   const sourceHtml=fs.readFileSync(entryPath,'utf8'); const sourceCss=fs.readFileSync(path.join(projectDir,'styles.css'),'utf8');
   const deterministicCss='\n*,*::before,*::after{animation:none!important;transition:none!important;caret-color:transparent!important;}html{scroll-behavior:auto!important;}';
@@ -83,18 +84,20 @@ export async function runBrowserQa(projectDir,{baseline=true,budgets={loadMs:150
   }
   const chromium=spawn(chromiumPath,[
     '--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--no-first-run','--no-default-browser-check','--disable-lcd-text','--font-render-hinting=none',
-    '--force-device-scale-factor=1','--hide-scrollbars','--window-size=1440,1200',
+    '--force-device-scale-factor=1','--hide-scrollbars',`--window-size=${viewportWidth},${viewportHeight}`,
     '--remote-debugging-address=127.0.0.1',`--remote-debugging-port=${cdpPort}`,`--user-data-dir=${userData}`,'about:blank'
   ],{stdio:'ignore'});
   let cdp;
   try{
     cdp=await connectCdp(cdpPort); const {send}=cdp;
-    await send('Page.enable'); await send('Runtime.enable'); await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1200,deviceScaleFactor:1,mobile:false});
+    await send('Page.enable'); await send('Runtime.enable'); await send('Emulation.setDeviceMetricsOverride',{width:viewportWidth,height:viewportHeight,deviceScaleFactor:1,mobile});
     const tree=await send('Page.getFrameTree'); const frameId=tree.frameTree.frame.id; const renderStart=Date.now(); await send('Page.setDocumentContent',{frameId,html}); await send('Runtime.evaluate',{expression:'document.fonts?.ready',awaitPromise:true}); if(uiState) await send('Runtime.evaluate',{returnByValue:true,expression:`(()=>{const el=document.querySelector('[data-wf-state-root]');if(!el)return false;el.dataset.uiState=${JSON.stringify(uiState)};return true})()`}); if(formInteraction) await send('Runtime.evaluate',{returnByValue:true,expression:`(()=>{const form=document.querySelector('.wf-action-form');if(!form)return false;if(${JSON.stringify(formInteraction)}==='submit-valid'){const name=form.querySelector('[name=name]'),email=form.querySelector('[name=email]'),details=form.querySelector('[name=details]');if(name)name.value='QA User';if(email)email.value='qa@example.com';if(details)details.value='QA interaction';for(const el of [name,email,details].filter(Boolean))el.dispatchEvent(new Event('input',{bubbles:true}))}form.requestSubmit();return true})()`}); await sleep(350); const renderMs=Date.now()-renderStart;
-    const result=await send('Runtime.evaluate',{returnByValue:true,expression:`(()=>{const nav=performance.getEntriesByType('navigation')[0];const imgs=[...document.images];const labels=[...document.querySelectorAll('input,select,textarea')].filter(el=>!el.labels?.length&&!el.getAttribute('aria-label')&&!el.getAttribute('aria-labelledby')).length;const stateRoot=document.querySelector('[data-wf-state-root]');const stateViews=[...document.querySelectorAll('.wf-state-view')];return {title:document.title,lang:document.documentElement.lang,h1:document.querySelectorAll('h1').length,missingAlt:imgs.filter(i=>!i.hasAttribute('alt')).length,unlabelledFields:labels,main:document.querySelectorAll('main').length,links:document.querySelectorAll('a').length,uiState:stateRoot?.dataset.uiState||null,visibleStateViews:stateViews.filter(el=>getComputedStyle(el).display!=='none').map(el=>el.dataset.state),loadMs:nav?.loadEventEnd||0,domMs:nav?.domContentLoadedEventEnd||0,consoleMarker:'ok'}})()`});
+    const result=await send('Runtime.evaluate',{returnByValue:true,expression:`(()=>{const nav=performance.getEntriesByType('navigation')[0];const imgs=[...document.images];const labels=[...document.querySelectorAll('input,select,textarea')].filter(el=>!el.labels?.length&&!el.getAttribute('aria-label')&&!el.getAttribute('aria-labelledby')).length;const stateRoot=document.querySelector('[data-wf-state-root]');const stateViews=[...document.querySelectorAll('.wf-state-view')];return {title:document.title,lang:document.documentElement.lang,h1:document.querySelectorAll('h1').length,missingAlt:imgs.filter(i=>!i.hasAttribute('alt')).length,unlabelledFields:labels,main:document.querySelectorAll('main').length,links:document.querySelectorAll('a').length,uiState:stateRoot?.dataset.uiState||null,visibleStateViews:stateViews.filter(el=>getComputedStyle(el).display!=='none').map(el=>el.dataset.state),viewportWidth:window.innerWidth,scrollWidth:document.documentElement.scrollWidth,bodyScrollWidth:document.body?.scrollWidth||0,loadMs:nav?.loadEventEnd||0,domMs:nav?.domContentLoadedEventEnd||0,consoleMarker:'ok'}})()`});
     const dom=result.result.value;
     checks.push({id:'browser-qa',status:dom.title&&dom.main===1&&dom.h1===1?'PASS':'FAIL',detail:dom});
     checks.push({id:'accessibility',status:dom.lang&&dom.h1===1&&dom.missingAlt===0&&dom.unlabelledFields===0&&dom.main===1?'PASS':'FAIL',detail:{lang:dom.lang,h1:dom.h1,missingAlt:dom.missingAlt,unlabelledFields:dom.unlabelledFields,main:dom.main}});
+    const maxScrollWidth=Math.max(dom.scrollWidth||0,dom.bodyScrollWidth||0);
+    checks.push({id:'responsive-overflow',status:maxScrollWidth<=dom.viewportWidth+1?'PASS':'FAIL',detail:{viewportWidth:dom.viewportWidth,scrollWidth:dom.scrollWidth,bodyScrollWidth:dom.bodyScrollWidth,tolerancePx:1}});
     const htmlBytes=fs.statSync(entryPath).size; const cssBytes=fs.statSync(path.join(projectDir,'styles.css')).size;
     checks.push({id:'performance',status:renderMs<=budgets.loadMs&&htmlBytes<=budgets.htmlBytes&&cssBytes<=budgets.cssBytes?'PASS':'FAIL',detail:{renderMs,htmlBytes,cssBytes,budgets,measurement:'real Chromium CDP document render; not Lighthouse'}});
     const shot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true}); const current=path.join(evidenceDir,'current.png'); fs.writeFileSync(current,Buffer.from(shot.data,'base64'));
@@ -110,7 +113,7 @@ export async function runBrowserQa(projectDir,{baseline=true,budgets={loadMs:150
     }
     const status=checks.some(x=>x.status==='FAIL')?'FAIL':checks.some(x=>!['PASS'].includes(x.status))?'UNVERIFIED':'PASS';
     const rel=p=>p&&fs.existsSync(p)?path.relative(projectDir,p).split(path.sep).join('/'):null;
-    const receipt={schema:'webforge.browser-qa.v2',status,url,entry,uiState:uiState||null,formInteraction:formInteraction||null,checks,screenshot:{current:rel(current),baseline:visualRegression?rel(baselinePath):null}};
+    const receipt={schema:'webforge.browser-qa.v2',status,url,entry,viewport:{width:viewportWidth,height:viewportHeight,mobile},uiState:uiState||null,formInteraction:formInteraction||null,checks,screenshot:{current:rel(current),baseline:visualRegression?rel(baselinePath):null}};
     fs.writeFileSync(path.join(evidenceDir,'browser-qa.json'),JSON.stringify(receipt,null,2)+'\n');
     return receipt;
   } finally {
@@ -121,6 +124,6 @@ export async function runBrowserQa(projectDir,{baseline=true,budgets={loadMs:150
       await Promise.race([exited,sleep(1200)]);
       if(chromium.exitCode===null){try{chromium.kill('SIGKILL');}catch{} await sleep(120);}
     }
-    for(let i=0;i<4;i++){try{fs.rmSync(userData,{recursive:true,force:true,maxRetries:2,retryDelay:80});break}catch{await sleep(120)}}
+    if(cleanupProfile) for(let i=0;i<4;i++){try{fs.rmSync(userData,{recursive:true,force:true,maxRetries:2,retryDelay:80});break}catch{await sleep(120)}}
   }
 }

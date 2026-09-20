@@ -66,14 +66,15 @@ export function resolveSiteBlueprint(project){
   let pages=best.pages.map((p,i)=>({...p,priority:i===0?'critical':i<3?'high':'normal',dynamic:p.path.includes('[slug]')}));
   if(project.designStrategy?.page_hierarchy?.length){
     const strategyById=new Map(project.designStrategy.page_hierarchy.map(x=>[x.id,x]));
-    const strategyIds=new Set(strategyById.keys());
+    const strategyIds=new Set(strategyById.keys()),strategyPaths=new Set(project.designStrategy.page_hierarchy.map(x=>x.path));
+    const experiencePaths=new Set((project.experience?.sitemap||[]).map(x=>x.path));
     pages=pages.map(page=>{
       const target=strategyById.get(page.id);
       return target&&!page.dynamic?{...page,path:target.path,title:target.label||page.title,purpose:target.purpose||page.purpose}:page;
     });
     const byPath=new Map();
     const put=page=>{const current=byPath.get(page.path);if(!current||strategyIds.has(page.id)&&!strategyIds.has(current.id))byPath.set(page.path,page);};
-    for(const page of pages) put(page);
+    for(const page of pages) if(page.dynamic||strategyIds.has(page.id)||strategyPaths.has(page.path)||experiencePaths.has(page.path)) put(page);
     for(const ep of project.experience.sitemap){
       put({id:ep.id,path:ep.path,title:pageTitle(ep.id,project.locale),purpose:pagePurpose(ep.purpose,project.locale),sections:ep.sections,sectionHints:sectionHints(ep.sections),family:pageFamily(ep),detailKind:detailKind(ep,project),priority:'normal',dynamic:!!ep.dynamic,strategyAdded:true});
     }

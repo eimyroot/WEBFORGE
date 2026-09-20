@@ -122,6 +122,16 @@ function inferVisualMode(text){
   return 'marketing';
 }
 
+const DOMAIN_MEDIA_FLOORS={
+  'florist-retail':92,
+  hospitality:82,
+  'venue-entertainment':88,
+  'creative-practice':82,
+  'real-estate':76,
+  'commerce-store':68,
+  'digital-experience':88
+};
+
 export function analyzeDomain(brief){
   const original=String(brief||'').trim();
   if(!original) throw new Error('Brief is required');
@@ -152,7 +162,7 @@ export function analyzeDomain(brief){
     applicationDepth:inferApplicationDepth(text,interactions),
     dataDepth:inferDataDepth(text,content),
     trustBurden,
-    mediaIntensity:primary?.id==='florist-retail'?92:clamp(20+(content.includes('media')?45:0)+(/cinematic|gallery|video|photo|portfolio|visual/i.test(text)?30:0)+(visualMode==='experiential'?30:0)),
+    mediaIntensity:clamp(Math.max(DOMAIN_MEDIA_FLOORS[primary?.id]||20,20+(content.includes('media')?45:0)+(/cinematic|gallery|video|photo|portfolio|visual/i.test(text)?30:0)+(visualMode==='experiential'?30:0))),
     conversionIntensity:clamp(20+(['sell','transact','book','register','fund','activate'].some(x=>purposes.includes(x))?55:0)+(/strong conversion|cta|lead/i.test(text)?20:0)),
     novelty:clamp(30+(isNovel?45:0)+(isHybrid?15:0)+(/experimental|unusual|unique|novel|something new|něco úplně|divn/i.test(text)?25:0)),
     locality:primary?.id==='florist-retail'||/\b(in|near|v|praha|prague|brno|local|lokal|city|municipality|město)\b/i.test(text)?'local-or-place-bound':'not-required'

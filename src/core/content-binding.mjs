@@ -28,6 +28,104 @@ function local(plan){return {hero:{eyebrow:'LOCAL / TRUSTED',headline:'A better 
 
 function product(plan){const saas=plan.project.archetype==='saas';return {hero:{eyebrow:saas?'PRODUCT / VALUE':'TASK / FOCUS',headline:saas?'See the value before the demo ends.':'Put the core task first.',subheadline:'A focused product story built around real workflows, proof and the next action.',primary:'Start with the product',secondary:'See workflow'},navigation:['Product','Workflow','Integrations','Pricing','Security'], 'product-proof':{kicker:'PRODUCT',title:'Make the product visible.',body:'Show the primary workflow before asking people to decode a feature list.'},'task-preview':{kicker:'CORE TASK',title:'The work surface, not a decorative dashboard.',body:'A clear stage for the task users return to every day.'},'feature-grid':{kicker:'CAPABILITIES',items:['Automate','Coordinate','Measure','Control'].map((title,i)=>({title,body:['Remove repetitive steps.','Keep work and ownership legible.','Turn activity into useful evidence.','Keep authority explicit.'][i]}))},workflow:{kicker:'WORKFLOW',steps:['Connect context','Resolve the next action','Verify the outcome']},integrations:{kicker:'INTEGRATIONS',items:['API','Data','Identity','Analytics'].map(title=>({title,body:'Connect only when the capability requires it.'}))},security:{kicker:'SECURITY',metrics:[['01','Explicit authority'],['02','Evidence'],['03','Fail closed']]},pricing:{kicker:'PRICING',items:['Start','Grow','Scale'].map((title,i)=>({title,price:['Free','€49','Custom'][i],body:'A clear boundary between plan and outcome.'}))},proof:{kicker:'PROOF',metrics:[['01','Less friction'],['02','More clarity'],['03','Traceable outcomes']]},faq:{kicker:'FAQ',items:[['Can it fit the current stack?','Integrations are capability-driven, not mandatory.'],['What changes first?','The primary workflow, then the surrounding system.'],['How is risk handled?','Every production action can be gated and evidenced.']]},final:{eyebrow:'NEXT STEP',headline:'Start with the real workflow.',primary:'Start now',secondary:'Talk to us'},footer:{location:'Available globally',newsletter:'Product updates and practical releases.'}}}
 
+function productApplicationMode(plan){
+  const text=String(plan.project.brief||'').toLowerCase(), domain=plan.project.domainArchetype;
+  if(domain==='finance'||/(fintech|banking|digital bank|payments?|wallet|account balance|transactions?)/i.test(text)) return 'financial';
+  if(/(monitoring|observability|alerts?|incidents?|uptime|latency|api health|status page)/i.test(text)) return 'observability';
+  if(/(logistics|shipments?|fleet|warehouse|dispatch|exceptions?|operations dashboard|supply chain)/i.test(text)) return 'operations';
+  if(/(developer|sdk|api platform|documentation|docs|endpoint|webhook)/i.test(text)) return 'developer';
+  return 'workspace';
+}
+
+function productApplication(plan){
+  const mode=productApplicationMode(plan), docs=(plan.product?.capabilityIds||[]).includes('content.documentation');
+  const modes={
+    observability:{
+      hero:['MONITOR / RESPOND','See API health before users feel the failure.','Live checks, alerts, incident context and integrations arranged around detection and response.','Inspect monitoring','See alert flow'],
+      navigation:['Overview','Monitors','Alerts','Incidents','Integrations','Docs'],
+      product:['LIVE SIGNAL','Health, latency and failures in one operational view.','Keep the current state, recent change and affected surface visible together.',['Endpoint health','Latency & errors','Recent change']],
+      task:['INVESTIGATE','Move from signal to cause without losing context.','The primary work surface should support triage, ownership and recovery.',['Current status','Failure context','Owner / next action']],
+      steps:['Detect a meaningful change','Inspect affected endpoints and context','Route the alert to an owner','Verify recovery'],
+      integrations:[['API / checks','Connect the monitored surface.'],['Alerting','Route only actionable signals.'],['Incident flow','Keep ownership and response context attached.'],['Data','Retain the evidence needed to verify recovery.']],
+      proof:[['01','Health visible'],['02','Alert context'],['03','Recovery trace']],
+      final:['NEXT INCIDENT','Start with the signal that needs attention.','Inspect monitoring','View integrations']
+    },
+    operations:{
+      hero:['OPERATE / EXCEPTIONS','See shipments, exceptions and next actions in one live operating view.','Status, ownership and operational context stay together so teams can resolve the next exception without hunting across systems.','Open operations view','See exception flow'],
+      navigation:['Operations','Shipments','Exceptions','Analytics','Team','Security'],
+      product:['OPERATING MAP','Turn movement into a shared operational picture.','Surface current shipment state, exceptions and ownership before secondary reporting.',['Shipment state','Exception queue','Operational ownership']],
+      task:['RESOLVE','Work the exception from signal to resolution.','The core task is deciding what needs attention, who owns it and whether the outcome is resolved.',['Priority exception','Assigned owner','Resolution state']],
+      steps:['Watch the current operating state','Triage the exception','Assign the next action','Confirm resolution'],
+      integrations:[['Carrier feeds','Bring shipment status into one operational context.'],['Orders','Link movement to the underlying work.'],['Identity','Make ownership explicit.'],['Analytics','Measure patterns after the operational task is clear.']],
+      proof:[['01','Live status'],['02','Owned exceptions'],['03','Resolution history']],
+      final:['NEXT SHIFT','Start with the real operating queue.','Open operations view','Review integrations']
+    },
+    financial:{
+      hero:['ACCOUNT / CONTROL','See account state, movement and controls before taking action.','Balances, transactions, security context and the next permitted action belong in one trustworthy financial workspace.','Open account view','Review controls'],
+      navigation:['Accounts','Activity','Payments','Controls','Security','Help'],
+      product:['ACCOUNT STATE','Make current financial state legible before the action.','Show balances, movement and relevant controls without inventing rates, returns or account data.',['Account overview','Recent activity','Control state']],
+      task:['TRANSACT','Keep the action, verification and resulting state connected.','The work surface should show what is changing, what must be verified and what happened next.',['Action details','Verification','Resulting state']],
+      steps:['Review current state','Choose the permitted action','Verify the request','Confirm the resulting state'],
+      integrations:[['Accounts','Use verified provider data.'],['Payments','Bind only approved payment rails.'],['Identity','Keep authentication and authority explicit.'],['Documents','Attach source-backed records and disclosures.']],
+      proof:[['01','State visible'],['02','Authority explicit'],['03','Audit trail']],
+      final:['NEXT ACTION','Continue only with verified account context.','Open account view','Review security']
+    },
+    developer:{
+      hero:['BUILD / INTEGRATE','Get from first request to a working integration without hunting for context.','API surface, examples, documentation and integration state arranged around the developer journey.','Explore the API','Read the docs'],
+      navigation:['API','Docs','Examples','Integrations','Status','Security'],
+      product:['API SURFACE','Put the usable interface before the marketing inventory.','Show the primary resources, request shape and integration boundaries early.',['Core resources','Request / response','Environment state']],
+      task:['FIRST SUCCESS','Make the first working request the core task.','Examples, errors and next steps should support a developer moving from trial to dependable integration.',['Try a request','Inspect the response','Handle an error']],
+      steps:['Choose the relevant resource','Make a bounded request','Inspect the response and errors','Move to the supported integration path'],
+      integrations:[['API','Primary programmable surface.'],['Webhooks','Event delivery where the capability needs it.'],['Identity','Keys and access remain explicit.'],['Data','Schemas and retention stay documented.']],
+      proof:[['01','Interface visible'],['02','Errors explained'],['03','Docs connected']],
+      final:['NEXT REQUEST','Move from reading to a working integration.','Explore the API','Read the docs']
+    },
+    workspace:{
+      hero:['WORK / OUTCOME','Move the core work from queue to verified outcome.','A task-first application story with ownership, workflow state and proof arranged around the work users repeat.','Open the workflow','See how it works'],
+      navigation:['Workspace','Workflow','Team','Integrations','Security','Plans'],
+      product:['WORK SURFACE','Make the real work visible before the feature inventory.','The product should explain the objects, ownership and state users actually manipulate.',['Work queue','Current state','Ownership']],
+      task:['NEXT ACTION','Show what needs attention now.','A useful task surface makes the next decision and its consequences obvious.',['Priority work','Context','Verified outcome']],
+      steps:['Connect the required context','Resolve the next action','Hand off with clear ownership','Verify the outcome'],
+      integrations:[['Data','Bring in only required context.'],['Identity','Keep users and authority explicit.'],['Automation','Automate bounded repetitive steps.'],['Analytics','Measure the workflow after it is legible.']],
+      proof:[['01','Work visible'],['02','Ownership clear'],['03','Outcome traceable']],
+      final:['NEXT WORKFLOW','Start with the work users actually need to finish.','Open the workflow','Review integrations']
+    }
+  };
+  const m=modes[mode], itemize=xs=>xs.map(title=>({title,body:'Shown as product context; live values require an approved product or connector source.'}));
+  return {
+    hero:{eyebrow:m.hero[0],headline:m.hero[1],subheadline:m.hero[2],primary:m.hero[3],secondary:m.hero[4]},
+    navigation:m.navigation,
+    'product-proof':{kicker:m.product[0],title:m.product[1],body:m.product[2],items:itemize(m.product[3])},
+    'task-preview':{kicker:m.task[0],title:m.task[1],body:m.task[2],items:itemize(m.task[3])},
+    'feature-grid':{kicker:'CAPABILITIES',title:'Capabilities follow the primary task.',items:['Observe','Decide','Act','Verify'].map((title,i)=>({title,body:['Expose the state needed for the decision.','Keep the next decision legible.','Make the permitted action explicit.','Show the resulting state and evidence.'][i]}))},
+    workflow:{kicker:'WORKFLOW',title:'The product journey follows the work.',steps:m.steps},
+    integrations:{kicker:'INTEGRATIONS',title:'Connect systems only where the workflow needs them.',items:m.integrations.map(([title,body])=>({title,body}))},
+    'latest-content':{kicker:'DOCUMENTATION',title:'Keep reference material next to the workflow.',items:(docs?['Quickstart','Reference','Operational guide']:['Product guide','Workflow guide','Change notes']).map((title,i)=>({title,meta:docs?'DOCS':'GUIDE',body:'Documentation content requires an approved product source.',mediaLabel:`Guide ${pad(i+1)}`}))},
+    proof:{kicker:'OPERATIONAL PROOF',metrics:m.proof},
+    security:{kicker:'SECURITY / CONTROL',metrics:[['01','Authority explicit'],['02','Sensitive actions bounded'],['03','Evidence retained']]},
+    pricing:{kicker:'PLANS',title:'Commercial facts stay source-backed.',items:['Start','Team','Scale'].map(title=>({title,price:'Plan data required',body:'Price and entitlement require an approved commercial source.'}))},
+    faq:{kicker:'PRODUCT QUESTIONS',items:[['What is the primary task?',m.task[1]],['What data is live?','Only data from an approved connector or product source is treated as live.'],['How are risky actions handled?','Authority, validation and resulting state stay explicit.']]},
+    final:{eyebrow:m.final[0],headline:m.final[1],primary:m.final[2],secondary:m.final[3]},
+    footer:{location:'Product workspace',newsletter:'Product, workflow and operational updates.'}
+  };
+}
+
+function digitalExperience(plan){
+  const text=String(plan.project.brief||'').toLowerCase(), artists=/(artist|artists|umělc|umelec)/i.test(text), installations=/(installation|installations|exhibit|exhibition|výstav|vystav)/i.test(text), story=/(story|narrative|chapter|příběh|pribeh)/i.test(text);
+  return {
+    hero:{eyebrow:'ENTER / EXPLORE',headline:'Move through the exhibition as a living sequence.',subheadline:`${story?'Story, ':''}${installations?'installations, ':''}${artists?'artist context and ':''}visual layers arranged for exploration rather than a portfolio index.`,primary:'Enter the experience',secondary:'Explore the works'},
+    navigation:['Experience','Installations','Artists','Archive','About'],
+    experience:{kicker:'EXPERIENCE',title:'Move through story, space and artifact.',body:'The interface behaves like part of the exhibition: sequence first, context when it helps, navigation always recoverable.',features:[['NARRATIVE PATH','Progress through scenes or chapters without losing orientation.'],['INSTALLATION VIEW','Give spatial work enough room to read as an environment.'],['ARTIST CONTEXT','Attach authorship and context without breaking the visual rhythm.'],['EVOLVING LAYER','Support changing works or states without pretending provisional content is final.']]},
+    gallery:{kicker:'SCENES / WORKS',title:'A visual sequence with changing scale.',items:['Opening scene','Installation view','Artifact detail','Artist perspective','Transition','Afterimage'].map((title,i)=>({title,body:'Curatorial caption requires an approved exhibition source.',mediaLabel:`Exhibition ${pad(i+1)}`}))},
+    featured:{kicker:'WORKS / CHAPTERS',title:'Surface the pieces that move the experience forward.',items:['Installation','Artist work','Story chapter','Evolving layer'].map((title,i)=>({title,body:'Title, authorship and curatorial context require approved source material.',mediaLabel:`Work ${pad(i+1)}`}))},
+    statement:{kicker:'CURATORIAL IDEA',quote:'The interface should feel like part of the exhibition, not a catalogue wrapped around it.'},
+    about:{kicker:'CONTEXT',title:'Curatorial context without stopping the experience.',body:'Purpose, contributors and production context belong close to the work while remaining clearly secondary to exploration.'},
+    faq:{kicker:'VISITOR GUIDE',items:[['How do I move through it?','Follow the sequence or jump between works without losing your place.'],['What is source-backed?','Artwork titles, artists and curatorial facts require approved exhibition content.'],['Can the exhibition change?','The structure supports evolving scenes while keeping provenance explicit.']]},
+    final:{eyebrow:'CONTINUE / RETURN',headline:'Keep exploring the work at your own pace.',primary:'Enter the experience',secondary:'View the archive'},
+    footer:{location:'Digital exhibition',newsletter:'Exhibition updates and new works.'}
+  };
+}
+
 function portfolio(plan){return {hero:{eyebrow:'SELECTED / WORK',headline:'The work should make the introduction.',subheadline:'A deliberate edit of projects, process and point of view.',primary:'View selected work',secondary:'Start a project'},navigation:['Work','Case studies','About','Journal','Contact'],'selected-work':{kicker:'SELECTED WORK',items:Array.from({length:4},(_,i)=>({title:['Signal House','Afterimage','Material Study','Public System'][i],meta:['Identity','Digital','Campaign','Experience'][i],mediaLabel:`Project ${pad(i+1)}`}))},gallery:{kicker:'ARCHIVE',title:'A wider visual rhythm.',items:Array.from({length:6},(_,i)=>({title:`Frame ${pad(i+1)}`,mediaLabel:`Archive ${pad(i+1)}`}))},'case-study':{kicker:'CASE STUDY',title:'Show the thinking behind the outcome.',body:'Context, decision, craft and result should read as one narrative.'},statement:{kicker:'POINT OF VIEW',quote:'Good design makes the decision easier before it makes the surface prettier.'},about:{kicker:'ABOUT',title:'Enough context to make the work human.',body:'Practice, point of view and the right amount of biography.'},final:{eyebrow:'START A PROJECT',headline:'Make the next thing worth showing.',primary:'Start a project',secondary:'Email'},footer:{location:'Independent practice',newsletter:'New work and occasional notes.'}}}
 
 
@@ -170,10 +268,11 @@ function universal(plan){
 export function bindContent(plan){
   const a=plan.project.archetype;
   const useUniversal=plan.project.domain?.classification==='NOVEL'||(plan.project.domain?.classification==='HYBRID'&&plan.domain?.genome?.applicationDepth>=3);
-  const d=plan.project.domainArchetype;
+  const d=plan.project.domainArchetype,profile=plan.designStrategy?.composition_profile?.siteArchetype;
   const brief=String(plan.project.brief||'').toLowerCase(),isRestaurant=d==='hospitality'&&/(restaurant|dining|chef|menu)/.test(brief)&&!/(hotel|resort|hostel|room|rooms|suite|suites)/.test(brief),isProfessional=d==='local-professional-service'&&/(law|legal|lawyer|attorney|accounting|accountant|consulting|consultant|advisory|firm)/.test(brief);
   const isCorporate=d==='generic-organization'&&/(agency|studio|corporate|company|consultancy)/.test(brief);
-  let model=isCorporate?corporateContent(plan):useUniversal?universal(plan):d==='florist-retail'?florist(plan):d==='education-learning'?education(plan):d==='jobs-careers'?careers(plan):d==='industrial-b2b'?industrial(plan):d==='finance'?financeContent(plan):d==='community-membership'?community(plan):isRestaurant?restaurant(plan):isProfessional?professional(plan):d==='commerce-store'?richCommerce(plan):d==='editorial-publication'?editorial(plan):d==='hospitality'?hospitality(plan):d==='healthcare'?healthcare(plan):d==='nonprofit-impact'?nonprofit(plan):d==='real-estate'?realEstate(plan):a==='venue'?venue(plan):a==='local-service'?local(plan):['saas','web-app','marketplace'].includes(a)?product(plan):a==='portfolio'?portfolio(plan):company(plan);
+  const applicationProfile=['product-application','financial-application'].includes(profile);
+  let model=applicationProfile?productApplication(plan):d==='digital-experience'?digitalExperience(plan):isCorporate?corporateContent(plan):useUniversal?universal(plan):d==='florist-retail'?florist(plan):d==='education-learning'?education(plan):d==='jobs-careers'?careers(plan):d==='industrial-b2b'?industrial(plan):d==='finance'?financeContent(plan):d==='community-membership'?community(plan):isRestaurant?restaurant(plan):isProfessional?professional(plan):d==='commerce-store'?richCommerce(plan):d==='editorial-publication'?editorial(plan):d==='hospitality'?hospitality(plan):d==='healthcare'?healthcare(plan):d==='nonprofit-impact'?nonprofit(plan):d==='real-estate'?realEstate(plan):a==='venue'?venue(plan):a==='local-service'?local(plan):['saas','web-app','marketplace'].includes(a)?product(plan):a==='portfolio'?portfolio(plan):company(plan);
   for(const id of plan.layout.sections) if(id!=='hero'&&id!=='final-cta'&&!model[id]) model[id]=fallbackSection(id,plan);
   model=localizeContentModel(plan,model);
   return {version:'webforge.content-binding.universal.v1',archetype:a,domainArchetype:plan.project.domainArchetype,brand:plan.brand.identity.name,locale:plan.project.locale?.tag||'en',model,source:{kind:'generated-seed',status:'PROVISIONAL',productionRequirement:'replace or approve generated seed content'}};

@@ -40,17 +40,27 @@ function insertBeforeFinal(sections,items){
   return ['hero',...uniq(preferred).slice(0,11),'final-cta'];
 }
 export function applyUniversalLayout(layout,project){
-  const items=wanted(project); if(!items.length)return layout;
+  const items=wanted(project),profile=project.designStrategy?.composition_profile||null;
+  if(!items.length&&!profile?.homepageSections?.length)return layout;
   const out=structuredClone(layout);
-  const florist=project.domain?.primary?.id==='florist-retail';
   const novel=project.domain?.classification==='NOVEL'&&project.domain?.synthesis?.direction;
-  if(novel){const d=project.domain.synthesis.direction;const semantic=d.sections||[];const extras=items.filter(x=>!semantic.includes(x)&&x!=='how-it-works');out.sections=['hero',...uniq([...semantic,...extras]).filter(x=>x!=='hero'&&x!=='final-cta').slice(0,10),'final-cta'];out.family=d.family;out.hero=d.hero;out.rhythm=d.rhythm;out.density=d.density;}
-  else out.sections=florist?['hero',...items,'final-cta']:insertBeforeFinal(out.sections,items);
-  if(florist){out.family='showcase';out.hero='editorial';out.rhythm='botanical';out.density='spacious';}
+  if(novel){
+    const d=project.domain.synthesis.direction,semantic=d.sections||[],extras=items.filter(x=>!semantic.includes(x)&&x!=='how-it-works');
+    out.sections=['hero',...uniq([...semantic,...extras]).filter(x=>x!=='hero'&&x!=='final-cta').slice(0,10),'final-cta'];
+    out.family=d.family;out.hero=d.hero;out.rhythm=d.rhythm;out.density=d.density;
+  } else if(profile?.homepageSections?.length){
+    out.sections=['hero',...uniq(profile.homepageSections).filter(x=>x!=='hero'&&x!=='final-cta').slice(0,11),'final-cta'];
+    out.family=profile.family||out.family;
+    out.hero=profile.visualCharacter?.hero||project.designStrategy?.layout_strategy?.hero||out.hero;
+    out.rhythm=project.designStrategy?.layout_strategy?.sectionRhythm||out.rhythm;
+    out.density=profile.visualCharacter?.density||project.designStrategy?.visual_density||out.density;
+  } else out.sections=insertBeforeFinal(out.sections,items);
   out.variants=out.variants||{}; for(const id of out.sections) if(id!=='hero'&&!out.variants[id]) out.variants[id]=VARIANTS[id]||'content-grid';
   out.sectionPlan=out.sections.map((id,index)=>({id,variant:id==='hero'?out.hero:(out.variants[id]||VARIANTS[id]||'content-grid'),role:ROLES[id]||out.sectionPlan?.find(x=>x.id===id)?.role||'VALUE',priority:index===0?'critical':index<4?'high':'normal',slot:index}));
   out.fingerprint=out.sections.map((x,i)=>`${i}:${x}:${x==='hero'?out.hero:out.variants[x]}`).join('|');
-  out.universalEnrichment={schema:'webforge.universal-layout-enrichment.v1',added:items.filter(x=>!layout.sections.includes(x)),capabilityCount:project.product?.capabilityIds?.length||0,domainClassification:project.domain?.classification};
-  out.directionSource='universal-capability-synthesis';
+  out.compositionProfile=profile?.siteArchetype||null;
+  out.conversionFlow=profile?.conversionFlow||[];
+  out.universalEnrichment={schema:'webforge.universal-layout-enrichment.v1',added:out.sections.filter(x=>!layout.sections.includes(x)&&x!=='hero'&&x!=='final-cta'),capabilityCount:project.product?.capabilityIds?.length||0,domainClassification:project.domain?.classification,compositionProfile:out.compositionProfile};
+  out.directionSource=novel?'novel-brief-synthesis':profile?'brief-composition-profile':'universal-capability-synthesis';
   return out;
 }

@@ -2,6 +2,7 @@ import { analyzeDomain } from './domain-intelligence.mjs';
 import { modelProduct } from './product-intelligence.mjs';
 import { designExperience } from './experience-intelligence.mjs';
 import { compileDesignStrategy } from './design-strategy.mjs';
+import { compileCompositionProfile } from './composition-profile.mjs';
 
 
 function reconcileGenome(domain,product){
@@ -59,6 +60,7 @@ export function compileUniversalBrief(brief){
   const product=modelProduct(domain,text);
   reconcileGenome(domain,product);
   const designStrategy=compileDesignStrategy(domain,product,text);
+  designStrategy.composition_profile=compileCompositionProfile(domain,product,text,designStrategy);
   const experience=designExperience(domain,product,text,designStrategy);
   const flags=baseFlags(text,domain,product);
   const priorities=[domain.genome.visualMode==='cinematic'&&'visual-impact',domain.genome.mediaIntensity>60&&'media',domain.genome.applicationDepth>=3&&'application-depth',domain.genome.trustBurden!=='normal'&&'trust',domain.classification!=='KNOWN'&&'novel-domain'].filter(Boolean);
