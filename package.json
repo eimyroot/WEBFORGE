@@ -3,7 +3,7 @@
   "version": "9.1.0",
   "private": true,
   "type": "module",
-  "description": "CASER WEBFORGE 9.1 \u2014 Autonomous Universal Web Product Factory with governed federated component resolution",
+  "description": "CASER WEBFORGE 9.1 — Autonomous Universal Web Product Factory with governed federated component resolution",
   "scripts": {
     "start": "node scripts/start.mjs",
     "start:strict": "node src/api/server.mjs",
@@ -34,7 +34,8 @@
     "runtime:dynamic:smoke": "node scripts/runtime-dynamic-smoke.mjs",
     "build:control-room": "node scripts/build-control-room.mjs",
     "visual:market": "node scripts/market-visual-benchmark.mjs",
-    "ci:local": "node scripts/local-ci.mjs"
+    "ci:local": "node scripts/local-ci.mjs",
+    "ci:remote-runner": "node scripts/remote-ci-runner.mjs"
   },
   "engines": {
     "node": ">=22"

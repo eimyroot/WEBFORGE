@@ -82,10 +82,12 @@ if(process.env.WEBFORGE_PUBLISH_STATUS==='1'){
   try{
     const appContract=JSON.parse(fs.readFileSync(path.join(repo,'config','ci-status-app.json'),'utf8'));
     const keyFile=process.env.WEBFORGE_GITHUB_APP_PRIVATE_KEY_FILE;
+    const keyPem=process.env.WEBFORGE_GITHUB_APP_PRIVATE_KEY;
     if(appContract.status!=='CANONICAL'||appContract.repository!=='eimyroot/WEBFORGE'||appContract.context!=='webforge/local-ci') throw new Error('CI status App contract is not canonical');
     if(appContract.secretMaterialInRepository!==false) throw new Error('CI status App contract permits repository secret material');
-    if(!keyFile||!fs.existsSync(keyFile)) throw new Error('WEBFORGE_GITHUB_APP_PRIVATE_KEY_FILE is required and must exist');
-    const privateKey=fs.readFileSync(keyFile,'utf8');
+    if(keyFile&&keyPem) throw new Error('provide GitHub App private key by file or environment, not both');
+    if(!keyPem&&(!keyFile||!fs.existsSync(keyFile))) throw new Error('GitHub App private key is required outside the repository');
+    const privateKey=keyPem||fs.readFileSync(keyFile,'utf8');
     const token=await createInstallationToken({appId:appContract.app.id,installationId:appContract.app.installationId,privateKey,repository:'WEBFORGE'});
     const description=status==='PASS'?'Deterministic external/local CI gate passed':'Deterministic external/local CI gate failed';
     const published=await publishCommitStatus({token,repository:appContract.repository,sha:sourceSha,state:status==='PASS'?'success':'failure',context:appContract.context,description});
