@@ -68,23 +68,21 @@ const receipt={
   productionChanged:false
 };
 const receiptPath=path.join(evidenceDir,'local-ci.receipt.json');
-fs.writeFileSync(receiptPath,JSON.stringify(receipt,null,2)+'\n');
-const receiptSha=sha256(fs.readFileSync(receiptPath));
-fs.writeFileSync(path.join(evidenceDir,'receipt.sha256'),`${receiptSha}  local-ci.receipt.json\n`);
 
 if(process.env.WEBFORGE_PUBLISH_STATUS==='1'){
   const description=status==='PASS'?'Deterministic external/local CI gate passed':'Deterministic external/local CI gate failed';
   const publish=run('gh',['api','--method','POST',`repos/eimyroot/WEBFORGE/statuses/${sourceSha}`,'-f',`state=${status==='PASS'?'success':'failure'}`,'-f','context=webforge/local-ci','-f',`description=${description}`]);
   if(publish.status!==0){
     receipt.remoteStatus={status:'FAIL',detail:text(publish).slice(-2000)};
-    fs.writeFileSync(receiptPath,JSON.stringify(receipt,null,2)+'\n');
     console.error(text(publish));
     process.exitCode=1;
   }else{
     receipt.remoteStatus={status:'PASS',context:'webforge/local-ci'};
-    fs.writeFileSync(receiptPath,JSON.stringify(receipt,null,2)+'\n');
   }
 }
 
+fs.writeFileSync(receiptPath,JSON.stringify(receipt,null,2)+'\n');
+const receiptSha=sha256(fs.readFileSync(receiptPath));
+fs.writeFileSync(path.join(evidenceDir,'receipt.sha256'),`${receiptSha}  local-ci.receipt.json\n`);
 console.log(JSON.stringify({status,sourceSha,evidenceDir,receiptSha256:receiptSha,checks:results,remoteStatus:receipt.remoteStatus||null},null,2));
 if(status!=='PASS') process.exitCode=1;
