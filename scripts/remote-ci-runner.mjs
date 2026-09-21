@@ -15,12 +15,28 @@ const sha256=value=>crypto.createHash('sha256').update(value).digest('hex');
 const text=result=>`${result.stdout||''}${result.stderr||''}`;
 const run=(cmd,args,opts={})=>spawnSync(cmd,args,{cwd:opts.cwd,encoding:'utf8',env:opts.env||env,maxBuffer:64*1024*1024});
 const fail=message=>{throw new Error(message)};
+const normalizePem=value=>{
+  let normalized=String(value||'').trim();
+  if((normalized.startsWith('"')&&normalized.endsWith('"'))||(normalized.startsWith("'")&&normalized.endsWith("'"))) normalized=normalized.slice(1,-1);
+  if(normalized.includes('\\n')) normalized=normalized.replace(/\\r\\n/g,'\n').replace(/\\n/g,'\n');
+  return normalized.trim();
+};
 
 if(!branch) fail('WEBFORGE_CI_REMOTE_BRANCH is required');
 if(!/^[0-9a-f]{40}$/.test(expectedSha)) fail('WEBFORGE_CI_EXPECTED_SHA must be an exact 40-character SHA');
 const forbidden=Object.keys(env).filter(name=>name==='GH_TOKEN'||name==='GITHUB_TOKEN'||name==='GITHUB_PAT'||name.startsWith('VERCEL_'));
 if(forbidden.length) fail(`forbidden runner credentials present: ${forbidden.sort().join(',')}`);
-if(!env.WEBFORGE_GITHUB_APP_PRIVATE_KEY&&!env.WEBFORGE_GITHUB_APP_PRIVATE_KEY_FILE) fail('GitHub App credential is required');
+const rawKey=env.WEBFORGE_GITHUB_APP_PRIVATE_KEY||'';
+if(!rawKey&&!env.WEBFORGE_GITHUB_APP_PRIVATE_KEY_FILE) fail('GitHub App credential is required');
+const normalizedKey=rawKey?normalizePem(rawKey):'';
+const credentialShape=rawKey?{
+  source:'environment',
+  rawHasNewline:rawKey.includes('\n'),
+  rawHasEscapedNewline:rawKey.includes('\\n'),
+  normalizedLineCount:normalizedKey.split('\n').length,
+  headerRecognized:/^-----BEGIN [A-Z ]*PRIVATE KEY-----/.test(normalizedKey),
+  footerRecognized:/-----END [A-Z ]*PRIVATE KEY-----$/.test(normalizedKey)
+}:{source:'file'};
 
 const stamp=new Date().toISOString().replace(/[:.]/g,'-');
 const runDir=path.join(evidenceRoot,`${stamp}-${expectedSha.slice(0,12)}`);
@@ -42,6 +58,7 @@ const remoteSha=remoteLine.split(/\s+/)[0]?.toLowerCase();
 if(remoteSha!==expectedSha) fail(`remote branch SHA ${remoteSha||'missing'} != expected ${expectedSha}`);
 
 const childEnv={...env,WEBFORGE_PUBLISH_STATUS:'1',WEBFORGE_CI_REMOTE_BRANCH:branch,WEBFORGE_CI_EVIDENCE_ROOT:ciEvidence};
+if(rawKey) childEnv.WEBFORGE_GITHUB_APP_PRIVATE_KEY=normalizedKey;
 result=run('npm',['run','ci:local'],{cwd:checkout,env:childEnv});
 fs.writeFileSync(path.join(runDir,'ci-runner.log'),text(result));
 const receiptDirs=fs.existsSync(ciEvidence)?fs.readdirSync(ciEvidence).filter(name=>name.endsWith(`-${expectedSha.slice(0,12)}`)).sort():[];
@@ -58,7 +75,7 @@ for(const name of fs.readdirSync(receiptDir)){
 const remoteReceipt={
   schema:'webforge.independent-runner-receipt.v1',recordedAt:new Date().toISOString(),repository,provider,
   runner:{hostname:os.hostname(),platform:process.platform,arch:process.arch,node:process.version},
-  branch,expectedSha,actualSha,remoteSha,forbiddenCredentialNames:forbidden,
+  branch,expectedSha,actualSha,remoteSha,forbiddenCredentialNames:forbidden,credentialShape,
   localCi:{status:localReceipt.status,receiptSha256:sha256(localReceiptBytes),checks:localReceipt.checks||[],remoteStatus:localReceipt.remoteStatus||null},
   productionCredentialsPresent:false,productionChanged:false
 };
