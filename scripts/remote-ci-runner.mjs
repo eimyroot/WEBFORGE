@@ -24,8 +24,9 @@ if(!env.WEBFORGE_GITHUB_APP_PRIVATE_KEY&&!env.WEBFORGE_GITHUB_APP_PRIVATE_KEY_FI
 
 const stamp=new Date().toISOString().replace(/[:.]/g,'-');
 const runDir=path.join(evidenceRoot,`${stamp}-${expectedSha.slice(0,12)}`);
-const checkout=path.join(runDir,'checkout');
-const ciEvidence=path.join(runDir,'ci');
+const scratch=fs.mkdtempSync(path.join(os.tmpdir(),'webforge-ci-runner-'));
+const checkout=path.join(scratch,'checkout');
+const ciEvidence=path.join(scratch,'ci');
 fs.mkdirSync(runDir,{recursive:true});
 
 let result=run('git',['clone','--filter=blob:none','--no-checkout',repositoryUrl,checkout]);
@@ -48,6 +49,12 @@ const receiptPath=receiptDirs.length?path.join(ciEvidence,receiptDirs.at(-1),'lo
 if(!receiptPath||!fs.existsSync(receiptPath)) fail('local CI receipt was not produced');
 const localReceiptBytes=fs.readFileSync(receiptPath);
 const localReceipt=JSON.parse(localReceiptBytes.toString('utf8'));
+const durableCiDir=path.join(runDir,'ci');
+fs.mkdirSync(durableCiDir,{recursive:true});
+const receiptDir=path.dirname(receiptPath);
+for(const name of fs.readdirSync(receiptDir)){
+  if(name.endsWith('.log')||name==='local-ci.receipt.json'||name==='receipt.sha256') fs.copyFileSync(path.join(receiptDir,name),path.join(durableCiDir,name));
+}
 const remoteReceipt={
   schema:'webforge.independent-runner-receipt.v1',recordedAt:new Date().toISOString(),repository,provider,
   runner:{hostname:os.hostname(),platform:process.platform,arch:process.arch,node:process.version},

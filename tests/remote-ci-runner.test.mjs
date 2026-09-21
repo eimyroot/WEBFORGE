@@ -25,3 +25,11 @@ test('runner image pins toolchain and includes browser but no repository secrets
   assert.match(docker,/chromium/);
   assert.doesNotMatch(docker,/private-key|GITHUB_TOKEN|VERCEL_TOKEN/);
 });
+
+test('independent runner keeps mutable build workspace off persistent evidence storage',()=>{
+  const src=fs.readFileSync('scripts/remote-ci-runner.mjs','utf8');
+  assert.match(src,/mkdtempSync\(path\.join\(os\.tmpdir\(\),'webforge-ci-runner-'\)\)/);
+  assert.match(src,/durableCiDir/);
+  assert.match(src,/name\.endsWith\('\.log'\)/);
+  assert.doesNotMatch(src,/checkout=path\.join\(runDir/);
+});

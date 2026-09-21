@@ -25,6 +25,6 @@ This gate does not deploy, promote, change branch protection, modify secrets, or
 
 ## Independent runner
 
-A second failure-domain runner uses `Dockerfile.ci-runner` and `scripts/remote-ci-runner.mjs`. It requires an explicit remote branch and exact SHA, rejects user GitHub tokens and all `VERCEL_*` credentials, runs the same isolated `ci:local` gate, persists hash-addressed receipts, and accepts only a status published through the canonical `WEBFORGE CI Gate` GitHub App.
+A second failure-domain runner uses `Dockerfile.ci-runner` and `scripts/remote-ci-runner.mjs`. It requires an explicit remote branch and exact SHA, rejects user GitHub tokens and all `VERCEL_*` credentials, runs checkout/build/test work on ephemeral runner storage, persists only hash-addressed receipts and logs, and accepts only a status published through the canonical `WEBFORGE CI Gate` GitHub App.
 
 Runtime secrets stay outside the repository. A cloud provider may inject `WEBFORGE_GITHUB_APP_PRIVATE_KEY` as a protected secret; the existing file-based key path remains supported for local operation. The runner itself has no production deployment authority.
