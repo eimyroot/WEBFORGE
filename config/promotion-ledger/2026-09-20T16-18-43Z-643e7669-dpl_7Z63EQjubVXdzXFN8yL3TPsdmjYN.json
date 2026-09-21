@@ -1,0 +1,55 @@
+{
+  "schema": "webforge.promotion-record.v1",
+  "recordVersion": 1,
+  "recordId": "2026-09-20T16:18:43Z-643e7669-dpl_7Z63EQjubVXdzXFN8yL3TPsdmjYN",
+  "recordedAt": "2026-09-21T08:29:23Z",
+  "promotionOccurredAt": "2026-09-20T16:18:43Z",
+  "repository": "eimyroot/WEBFORGE",
+  "branch": "main",
+  "sourceSha": "643e7669a2289b90fa232eed9314aab982383e75",
+  "productKey": "webforge-reference",
+  "canonicalVerdict": "PROMOTED_WITH_CI_BYPASS_EXCEPTION",
+  "target": {
+    "provider": "vercel",
+    "teamId": "team_P8cB47XVLz6mGykUGFdfh0ki",
+    "projectId": "prj_At8RZceUAND02Y5Bxsu4lV6066Y5",
+    "projectName": "webforge-9-vanta-preview",
+    "environment": "production"
+  },
+  "deployment": {
+    "id": "dpl_7Z63EQjubVXdzXFN8yL3TPsdmjYN",
+    "url": "https://webforge-9-vanta-preview-lzjnr7h71-voodoo-caser.vercel.app",
+    "canonicalAlias": "https://webforge-9-vanta-preview.vercel.app"
+  },
+  "rollback": {
+    "deploymentId": "dpl_6XmtrbMffLVtNpYswUK4wG1n7kqc",
+    "preserved": true,
+    "status": "READY_AT_PROMOTION_CLOSE"
+  },
+  "artifact": {
+    "outputTreeDigest": "f373ce45f171251ed95463afd31a333ed5df3909b94490fde8271d0b32edc5d6",
+    "runtimeSourceTreeDigest": "55313acfa6ceede76e0a1c2f96b6a9cc0a562b502d9bef67c29f18536ff088b6",
+    "lockfileDigest": "93842339b15e64adc5efa24f45c32c3f6512ed36323ef2372b77c5a81344e31c",
+    "rootHtmlSha256": "e53fa271bf037dd200feb1952bd0eeafa5714df9f4e6045a1f65fbd473a1e5ff"
+  },
+  "gates": {
+    "ci": {
+      "status": "BYPASSED_EXCEPTION",
+      "scopeSourceSha": "643e7669a2289b90fa232eed9314aab982383e75",
+      "reason": "GitHub Actions did not create a workflow run for the exact source SHA; operator approved a one-off exception for this SHA only."
+    },
+    "build": "PASS",
+    "security": "PASS_WITH_SCOPE_LIMITATION",
+    "release": "PASS",
+    "runtimeHealth": "PASS",
+    "browserVerification": "PASS"
+  },
+  "verification": {
+    "routeMatrix": "7/7 PASS",
+    "browserMatrix": "14/14 PASS",
+    "runtimeErrors": "0 observed during post-deploy check"
+  },
+  "evidence": {
+    "externalReceiptSha256": "ed758c699d2a370acf98cbb89718dcbdf008343f002385ca0d245916fbf011fe"
+  }
+}

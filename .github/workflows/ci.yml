@@ -3,13 +3,14 @@ name: ci
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: webforge-ci-${{ github.ref }}
-  cancel-in-progress: false 
+  group: webforge-ci-v2-${{ github.event_name }}-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
 
 jobs:
   verify:
@@ -35,6 +36,11 @@ jobs:
 
       - name: Verify schemas and registry contracts
         run: npm run verify
+
+      - name: Verify append-only promotion provenance
+        env:
+          WEBFORGE_LEDGER_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || '' }}
+        run: npm run provenance:verify
 
       - name: Build
         run: npm run build

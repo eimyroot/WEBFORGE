@@ -18,6 +18,7 @@
     "release:gate": "node scripts/release-gate.mjs",
     "release:full": "node scripts/full-release-gate.mjs",
     "artifact:canonical": "node scripts/canonical-artifact.mjs",
+    "provenance:verify": "node scripts/verify-promotion-ledger.mjs",
     "fulfill:demo": "node scripts/fulfill-demo.mjs",
     "live:verify": "node scripts/live-verify.mjs",
     "universal:demo": "node scripts/universal-demo.mjs",
