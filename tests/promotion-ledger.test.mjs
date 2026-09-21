@@ -40,3 +40,11 @@ test('CI has an independent per-SHA queue key and explicit recovery trigger',()=
   assert.match(ci,/npm run provenance:verify/);
   assert.match(ci,/WEBFORGE_LEDGER_BASE_SHA:/);
 });
+
+test('local CI can verify an exact SHA on a candidate remote branch before protected-main promotion',()=>{
+  const localCi=fs.readFileSync('scripts/local-ci.mjs','utf8');
+  assert.match(localCi,/WEBFORGE_CI_REMOTE_BRANCH/);
+  assert.match(localCi,/refs\/heads\/\$\{expectedRemoteBranch\}/);
+  assert.match(localCi,/remoteBranchSha:remoteSha/);
+  assert.match(localCi,/branch!==expectedRemoteBranch/);
+});

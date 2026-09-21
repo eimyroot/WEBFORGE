@@ -17,12 +17,18 @@ if(path.resolve(root)!==repo) throw new Error(`unexpected git root: ${root}`);
 const branch=required(run('git',['branch','--show-current']),'branch');
 const sourceSha=required(run('git',['rev-parse','HEAD']),'HEAD');
 const trackedDirty=required(run('git',['status','--porcelain','--untracked-files=no']),'tracked status');
-if(branch!=='main') throw new Error(`local CI requires main, got ${branch}`);
+const expectedRemoteBranch=(process.env.WEBFORGE_CI_REMOTE_BRANCH||'main').trim();
+const refCheck=run('git',['check-ref-format','--branch',expectedRemoteBranch]);
+if(refCheck.status!==0) throw new Error(`invalid WEBFORGE_CI_REMOTE_BRANCH: ${expectedRemoteBranch}`);
+if(branch!==expectedRemoteBranch) throw new Error(`local CI branch ${branch} != expected remote branch ${expectedRemoteBranch}`);
 if(trackedDirty) throw new Error('tracked worktree must be clean before local CI');
 
-const remote=run('git',['ls-remote','origin','refs/heads/main']);
-const remoteSha=required(remote,'origin/main').split(/\s+/)[0];
-if(remoteSha!==sourceSha) throw new Error(`origin/main ${remoteSha} != HEAD ${sourceSha}`);
+const remoteRef=`refs/heads/${expectedRemoteBranch}`;
+const remote=run('git',['ls-remote','origin',remoteRef]);
+const remoteLine=required(remote,`origin/${expectedRemoteBranch}`);
+if(!remoteLine) throw new Error(`origin/${expectedRemoteBranch} does not exist`);
+const remoteSha=remoteLine.split(/\s+/)[0];
+if(remoteSha!==sourceSha) throw new Error(`origin/${expectedRemoteBranch} ${remoteSha} != HEAD ${sourceSha}`);
 const evidenceBase=process.env.WEBFORGE_CI_EVIDENCE_ROOT||'/Users/eimyna/0_EVIDENCE/WEBFORGE/local-ci';
 const stamp=now.replace(/[:.]/g,'-');
 const evidenceDir=path.join(evidenceBase,`${stamp}-${sourceSha.slice(0,12)}`);
@@ -60,7 +66,9 @@ const receipt={
   repository:'eimyroot/WEBFORGE',
   branch,
   sourceSha,
-  remoteMainSha:remoteSha,
+  remoteBranch:expectedRemoteBranch,
+  remoteBranchSha:remoteSha,
+  remoteMainSha:expectedRemoteBranch==='main'?remoteSha:null,
   runner:{hostname:os.hostname(),platform:process.platform,arch:process.arch,node:process.version,npm:required(run('npm',['--version']),'npm version')},
   sourceArchiveSha256:sha256(fs.readFileSync(tarPath)),
   checks:results,
