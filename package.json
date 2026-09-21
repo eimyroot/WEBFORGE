@@ -33,7 +33,8 @@
     "qa:routes": "node scripts/subpage-route-qa.mjs",
     "runtime:dynamic:smoke": "node scripts/runtime-dynamic-smoke.mjs",
     "build:control-room": "node scripts/build-control-room.mjs",
-    "visual:market": "node scripts/market-visual-benchmark.mjs"
+    "visual:market": "node scripts/market-visual-benchmark.mjs",
+    "ci:local": "node scripts/local-ci.mjs"
   },
   "engines": {
     "node": ">=22"
