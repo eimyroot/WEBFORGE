@@ -59,11 +59,12 @@ const remoteReceipt={
   schema:'webforge.independent-runner-receipt.v1',recordedAt:new Date().toISOString(),repository,provider,
   runner:{hostname:os.hostname(),platform:process.platform,arch:process.arch,node:process.version},
   branch,expectedSha,actualSha,remoteSha,forbiddenCredentialNames:forbidden,
-  localCi:{status:localReceipt.status,receiptSha256:sha256(localReceiptBytes),remoteStatus:localReceipt.remoteStatus||null},
+  localCi:{status:localReceipt.status,receiptSha256:sha256(localReceiptBytes),checks:localReceipt.checks||[],remoteStatus:localReceipt.remoteStatus||null},
   productionCredentialsPresent:false,productionChanged:false
 };
 fs.writeFileSync(path.join(runDir,'independent-runner.receipt.json'),JSON.stringify(remoteReceipt,null,2)+'\n');
 const remoteReceiptSha=sha256(fs.readFileSync(path.join(runDir,'independent-runner.receipt.json')));
 fs.writeFileSync(path.join(runDir,'independent-runner.receipt.sha256'),`${remoteReceiptSha}  independent-runner.receipt.json\n`);
-if(result.status!==0||localReceipt.status!=='PASS'||localReceipt.remoteStatus?.publisher!=='github-app') fail('independent CI gate did not complete with GitHub App PASS');
-console.log(JSON.stringify({status:'PASS',repository,provider,branch,sourceSha:actualSha,runDir,receiptSha256:remoteReceiptSha,creator:localReceipt.remoteStatus.creator},null,2));
+const passed=result.status===0&&localReceipt.status==='PASS'&&localReceipt.remoteStatus?.publisher==='github-app';
+console.log(JSON.stringify({status:passed?'PASS':'FAIL',...remoteReceipt,receiptSha256:remoteReceiptSha},null,2));
+if(!passed) fail('independent CI gate did not complete with GitHub App PASS');
