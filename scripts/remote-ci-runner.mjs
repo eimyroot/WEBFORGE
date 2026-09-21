@@ -67,4 +67,4 @@ const remoteReceiptSha=sha256(fs.readFileSync(path.join(runDir,'independent-runn
 fs.writeFileSync(path.join(runDir,'independent-runner.receipt.sha256'),`${remoteReceiptSha}  independent-runner.receipt.json\n`);
 const passed=result.status===0&&localReceipt.status==='PASS'&&localReceipt.remoteStatus?.publisher==='github-app';
 console.log(JSON.stringify({status:passed?'PASS':'FAIL',...remoteReceipt,receiptSha256:remoteReceiptSha},null,2));
-if(!passed) fail('independent CI gate did not complete with GitHub App PASS');
+if(result.status!==0||localReceipt.status!=='PASS'||localReceipt.remoteStatus?.publisher!=='github-app') fail('independent CI gate did not complete with GitHub App PASS');
