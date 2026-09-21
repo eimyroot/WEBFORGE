@@ -1,0 +1,56 @@
+{
+  "schema": "webforge.promotion-record.v1",
+  "recordVersion": 1,
+  "recordId": "2026-09-21T10:39:40.753Z-45fffe93-dpl_CNYttdHzFXJJPypw7xQqf5MTJ8ce",
+  "recordedAt": "2026-09-21T10:45:35.987Z",
+  "promotionOccurredAt": "2026-09-21T10:39:40.753Z",
+  "repository": "eimyroot/WEBFORGE",
+  "branch": "main",
+  "sourceSha": "45fffe930dd7b910e18a2ff724cad8e8d36916b0",
+  "productKey": "webforge-reference",
+  "canonicalVerdict": "PROMOTED",
+  "target": {
+    "provider": "vercel",
+    "teamId": "team_P8cB47XVLz6mGykUGFdfh0ki",
+    "projectId": "prj_At8RZceUAND02Y5Bxsu4lV6066Y5",
+    "projectName": "webforge-9-vanta-preview",
+    "environment": "production"
+  },
+  "deployment": {
+    "id": "dpl_CNYttdHzFXJJPypw7xQqf5MTJ8ce",
+    "url": "https://webforge-9-vanta-preview-js9q5wb98-voodoo-caser.vercel.app",
+    "canonicalAlias": "https://webforge-9-vanta-preview.vercel.app"
+  },
+  "rollback": {
+    "deploymentId": "dpl_7Z63EQjubVXdzXFN8yL3TPsdmjYN",
+    "preserved": true,
+    "status": "READY"
+  },
+  "artifact": {
+    "outputTreeDigest": "c77f2b5e40a9ec03b4b3f5148138fd5fde5588e0990a682e846b7536831afab4",
+    "runtimeSourceTreeDigest": "55313acfa6ceede76e0a1c2f96b6a9cc0a562b502d9bef67c29f18536ff088b6",
+    "lockfileDigest": "93842339b15e64adc5efa24f45c32c3f6512ed36323ef2372b77c5a81344e31c",
+    "rootHtmlSha256": "e53fa271bf037dd200feb1952bd0eeafa5714df9f4e6045a1f65fbd473a1e5ff"
+  },
+  "gates": {
+    "ci": {
+      "status": "PASS",
+      "context": "webforge/local-ci",
+      "receiptSha256": "e2d2df94b27a9e2d9bb08fa26e86033b5dacc57f9e860032067e1da77b6b76ec"
+    },
+    "build": "PASS",
+    "security": "PASS_WITH_SCOPE_LIMITATION",
+    "release": "PASS",
+    "runtimeHealth": "PASS",
+    "browserVerification": "PASS"
+  },
+  "verification": {
+    "routeMatrix": "9/9 PASS",
+    "browserMatrix": "18/18 PASS",
+    "runtimeErrors": "0 error/fatal logs found",
+    "postdeployReceiptSha256": "406062a317cb7bcce0dbdda7858c483930c33e7306d4236e26e05a56d4c39f93"
+  },
+  "evidence": {
+    "externalReceiptSha256": "e59685556575e75cbb9282f6da943c6d7f4c01e4c7b925c71091dc37789e3858"
+  }
+}
