@@ -1,0 +1,17 @@
+{
+  "schema": "webforge.ci-status-app.v1",
+  "status": "CANONICAL",
+  "repository": "eimyroot/WEBFORGE",
+  "context": "webforge/local-ci",
+  "app": {
+    "id": 5020260,
+    "slug": "webforge-ci-gate",
+    "installationId": 163476651
+  },
+  "permissions": {
+    "contents": "read",
+    "statuses": "write"
+  },
+  "repositorySelection": "selected",
+  "secretMaterialInRepository": false
+}

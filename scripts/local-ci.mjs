@@ -4,6 +4,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { createInstallationToken, publishCommitStatus } from '../src/core/github-app-status.mjs';
 
 const repo=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const run=(cmd,args,opts={})=>spawnSync(cmd,args,{cwd:opts.cwd||repo,encoding:'utf8',env:{...process.env,...opts.env},maxBuffer:32*1024*1024});
@@ -78,14 +79,21 @@ const receipt={
 const receiptPath=path.join(evidenceDir,'local-ci.receipt.json');
 
 if(process.env.WEBFORGE_PUBLISH_STATUS==='1'){
-  const description=status==='PASS'?'Deterministic external/local CI gate passed':'Deterministic external/local CI gate failed';
-  const publish=run('gh',['api','--method','POST',`repos/eimyroot/WEBFORGE/statuses/${sourceSha}`,'-f',`state=${status==='PASS'?'success':'failure'}`,'-f','context=webforge/local-ci','-f',`description=${description}`]);
-  if(publish.status!==0){
-    receipt.remoteStatus={status:'FAIL',detail:text(publish).slice(-2000)};
-    console.error(text(publish));
+  try{
+    const appContract=JSON.parse(fs.readFileSync(path.join(repo,'config','ci-status-app.json'),'utf8'));
+    const keyFile=process.env.WEBFORGE_GITHUB_APP_PRIVATE_KEY_FILE;
+    if(appContract.status!=='CANONICAL'||appContract.repository!=='eimyroot/WEBFORGE'||appContract.context!=='webforge/local-ci') throw new Error('CI status App contract is not canonical');
+    if(appContract.secretMaterialInRepository!==false) throw new Error('CI status App contract permits repository secret material');
+    if(!keyFile||!fs.existsSync(keyFile)) throw new Error('WEBFORGE_GITHUB_APP_PRIVATE_KEY_FILE is required and must exist');
+    const privateKey=fs.readFileSync(keyFile,'utf8');
+    const token=await createInstallationToken({appId:appContract.app.id,installationId:appContract.app.installationId,privateKey,repository:'WEBFORGE'});
+    const description=status==='PASS'?'Deterministic external/local CI gate passed':'Deterministic external/local CI gate failed';
+    const published=await publishCommitStatus({token,repository:appContract.repository,sha:sourceSha,state:status==='PASS'?'success':'failure',context:appContract.context,description});
+    receipt.remoteStatus={status:'PASS',context:published.context,publisher:'github-app',appId:appContract.app.id,installationId:appContract.app.installationId,creator:published.creator};
+  }catch(error){
+    receipt.remoteStatus={status:'FAIL',publisher:'github-app',detail:String(error?.message||error).slice(-2000)};
+    console.error(receipt.remoteStatus.detail);
     process.exitCode=1;
-  }else{
-    receipt.remoteStatus={status:'PASS',context:'webforge/local-ci'};
   }
 }
 
