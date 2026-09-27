@@ -5,6 +5,7 @@ let currentPlan=null;
 let currentReceipt=null;
 let currentProjectId=null;
 let currentStateless=null;
+let currentPlayground=null;
 let previewObjectUrl=null;
 
 const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -13,6 +14,17 @@ function kv(k,v,selected=false){return `<div class="kv"><b>${escapeHtml(k)}</b><
 function setJourney(stage,state){const el=$(`#journey-${stage}`);if(!el)return;el.classList.toggle('active',state==='active');el.classList.toggle('done',state==='done');const small=el.querySelector('small');if(small)small.textContent=state==='done'?'Hotovo':state==='active'?'Probíhá':'Čeká'}
 function setReady(ready){const btn=$('#generate'),dry=$('#dryrun');btn.disabled=!ready;dry.disabled=!ready;$('#build-state').textContent=ready?'PŘIPRAVENO KE GENEROVÁNÍ':'ČEKÁ NA ANALÝZU';$('#build-dot').classList.toggle('ready',ready);$('#build-copy').textContent=ready?'Struktura i policy gate jsou vyřešené. Můžeš vygenerovat izolovaný preview web.':'Nejdřív spusť analýzu. Generování se odemkne pouze po průchodu policy gate.'}
 function briefSynthesis(p){return p.project?.domain?.synthesis||p.domain?.synthesis||null}
+function setPlaygroundWaiting(){currentPlayground=null;$('#playground-status').textContent='ČEKÁ';$('#playground-status').className='';$('#playground-nearest').textContent='—';$('#playground-distance').textContent='—';$('#playground-collisions').textContent='—';$('#playground-copy').textContent='Po analýze se nový brief porovná s osmi strukturálně odlišnými baseline weby.';$('#playground-signature').textContent='Čeká na brief.';$('#playground-comparisons').innerHTML=''}
+function renderPlayground(out){
+  currentPlayground=out;const c=out.candidate||{},h=c.homepage||{},root=c.root||{},nearest=out.nearest?.[0];
+  $('#playground-status').textContent=out.status;$('#playground-status').className=`playground-${String(out.status).toLowerCase()}`;
+  $('#playground-nearest').textContent=nearest?`${nearest.id} · ${nearest.domain}`:'—';$('#playground-distance').textContent=nearest?String(nearest.compositeDistance):'—';$('#playground-collisions').textContent=String(out.hardCollisions?.length||0);
+  $('#playground-copy').textContent=out.status==='PASS'?'Struktura je mimo warning collision radius vůči baseline sadě.':out.status==='WARN'?'Struktura je blízko existující baseline. Preview je povolený, ale podobnost stojí za kontrolu.':'Nalezená cross-domain kolize porušuje hard structural threshold. Preview zůstává dostupný pro diagnostiku, release by měl zůstat zablokovaný.';
+  $('#playground-signature').innerHTML=kv('HERO',root.heroArchetype||'—',true)+kv('NAV',root.navigationModel||'—')+kv('LAYOUT',root.layoutTemplate||'—')+kv('STRATEGY',root.layoutStrategy||'—')+kv('CANVAS',root.canvas||'—')+kv('SECTIONS',(h.sectionSequence||[]).join(' → ')||'—')+kv('GEOMETRY',(h.geometrySequence||[]).join(' → ')||'—')+kv('CTA',(h.ctaPattern||[]).join(' → ')||'—')+kv('TEMPLATE FAMILIES',(h.templateFamilies||[]).join(' → ')||'—')+kv('PAGE GRAPH',String(c.pageGraph?.length||0));
+  $('#playground-comparisons').innerHTML=(out.nearest||[]).map(x=>`<div class="comparison"><b>${escapeHtml(x.id)}</b><span>${escapeHtml(x.domain)} · distance ${escapeHtml(x.compositeDistance)}</span></div>`).join('');
+}
+async function evaluatePlayground(){
+  $('#playground-status').textContent='BĚŽÍ';try{const r=await fetch('/api/playground/evaluate',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({brief:brief.value})});const out=await jsonResponse(r);renderPlayground(out);return out}catch(e){currentPlayground={status:'FAIL',error:e.message};$('#playground-status').textContent='FAIL';$('#playground-status').className='playground-fail';$('#playground-copy').textContent=`Structural evaluation selhala: ${e.message}`;$('#playground-signature').textContent='UNVERIFIED';$('#playground-comparisons').innerHTML='';return currentPlayground}}
 function renderTechnical(p){const detail={domain:p.project.domain,product:{entities:p.product?.entities,userJobs:p.product?.userJobs,capabilities:p.product?.capabilityIds},designStrategy:p.designStrategy,layout:{id:p.layout.id,origin:p.layout.origin,parents:p.layout.parents,selectionReason:p.layout.selectionReason,signals:p.layout.signals,fingerprint:p.layout.fingerprint,sections:p.layout.sections,sectionPlan:p.layout.sectionPlan},siteBlueprint:p.siteBlueprint,runtime:p.selection.runtime,visual:{artDirection:p.visual.artDirection?.theme?.id,registry:p.visual.registry?.counts,templates:p.visual.sections?.map(x=>({id:x.id,template:x.template,quality:x.qualityScore})),mediaSlots:p.visual.media?.slots?.length,connectors:p.visual.connectors?.selected,plugins:p.visual.plugins?.selected?.map(x=>x.id),workflow:p.visual.workflow?.primary?.id,interactions:p.visual.interactions?.selected?.map(x=>x.id)}};$('#technical-plan').textContent=JSON.stringify(detail,null,2)}
 function renderPlan(p){
   currentPlan=p;
@@ -36,9 +48,9 @@ function renderPlan(p){
 }
 async function plan(){
   $('#status').textContent='ANALYZUJI…';$('#analysis-check').textContent='BĚŽÍ';setReady(false);setJourney('analysis','active');
-  try{const r=await fetch('/api/plan',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({brief:brief.value})});const p=await jsonResponse(r);renderPlan(p);$('#status').textContent='ANALÝZA HOTOVÁ';$('#analysis').scrollIntoView({behavior:'smooth',block:'start'});}catch(e){currentPlan=null;$('#status').textContent='ANALÝZA SELHALA';$('#analysis-check').textContent='FAIL';$('#analysis-state').textContent='CHYBA ANALÝZY';$('#analysis-state').classList.remove('pass');$('#evidence').textContent=e.message;setJourney('analysis','active');}}
+  try{const r=await fetch('/api/plan',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({brief:brief.value})});const p=await jsonResponse(r);renderPlan(p);await evaluatePlayground();$('#status').textContent='ANALÝZA HOTOVÁ';$('#analysis').scrollIntoView({behavior:'smooth',block:'start'});}catch(e){currentPlan=null;$('#status').textContent='ANALÝZA SELHALA';$('#analysis-check').textContent='FAIL';$('#analysis-state').textContent='CHYBA ANALÝZY';$('#analysis-state').classList.remove('pass');$('#evidence').textContent=e.message;setJourney('analysis','active');}}
 $('#forge').addEventListener('click',plan);
-brief.addEventListener('input',()=>{currentPlan=null;setReady(false);$('#status').textContent='ZADÁNÍ ZMĚNĚNO';$('#analysis-check').textContent='ČEKÁ';$('#analysis-state').textContent='ČEKÁ NA ANALÝZU';$('#analysis-state').classList.remove('pass');setJourney('brief','active');setJourney('analysis','waiting');setJourney('preview','waiting')});
+brief.addEventListener('input',()=>{currentPlan=null;setReady(false);setPlaygroundWaiting();$('#status').textContent='ZADÁNÍ ZMĚNĚNO';$('#analysis-check').textContent='ČEKÁ';$('#analysis-state').textContent='ČEKÁ NA ANALÝZU';$('#analysis-state').classList.remove('pass');setJourney('brief','active');setJourney('analysis','waiting');setJourney('preview','waiting')});
 $$('.preset').forEach(btn=>btn.addEventListener('click',()=>{brief.value=btn.dataset.brief||'';brief.dispatchEvent(new Event('input'));brief.focus()}));
 
 const stages=['Struktura webu','Composition registry','Policy gates','Art direction','Section templates','Media plan','Content binding','Responsive composition','Runtime parity','Evidence receipt','Preview ready'];

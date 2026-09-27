@@ -1,5 +1,6 @@
 import {compose} from './compose.mjs';
 import {renderWebsite,renderBlueprintPage} from './visual-renderer.mjs';
+import {STRUCTURAL_PLAYGROUND_BASELINES} from './structural-diversity-baseline.mjs';
 
 const round=(n,d=3)=>Number(n.toFixed(d));
 const avg=xs=>xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:0;
@@ -69,7 +70,7 @@ function renderedPageGraph(plan,visual){
     return [attr(main,'data-family')||page.family||'overview',attr(main,'data-detail-kind')||page.detailKind||'',...sections.map(x=>`${x.id}:${x.geometry||x.layout||x.templateFamily}`)].join('|');
   });
 }
-function sampleOf(entry){
+export function captureStructuralSample(entry){
   const plan=compose(entry.brief),html=renderWebsite(plan,plan.visual,`structural-${entry.id}`),root=rootTag(html),sections=sectionShape(html);
   const sample={
     id:entry.id,brief:entry.brief,domain:plan.project.domainArchetype,
@@ -105,7 +106,7 @@ export const STRUCTURAL_DIVERSITY_THRESHOLDS={
   maximumLayoutStrategyShare:0.5
 };
 
-function pairDistance(a,b){
+export function compareStructuralSamples(a,b){
   const d={
     sectionSequenceDistance:structuralSequenceDistance(a.homepage.sectionSequence,b.homepage.sectionSequence),
     geometrySequenceDistance:structuralSequenceDistance(a.homepage.geometrySequence,b.homepage.geometrySequence),
@@ -132,9 +133,42 @@ function metricGate(metric,actual,threshold,kind='min'){
   return {metric,[kind]:threshold,actual,status:status?'PASS':'FAIL'};
 }
 
+
+
+export const STRUCTURAL_PLAYGROUND_THRESHOLDS={hardCollision:STRUCTURAL_DIVERSITY_THRESHOLDS.minimumCompositeDistance,warningCollision:0.58};
+
+export function structuralPairViolates(distance,thresholds=STRUCTURAL_DIVERSITY_THRESHOLDS){
+  return distance.compositeDistance<thresholds.minimumCompositeDistance||distance.sectionSequenceDistance<thresholds.minimumSectionSequenceDistance||
+    distance.geometrySequenceDistance<thresholds.minimumGeometrySequenceDistance||distance.roleSequenceDistance<thresholds.minimumRoleSequenceDistance||
+    distance.templateFamilyDistance<thresholds.minimumTemplateFamilyDistance||distance.zoneSequenceDistance<thresholds.minimumZoneSequenceDistance||
+    distance.pageGraphDistance<thresholds.minimumPageGraphDistance;
+}
+
+export function evaluateStructuralPlaygroundSamples(candidate,baselineSamples,{warningCollision=STRUCTURAL_PLAYGROUND_THRESHOLDS.warningCollision}={}){
+  if(!candidate||!Array.isArray(baselineSamples)||baselineSamples.length===0) throw new Error('Structural playground requires candidate and baseline samples');
+  const comparisons=baselineSamples.map(base=>({id:base.id,domain:base.domain,...compareStructuralSamples(candidate,base)})).sort((a,b)=>a.compositeDistance-b.compositeDistance);
+  const crossDomain=comparisons.filter(x=>x.domain!==candidate.domain);
+  const hardCollisions=crossDomain.filter(x=>structuralPairViolates(x));
+  const nearest=comparisons[0];
+  const status=hardCollisions.length?'FAIL':nearest.compositeDistance<warningCollision?'WARN':'PASS';
+  return {
+    schema:'webforge.structural-playground-evaluation.r1',status,source:'rendered-dom-and-page-graph',
+    candidate:{id:candidate.id,domain:candidate.domain,root:candidate.root,homepage:candidate.homepage,pageGraph:candidate.pageGraph},
+    thresholds:{hard:{...STRUCTURAL_DIVERSITY_THRESHOLDS},warningCollision},
+    nearest:comparisons.slice(0,3),hardCollisions:hardCollisions.slice(0,3),baselineCount:baselineSamples.length
+  };
+}
+
+export function evaluateStructuralPlaygroundBrief(brief,baselines=STRUCTURAL_PLAYGROUND_BASELINES){
+  if(typeof brief!=='string'||brief.trim().length<8) throw new Error('Brief must contain at least 8 characters');
+  const candidate=captureStructuralSample({id:'playground-candidate',brief});
+  const baselineSamples=baselines.map(captureStructuralSample);
+  return evaluateStructuralPlaygroundSamples(candidate,baselineSamples);
+}
+
 export function runStructuralDiversityBenchmark(entries,thresholds=STRUCTURAL_DIVERSITY_THRESHOLDS){
-  const samples=entries.map(sampleOf);
-  const pairwise=pairs(samples).map(([a,b])=>({pair:[a.id,b.id],...pairDistance(a,b)}));
+  const samples=entries.map(captureStructuralSample);
+  const pairwise=pairs(samples).map(([a,b])=>({pair:[a.id,b.id],...compareStructuralSamples(a,b)}));
   const metrics={
     sampleCount:samples.length,
     structuralSignatureUniqueRate:round(uniqueRate(samples.map(x=>x.structuralFingerprint))),
@@ -155,12 +189,7 @@ export function runStructuralDiversityBenchmark(entries,thresholds=STRUCTURAL_DI
   const minKeys=['structuralSignatureUniqueRate','minimumCompositeDistance','minimumSectionSequenceDistance','minimumGeometrySequenceDistance','minimumRoleSequenceDistance','minimumTemplateFamilyDistance','minimumZoneSequenceDistance','minimumPageGraphDistance','ctaPatternUniqueRate'];
   const maxKeys=['maximumLayoutTemplateShare','maximumHeroArchetypeShare','maximumNavigationModelShare','maximumLayoutStrategyShare'];
   const gates=[...minKeys.map(k=>metricGate(k,metrics[k],thresholds[k],'min')),...maxKeys.map(k=>metricGate(k,metrics[k],thresholds[k],'max'))];
-  const violations=pairwise.filter(x=>
-    x.compositeDistance<thresholds.minimumCompositeDistance||x.sectionSequenceDistance<thresholds.minimumSectionSequenceDistance||
-    x.geometrySequenceDistance<thresholds.minimumGeometrySequenceDistance||x.roleSequenceDistance<thresholds.minimumRoleSequenceDistance||
-    x.templateFamilyDistance<thresholds.minimumTemplateFamilyDistance||x.zoneSequenceDistance<thresholds.minimumZoneSequenceDistance||
-    x.pageGraphDistance<thresholds.minimumPageGraphDistance
-  );
+  const violations=pairwise.filter(x=>structuralPairViolates(x,thresholds));
   return {
     schema:'webforge.structural-diversity-gate.r1',source:'rendered-dom-and-page-graph',dataset:{count:entries.length,ids:entries.map(x=>x.id)},
     thresholds:{...thresholds},metrics,gates,violations,

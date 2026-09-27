@@ -14,7 +14,7 @@
       <span class="mark" aria-hidden="true">WF</span>
       <span class="brand-copy"><strong>WEBFORGE</strong><small>CONTROL ROOM</small></span>
     </a>
-    <nav aria-label="Hlavní navigace"><a href="#composer">Zadání</a><a href="#analysis">Analýza</a><a href="#result-panel">Výsledek</a><a href="#evidence-section">Evidence</a></nav>
+    <nav aria-label="Hlavní navigace"><a href="#composer">Zadání</a><a href="#analysis">Analýza</a><a href="#playground">Playground</a><a href="#result-panel">Výsledek</a><a href="#evidence-section">Evidence</a></nav>
     <div class="mode-badge"><span></span> STATELESS PREVIEW</div>
   </header>
 
@@ -48,6 +48,21 @@
       <div class="summary-grid">
         <article class="summary-card"><div class="panel-head">PROJEKT <span>01</span></div><div id="project" class="content muted">Spusť analýzu zadání.</div></article>
         <article class="summary-card"><div class="panel-head">SMĚR WEBU <span>02</span></div><div id="stack" class="content muted">Po analýze se zobrazí doména, design a runtime.</div></article>
+      </div>
+    </section>
+
+    <section id="playground" class="panel playground-panel" aria-labelledby="playground-title">
+      <div class="panel-head"><span id="playground-title">STRUCTURAL PLAYGROUND</span><span>LIVE COLLISION CHECK</span></div>
+      <div class="playground-grid">
+        <div><small>STATUS</small><strong id="playground-status">ČEKÁ</strong></div>
+        <div><small>NEJBLIŽŠÍ BASELINE</small><strong id="playground-nearest">—</strong></div>
+        <div><small>COMPOSITE DISTANCE</small><strong id="playground-distance">—</strong></div>
+        <div><small>HARD COLLISIONS</small><strong id="playground-collisions">—</strong></div>
+      </div>
+      <div class="playground-body">
+        <p id="playground-copy" class="muted">Po analýze se nový brief porovná s osmi strukturálně odlišnými baseline weby.</p>
+        <div id="playground-signature" class="signature-grid muted">Čeká na brief.</div>
+        <div id="playground-comparisons" class="comparison-list"></div>
       </div>
     </section>
 

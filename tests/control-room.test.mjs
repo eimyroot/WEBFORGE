@@ -25,6 +25,7 @@ test('stateless previews materially adapt to different briefs',()=>{
 test('public handler exposes plan/generate/health but fails closed on deployment',async()=>{
   let res=mockRes();await controlRoomHandler({method:'GET',url:'/api/health'},res);assert.equal(res.statusCode,200);assert.equal(JSON.parse(res.body).mode,'STATELESS_CONTROL_ROOM');
   res=mockRes();await controlRoomHandler({method:'POST',url:'/api/generate',body:{brief}},res);assert.equal(res.statusCode,201);assert.equal(JSON.parse(res.body).status,'PASS');
+  res=mockRes();await controlRoomHandler({method:'POST',url:'/api/playground/evaluate',body:{brief}},res);assert.equal(res.statusCode,200);assert.match(JSON.parse(res.body).status,/^(PASS|WARN|FAIL)$/);
   res=mockRes();await controlRoomHandler({method:'POST',url:'/api/deploy',body:{}},res);assert.equal(res.statusCode,409);assert.equal(JSON.parse(res.body).status,'BLOCKED');
 });
 

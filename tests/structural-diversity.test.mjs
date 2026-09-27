@@ -1,11 +1,9 @@
-import fs from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {runStructuralDiversityBenchmark} from '../src/core/structural-diversity.mjs';
+import {STRUCTURAL_PLAYGROUND_BASELINES} from '../src/core/structural-diversity-baseline.mjs';
 
-const entries=JSON.parse(fs.readFileSync(new URL('./data/design-diversity-briefs.json',import.meta.url),'utf8'));
-const ids=['boutique-hotel','florist-studio','accounting-saas','corporate-law','techno-club','architecture-portfolio','fine-dining','industrial-marketplace'];
-const critical=ids.map(id=>entries.find(x=>x.id===id));
+const critical=STRUCTURAL_PLAYGROUND_BASELINES;
 
 test('STRUCTURAL DIVERSITY gate passes eight materially different rendered site skeletons',()=>{
   const report=runStructuralDiversityBenchmark(critical);
@@ -19,7 +17,7 @@ test('STRUCTURAL DIVERSITY gate passes eight materially different rendered site 
 });
 
 test('STRUCTURAL DIVERSITY gate fails closed when two industries reuse the same skeleton',()=>{
-  const hotel=entries.find(x=>x.id==='boutique-hotel');
+  const hotel=critical.find(x=>x.id==='boutique-hotel');
   const cloned=[hotel,{id:'fake-other-industry',brief:hotel.brief}];
   const report=runStructuralDiversityBenchmark(cloned);
   assert.equal(report.status,'FAIL');

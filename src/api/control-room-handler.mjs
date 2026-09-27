@@ -1,5 +1,6 @@
 import { compose } from '../core/compose.mjs';
 import { generateStatelessPreview } from '../core/stateless-preview.mjs';
+import { evaluateStructuralPlaygroundBrief } from '../core/structural-diversity.mjs';
 
 const version='9.1.0';
 const send=(res,status,body)=>{res.statusCode=status;res.setHeader?.('content-type','application/json; charset=utf-8');res.setHeader?.('cache-control','no-store');res.setHeader?.('x-content-type-options','nosniff');res.end(JSON.stringify(body,null,2));};
@@ -21,6 +22,10 @@ export default async function controlRoomHandler(req,res){
   if(req.method==='POST'&&route==='generate'){
     try{const body=await jsonBody(req);const out=generateStatelessPreview(body.brief);return send(res,out.status==='PASS'?201:409,out);}
     catch(e){return send(res,e.code==='POLICY_BLOCK'?409:400,{error:e.message,policy:e.plan?.policy||null});}
+  }
+  if(req.method==='POST'&&route==='playground/evaluate'){
+    try{const body=await jsonBody(req);return send(res,200,evaluateStructuralPlaygroundBrief(body.brief));}
+    catch(e){return send(res,400,{status:'FAIL',error:e.message});}
   }
   if(req.method==='POST'&&['qa','release/evaluate','visual/approve','deploy'].includes(route)){
     return send(res,409,{status:'BLOCKED',error:'This public Control Room is stateless and preview-only. Production QA, approval and deployment require the governed execution path.',route});
