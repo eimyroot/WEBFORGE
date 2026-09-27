@@ -2,6 +2,7 @@ const has=(s,r)=>r.test(s);
 export function synthesizeDesignDNA(project,brand){
   const text=project.brief.toLowerCase(); const g=project.domain.genome;
   const strategy=project.designStrategy;
+  const creative=project.creative||null;
   let mode=g.visualMode;
   if(g.applicationDepth>=3&&mode==='marketing') mode='application';
   const traits=strategy?.brand_personality?.traits||[];
@@ -19,6 +20,7 @@ export function synthesizeDesignDNA(project,brand){
     interaction:{intensity:g.applicationDepth*20+g.conversionIntensity/5,mode:strategy?.interaction_strategy?.mode||null,principle:g.trustBurden==='critical'?'predictable-and-explicit':'progressive-disclosure'},
     responsive:{strategy:'recompose-not-shrink',mobilePriority:g.conversionIntensity>=65?'action-first':'content-first',reducedMotion:'required'},
     accessibility:{target:'WCAG-2.2-AA-oriented',colorAlone:false,focusVisible:true,minTouchTarget:44},
+    creative:creative?{thesis:creative.thesis,compositionIntent:creative.compositionIntent,narrative:creative.narrative}:null,
     strategy:strategy?.schema||null,
     rationale:[`visualMode:${mode}`,`trust:${g.trustBurden}`,`applicationDepth:${g.applicationDepth}`,`media:${g.mediaIntensity}`,`conversion:${g.conversionIntensity}`]
   };

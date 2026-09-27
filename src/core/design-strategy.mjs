@@ -103,7 +103,8 @@ function domainGrammar(domain,tokens){
 }
 function semanticColorProfile(domain,tokens,traits){
   const id=domain.primary.id,base={...(DOMAIN_COLOR_PROFILES[id]||DOMAIN_COLOR_PROFILES['generic-organization'])};
-  if(has(tokens,'funeral','memorial'))Object.assign(base,{hue:38,temperature:'calm',saturation:28});
+  if(id==='florist-retail')Object.assign(base,{hue:342,temperature:'floral',saturation:46});
+  else if(has(tokens,'funeral','memorial'))Object.assign(base,{hue:38,temperature:'calm',saturation:28});
   else if(has(tokens,'emergency','urgent','plumber'))Object.assign(base,{hue:8,temperature:'urgent',saturation:72});
   else if(has(tokens,'accounting','invoicing','expenses','finance','financial'))Object.assign(base,{hue:188,temperature:'financial',saturation:58});
   else if(has(tokens,'developer','api','monitoring','cyber','security'))Object.assign(base,{hue:262,temperature:'technical',saturation:66});

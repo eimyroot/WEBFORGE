@@ -83,6 +83,12 @@ export const DESIGN_DIVERSITY_THRESHOLDS={
   sectionOrderDistance:0.4,
   paletteUniqueRate:0.65,
   paletteTokenDistance:0.18,
+  creativeSignatureUniqueRate:0.7,
+  narrativeDistance:0.4,
+  contentDepthUniqueRate:0.7,
+  spatialFingerprintUniqueRate:0.75,
+  spatialFingerprintDistance:0.45,
+  compositionDiversityPassRate:0.9,
   brandCoherence:0.98,
   accentContrastCompliance:1
 };
@@ -99,6 +105,11 @@ function sampleOf(entry,plan){
     layoutStrategy:s.layout_strategy,
     color:{mode:s.color_strategy.mode,temperature:s.color_strategy.temperature,...s.color_strategy.tokens,accentTextContrast:s.color_strategy.accessibility?.accentTextContrast},
     typography:s.typography_strategy.character,
+    creativeSignature:[plan.creative?.thesis?.idea,plan.creative?.compositionIntent?.rhythm,plan.creative?.compositionIntent?.symmetry,plan.creative?.compositionIntent?.mediaDominance].join('|'),
+    narrativeStages:plan.creative?.narrative?.stages||[],
+    contentDepthFingerprint:[plan.creative?.contentDepth?.detailLevel,...(plan.creative?.contentDepth?.entities||[]),...(plan.creative?.contentDepth?.requiredSections||[])].join('|'),
+    spatialTokens:(plan.visual?.spatial?.sections||[]).map(x=>`${x.id}:${x.geometry}:${x.width}:${x.align}`),
+    compositionDiversity:plan.visual?.compositionDiversity||null,
     coherence:round(coherenceScore(plan))
   };
 }
@@ -109,6 +120,7 @@ export function runDesignDiversityBenchmark(entries,thresholds=DESIGN_DIVERSITY_
   const pageFingerprints=samples.map(x=>x.pageHierarchy.join('>'));
   const layoutFingerprints=plans.map(x=>x.layout.fingerprint);
   const paletteFingerprints=samples.map(x=>[x.color.mode,x.color.temperature,x.color.background,x.color.accent,x.color.accent2].join('|'));
+  const creativeFingerprints=samples.map(x=>x.creativeSignature),contentDepthFingerprints=samples.map(x=>x.contentDepthFingerprint),spatialFingerprints=samples.map(x=>x.spatialTokens.join('>'));
   const metrics={
     sampleCount:samples.length,
     navigationUniqueRate:round(uniqueRate(navFingerprints)),
@@ -120,6 +132,12 @@ export function runDesignDiversityBenchmark(entries,thresholds=DESIGN_DIVERSITY_
     sectionOrderDistance:round(pairwiseDistance(samples,x=>x.layoutSections)),
     paletteUniqueRate:round(uniqueRate(paletteFingerprints)),
     paletteTokenDistance:round(palettePairwiseDistance(plans)),
+    creativeSignatureUniqueRate:round(uniqueRate(creativeFingerprints)),
+    narrativeDistance:round(pairwiseDistance(samples,x=>x.narrativeStages)),
+    contentDepthUniqueRate:round(uniqueRate(contentDepthFingerprints)),
+    spatialFingerprintUniqueRate:round(uniqueRate(spatialFingerprints)),
+    spatialFingerprintDistance:round(pairwiseDistance(samples,x=>x.spatialTokens)),
+    compositionDiversityPassRate:round(samples.filter(x=>x.compositionDiversity?.status==='PASS').length/Math.max(samples.length,1)),
     brandCoherence:round(avg(plans.map(coherenceScore))),
     accentContrastCompliance:round(plans.filter(accentContrastPass).length/Math.max(plans.length,1))
   };

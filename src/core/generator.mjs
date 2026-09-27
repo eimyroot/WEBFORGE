@@ -143,7 +143,7 @@ export function generateWebsite(brief) {
   const dir = path.join(generatedRoot,id); fs.mkdirSync(dir,{recursive:false});
   const manifest = {
     schema:'webforge.universal-composition.v1', projectId:id, generatedAt:now(), brief,
-    project:plan.project, domain:plan.domain, product:plan.product, experience:plan.experience, designDNA:plan.designDNA, brand:plan.brand, capabilities:plan.capabilities, siteBlueprint:plan.siteBlueprint, runtime:plan.selection.runtime,
+    project:plan.project, domain:plan.domain, product:plan.product, experience:plan.experience, creative:plan.creative, designDNA:plan.designDNA, brand:plan.brand, capabilities:plan.capabilities, siteBlueprint:plan.siteBlueprint, runtime:plan.selection.runtime,
     patterns:plan.selection.patterns.map(x=>x.id), layout:plan.layout, components:plan.selection.components.map(x=>x.id),
     tools:plan.selection.tools, policy:plan.policy, visual:plan.visual
   };
@@ -155,6 +155,7 @@ export function generateWebsite(brief) {
   fs.writeFileSync(path.join(dir,'website-genome.json'),JSON.stringify(plan.domain.genome,null,2)+'\n');
   fs.writeFileSync(path.join(dir,'product.model.json'),JSON.stringify(plan.product,null,2)+'\n');
   fs.writeFileSync(path.join(dir,'experience.model.json'),JSON.stringify(plan.experience,null,2)+'\n');
+  fs.writeFileSync(path.join(dir,'creative-brief.json'),JSON.stringify(plan.creative,null,2)+'\n');
   fs.writeFileSync(path.join(dir,'design-dna.json'),JSON.stringify(plan.designDNA,null,2)+'\n');
   fs.writeFileSync(path.join(dir,'visual-composition.json'),JSON.stringify(plan.visual,null,2)+'\n');
   fs.writeFileSync(path.join(dir,'media.plan.json'),JSON.stringify(plan.visual.media,null,2)+'\n');
@@ -184,12 +185,14 @@ export function generateWebsite(brief) {
   const receipt = {
     schema:'webforge.evidence.receipt.v1', receiptId:crypto.randomUUID(), projectId:id, timestamp:now(),
     action:'generate-universal-web-product', status:'PASS', policy:'PASS', runtime:plan.selection.runtime.id, template:plan.layout.id, brand:plan.brand.identity.name,
-    artifacts:['index.html','styles.css','universal.plan.json','domain.model.json','website-genome.json','product.model.json','experience.model.json','design-dna.json','site-blueprint.json','composition-registry-selection.json','renderer-coverage.json','project-local-components.json','visual-composition.json','media.plan.json','media.requests.json','assets/media','package.json','server.mjs','webforge.manifest.json','deployment.plan.json','runtime-build.receipt.json',...generatedPages,...runtimeForge.files.map(x=>`runtime/${x}`)],
+    artifacts:['index.html','styles.css','universal.plan.json','domain.model.json','website-genome.json','product.model.json','experience.model.json','creative-brief.json','design-dna.json','site-blueprint.json','composition-registry-selection.json','renderer-coverage.json','project-local-components.json','visual-composition.json','media.plan.json','media.requests.json','assets/media','package.json','server.mjs','webforge.manifest.json','deployment.plan.json','runtime-build.receipt.json',...generatedPages,...runtimeForge.files.map(x=>`runtime/${x}`)],
     checks:[
       {id:'universal-domain-model',status:'PASS',detail:{classification:plan.domain.classification,domain:plan.project.domainArchetype,confidence:plan.domain.confidence}},
       {id:'website-genome',status:'PASS',detail:plan.domain.genome},
       {id:'product-capabilities',status:plan.product.unresolved.length?'UNRESOLVED':plan.product.conditional.length?'CONDITIONAL':'PASS',detail:{count:plan.product.capabilityIds.length,unresolved:plan.product.unresolved,conditional:plan.product.conditional}},
       {id:'experience-synthesis',status:'PASS',detail:{mode:plan.experience.mode,pages:plan.experience.pageCount,jobs:plan.experience.journeys.length}},
+      {id:'creative-brief-r2',status:'PASS',detail:{idea:plan.creative.thesis.idea,narrative:plan.creative.narrative.pattern,contentDepth:plan.creative.contentDepth.detailLevel}},
+      {id:'composition-diversity',status:plan.visual.compositionDiversity.status,detail:plan.visual.compositionDiversity},
       {id:'design-dna',status:'PASS',detail:{mode:plan.designDNA.mode,grid:plan.designDNA.grid,motion:plan.designDNA.motion}},
       {id:'policy-gate',status:'PASS'},
       {id:'runtime-resolved',status:'PASS'},

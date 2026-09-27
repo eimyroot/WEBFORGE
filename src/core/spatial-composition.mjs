@@ -54,6 +54,22 @@ function candidates(section,plan){
   if(role==='PEOPLE')return ['people-mosaic','people-rail','narrow-stack'];
   return ['text-dominant','media-dominant','editorial-column'];
 }
+
+function creativeCandidates(options,section,plan){
+  const intent=plan.creative?.compositionIntent||{};
+  const scored=options.map((geometry,index)=>{let score=0;
+    if(String(intent.symmetry||'').includes('asymmetric')&&/(offset|mosaic|reverse|staggered|editorial-column)/.test(geometry))score+=4;
+    if(['high','very-high'].includes(intent.mediaDominance)&&/(media|mosaic|gallery|people)/.test(geometry))score+=3;
+    if(intent.mediaDominance==='low'&&/(editorial-list|narrow|text-dominant|evidence|timeline)/.test(geometry))score+=3;
+    if(/editorial|slow/.test(intent.rhythm||'')&&/(editorial|narrow|media-dominant|reverse)/.test(geometry))score+=2;
+    if(/technical|evidence|task-proof/.test(intent.rhythm||'')&&/(evidence|metric|timeline|editorial-list|text-dominant)/.test(geometry))score+=2;
+    if(/pulse|cinematic|gallery/.test(intent.rhythm||'')&&/(full-bleed|mosaic|rail|staggered|media-dominant)/.test(geometry))score+=2;
+    return {geometry,index,score};
+  });
+  scored.sort((a,b)=>b.score-a.score||a.index-b.index);
+  return scored.map(x=>x.geometry);
+}
+
 function sectionWidth(geometry){
   if(/full-bleed|map-wide|metric-band|gallery-rail|content-rail/.test(geometry))return 'full';
   if(/narrow|editorial-column|faq-sidebar/.test(geometry))return 'narrow';
@@ -73,7 +89,7 @@ function alignFor(geometry,seed){
 function specFor(section,index,plan,seed,used){
   if(section.id==='hero')return {id:section.id,geometry:heroGeometry(plan),width:'full',align:'center',mediaRatio:'high',overlap:false,rhythm:'viewport'};
   if(section.id==='final-cta')return {id:section.id,geometry:'full-bleed-cta',width:'full',align:'center',mediaRatio:'low',overlap:false,rhythm:'compact'};
-  let options=candidates(section,plan),geometry=pick(options,`${seed}|${section.id}|${index}`);
+  let options=creativeCandidates(candidates(section,plan),section,plan),geometry=pick(options.slice(0,Math.max(1,Math.ceil(options.length*.67))),`${seed}|${section.id}|${index}`);
   if((used.get(geometry)||0)>=2){const alt=options.find(x=>(used.get(x)||0)===0);if(alt)geometry=alt;}
   used.set(geometry,(used.get(geometry)||0)+1);
   const overlap=/mosaic|staggered|poster/.test(geometry)&&hash(`${seed}|overlap|${section.id}`)%3===0;
@@ -110,7 +126,7 @@ function canvasModel(plan,seed){
   return pick(['mixed-width','framed','edge-to-edge'],`${seed}|canvas`);
 }
 export function compileSpatialComposition(plan,sections){
-  const seed=uniq([plan.domain?.synthesis?.signature,plan.layout?.fingerprint,plan.brand?.identity?.name,plan.project?.domainArchetype,plan.designStrategy?.layout_strategy?.primary]).join('|');
+  const seed=uniq([plan.domain?.synthesis?.signature,plan.layout?.fingerprint,plan.brand?.identity?.name,plan.project?.domainArchetype,plan.designStrategy?.layout_strategy?.primary,plan.creative?.thesis?.idea,plan.creative?.compositionIntent?.rhythm]).join('|');
   const used=new Map(),specs=sections.map((s,i)=>specFor(s,i,plan,seed,used));
   const zones=buildZones(specs,seed),canvas=canvasModel(plan,seed);
   const fingerprint=[canvas,...specs.map(x=>`${x.id}:${x.geometry}:${x.width}:${x.align}`),...zones.map(x=>`${x.kind}(${x.members.join('+')})`)].join('|');

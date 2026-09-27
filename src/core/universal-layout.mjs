@@ -40,7 +40,7 @@ function insertBeforeFinal(sections,items){
   return ['hero',...uniq(preferred).slice(0,11),'final-cta'];
 }
 export function applyUniversalLayout(layout,project){
-  const items=wanted(project),profile=project.designStrategy?.composition_profile||null;
+  const items=wanted(project),profile=project.designStrategy?.composition_profile||null,creativeSections=project.creative?.contentDepth?.requiredSections||[];
   if(!items.length&&!profile?.homepageSections?.length)return layout;
   const out=structuredClone(layout);
   const novel=project.domain?.classification==='NOVEL'&&project.domain?.synthesis?.direction;
@@ -49,7 +49,7 @@ export function applyUniversalLayout(layout,project){
     out.sections=['hero',...uniq([...semantic,...extras]).filter(x=>x!=='hero'&&x!=='final-cta').slice(0,10),'final-cta'];
     out.family=d.family;out.hero=d.hero;out.rhythm=d.rhythm;out.density=d.density;
   } else if(profile?.homepageSections?.length){
-    out.sections=['hero',...uniq(profile.homepageSections).filter(x=>x!=='hero'&&x!=='final-cta').slice(0,11),'final-cta'];
+    out.sections=['hero',...uniq([...profile.homepageSections,...creativeSections]).filter(x=>x!=='hero'&&x!=='final-cta').slice(0,11),'final-cta'];
     out.family=profile.family||out.family;
     out.hero=profile.visualCharacter?.hero||project.designStrategy?.layout_strategy?.hero||out.hero;
     out.rhythm=project.designStrategy?.layout_strategy?.sectionRhythm||out.rhythm;

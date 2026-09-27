@@ -28,5 +28,7 @@
   {"id":"makerspace","brief":"Community makerspace with workshops, equipment, member projects, events, memberships and class registration."},
   {"id":"museum-exhibition","brief":"Immersive contemporary art museum exhibition with artists, installations, curatorial story, gallery, tickets and visit information."},
   {"id":"job-board","brief":"Specialist remote jobs platform with search, filters, company profiles, saved jobs, accounts and employer listings."},
-  {"id":"logistics-dashboard","brief":"B2B logistics operations web app with shipment dashboard, live status, exceptions, analytics, team accounts and security."}
+  {"id":"logistics-dashboard","brief":"B2B logistics operations web app with shipment dashboard, live status, exceptions, analytics, team accounts and security."},
+  {"id":"florist-studio","brief":"Independent flower studio in Prague with seasonal bouquets, weddings, custom arrangements, subscriptions and local delivery."},
+  {"id":"corporate-law","brief":"Corporate law firm in Prague with practice areas, attorneys, industry expertise, case experience, insights and consultations."}
 ]

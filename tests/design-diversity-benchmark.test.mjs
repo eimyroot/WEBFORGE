@@ -7,9 +7,9 @@ const entries=JSON.parse(fs.readFileSync(new URL('./data/design-diversity-briefs
 const report=runDesignDiversityBenchmark(entries);
 
 test('design diversity benchmark uses a broad fixed dataset',()=>{
-  assert.equal(entries.length,30);
-  assert.equal(report.dataset.count,30);
-  assert.equal(new Set(entries.map(x=>x.id)).size,30);
+  assert.equal(entries.length,32);
+  assert.equal(report.dataset.count,32);
+  assert.equal(new Set(entries.map(x=>x.id)).size,32);
 });
 
 test('design diversity clears all behavioral gates',()=>{

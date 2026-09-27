@@ -67,8 +67,12 @@ export function visualSignatureDistance(a,b){
 export const RENDERED_DIVERSITY_THRESHOLDS={
   browserPassRate:1,
   accessibilityPassRate:1,
+  responsivePassRate:1,
   performancePassRate:1,
   deterministicPassRate:1,
+  mobileBrowserPassRate:1,
+  mobileAccessibilityPassRate:1,
+  mobileResponsivePassRate:1,
   screenshotUniqueRate:1,
   perceptualDistance:0.12,
   minimumPairDistance:0.04
@@ -79,8 +83,12 @@ export function evaluateRenderedDiversity(samples,thresholds=RENDERED_DIVERSITY_
     sampleCount:samples.length,
     browserPassRate:round(samples.filter(x=>x.browserPass).length/Math.max(samples.length,1)),
     accessibilityPassRate:round(samples.filter(x=>x.accessibilityPass).length/Math.max(samples.length,1)),
+    responsivePassRate:round(samples.filter(x=>x.responsivePass).length/Math.max(samples.length,1)),
     performancePassRate:round(samples.filter(x=>x.performancePass).length/Math.max(samples.length,1)),
     deterministicPassRate:round(samples.filter(x=>x.deterministicPass).length/Math.max(samples.length,1)),
+    mobileBrowserPassRate:round(samples.filter(x=>x.mobileBrowserPass).length/Math.max(samples.length,1)),
+    mobileAccessibilityPassRate:round(samples.filter(x=>x.mobileAccessibilityPass).length/Math.max(samples.length,1)),
+    mobileResponsivePassRate:round(samples.filter(x=>x.mobileResponsivePass).length/Math.max(samples.length,1)),
     screenshotUniqueRate:round(new Set(samples.map(x=>x.screenshotSha256)).size/Math.max(samples.length,1)),
     perceptualDistance:round(avg(distances)),
     minimumPairDistance:round(distances.length?Math.min(...distances):0)

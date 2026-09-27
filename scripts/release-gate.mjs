@@ -23,9 +23,14 @@ checks.push({id:'media-intelligence',status:fs.existsSync('src/core/media-intell
 
 checks.push({id:'domain-ontology',status:fs.existsSync('src/registries/domain-ontology.json')&&JSON.parse(fs.readFileSync('src/registries/domain-ontology.json')).length>=20?'PASS':'FAIL'});
 checks.push({id:'capability-ontology',status:fs.existsSync('src/registries/capability-ontology.json')&&JSON.parse(fs.readFileSync('src/registries/capability-ontology.json')).length>=65?'PASS':'FAIL'});
-for(const f of ['src/core/domain-intelligence.mjs','src/core/product-intelligence.mjs','src/core/experience-intelligence.mjs','src/core/design-dna.mjs','src/core/universal-compiler.mjs']) checks.push({id:`universal-core:${f}`,status:fs.existsSync(f)?'PASS':'FAIL'});
+for(const f of ['src/core/domain-intelligence.mjs','src/core/product-intelligence.mjs','src/core/experience-intelligence.mjs','src/core/design-dna.mjs','src/core/creative-brief.mjs','src/core/universal-compiler.mjs']) checks.push({id:`universal-core:${f}`,status:fs.existsSync(f)?'PASS':'FAIL'});
 for(const f of ['schemas/website-genome.schema.json','schemas/domain-model.schema.json','schemas/product-model.schema.json','schemas/design-dna.schema.json','schemas/universal-plan.schema.json']) checks.push({id:`universal-schema:${f}`,status:fs.existsSync(f)?'PASS':'FAIL'});
 const universalTest=fs.readFileSync('tests/universal.test.mjs','utf8');checks.push({id:'cross-domain-regression-matrix',status:universalTest.includes('Tinder')&&universalTest.includes('future')?'PASS':'FAIL'});
+const creativeEntries=JSON.parse(fs.readFileSync('tests/data/design-diversity-briefs.json','utf8'));
+const criticalCreativeIds=['boutique-hotel','florist-studio','accounting-saas','corporate-law','techno-club','architecture-portfolio','fine-dining','industrial-marketplace'];
+const criticalCreative=criticalCreativeIds.map(id=>creativeEntries.find(x=>x.id===id)).filter(Boolean);
+const creativeBenchmark=(await import('../src/core/design-diversity-benchmark.mjs')).runDesignDiversityBenchmark(criticalCreative);
+checks.push({id:'creative-r2-diversity',status:criticalCreative.length===8&&creativeBenchmark.status==='PASS'&&creativeBenchmark.metrics.creativeSignatureUniqueRate===1&&creativeBenchmark.metrics.spatialFingerprintUniqueRate===1&&creativeBenchmark.metrics.compositionDiversityPassRate===1?'PASS':'FAIL',detail:creativeBenchmark.metrics});
 
 const deploy=fs.readFileSync('src/core/deployment.mjs','utf8');checks.push({id:'production-explicit-approval-invariant',status:deploy.includes('productionEligible:productionBlockers.length===0&&productionApproved===true')?'PASS':'FAIL'});
 const fed=(await import('../src/core/federated-components.mjs')).federatedSources();checks.push({id:'federated-component-pack',status:fed.length>=14?'PASS':'FAIL',detail:{sources:fed.length}});
