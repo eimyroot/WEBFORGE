@@ -148,14 +148,15 @@ export function evaluateStructuralPlaygroundSamples(candidate,baselineSamples,{w
   if(!candidate||!Array.isArray(baselineSamples)||baselineSamples.length===0) throw new Error('Structural playground requires candidate and baseline samples');
   const comparisons=baselineSamples.map(base=>({id:base.id,domain:base.domain,...compareStructuralSamples(candidate,base)})).sort((a,b)=>a.compositeDistance-b.compositeDistance);
   const crossDomain=comparisons.filter(x=>x.domain!==candidate.domain);
-  const hardCollisions=crossDomain.filter(x=>structuralPairViolates(x));
+  const hardCollisions=crossDomain.filter(x=>x.compositeDistance<STRUCTURAL_PLAYGROUND_THRESHOLDS.hardCollision);
+  const warningCollisions=crossDomain.filter(x=>x.compositeDistance>=STRUCTURAL_PLAYGROUND_THRESHOLDS.hardCollision&&structuralPairViolates(x));
   const nearest=comparisons[0];
-  const status=hardCollisions.length?'FAIL':nearest.compositeDistance<warningCollision?'WARN':'PASS';
+  const status=hardCollisions.length?'FAIL':warningCollisions.length||nearest.compositeDistance<warningCollision?'WARN':'PASS';
   return {
     schema:'webforge.structural-playground-evaluation.r1',status,source:'rendered-dom-and-page-graph',
     candidate:{id:candidate.id,domain:candidate.domain,root:candidate.root,homepage:candidate.homepage,pageGraph:candidate.pageGraph},
-    thresholds:{hard:{...STRUCTURAL_DIVERSITY_THRESHOLDS},warningCollision},
-    nearest:comparisons.slice(0,3),hardCollisions:hardCollisions.slice(0,3),baselineCount:baselineSamples.length
+    thresholds:{hardCompositeCollision:STRUCTURAL_PLAYGROUND_THRESHOLDS.hardCollision,releaseDimensions:{...STRUCTURAL_DIVERSITY_THRESHOLDS},warningCollision},
+    nearest:comparisons.slice(0,3),hardCollisions:hardCollisions.slice(0,3),warningCollisions:warningCollisions.slice(0,3),baselineCount:baselineSamples.length
   };
 }
 

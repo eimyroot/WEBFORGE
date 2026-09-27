@@ -35,6 +35,15 @@ test('structural playground fails closed on a cross-domain identical skeleton',(
   assert.equal(out.hardCollisions[0].compositeDistance,0);
 });
 
+
+test('structural playground uses WARN for a dimension-level collision outside the hard composite radius',()=>{
+  const out=evaluateStructuralPlaygroundBrief('Specialist dermatology clinic with doctor profiles, treatments, appointment booking, patient preparation guides and insurance information.');
+  assert.equal(out.status,'WARN');
+  assert.equal(out.hardCollisions.length,0);
+  assert.ok(out.warningCollisions.length>=1);
+  assert.ok(out.nearest[0].compositeDistance>=out.thresholds.hardCompositeCollision);
+});
+
 test('structural playground rejects malformed briefs',()=>{
   assert.throws(()=>evaluateStructuralPlaygroundBrief('short'),/at least 8 characters/);
 });
