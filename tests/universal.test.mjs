@@ -36,6 +36,18 @@ test('Website Genome is synthesized for radically different domains',()=>{
   assert.notDeepEqual(a.purpose,b.purpose);
 });
 
+
+test('corporate law technology brief does not collide with techno venue signal',()=>{
+  const brief='Corporate law firm in Prague focused on M&A, technology and employment law, with named attorneys, practice areas, case experience, insights and consultation booking. Reserved, authoritative and evidence-led.';
+  const domain=analyzeDomain(brief);
+  assert.equal(domain.primary.id,'local-professional-service');
+  assert.ok(domain.primary.hits.includes('corporate law'));
+  assert.ok(domain.primary.hits.includes('law firm'));
+  assert.ok(domain.primary.hits.includes('attorneys'));
+  assert.ok(!domain.primary.hits.includes('techno'));
+  assert.notEqual(domain.primary.id,'venue-entertainment');
+});
+
 test('Tinder for excavators decomposes into marketplace capabilities instead of requiring a fixed template',()=>{
   const p=compose(briefs.marketplace);
   assert.equal(p.project.archetype,'marketplace');

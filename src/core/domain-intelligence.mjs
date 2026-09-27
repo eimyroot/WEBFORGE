@@ -69,11 +69,18 @@ const INTERACTION_RULES=[
   ['manage',/dashboard|admin|manage|workspace|spravovat/i]
 ];
 
+const TOKEN_BOUNDARY_SIGNALS=new Set(['techno']);
+const escapeRegex=value=>value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+function containsDomainSignal(text,signal){
+  if(!TOKEN_BOUNDARY_SIGNALS.has(signal)) return text.includes(signal);
+  const token=escapeRegex(signal);
+  return new RegExp(`(^|[^a-z0-9])${token}(?=$|[^a-z0-9])`,'i').test(text);
+}
 function scoreDomain(def,text){
   let score=0; const hits=[];
   for(const signal of def.signals){
     const s=signal.toLowerCase();
-    if(text.includes(s)){score+=s.includes(' ')?22:14;hits.push(signal);}
+    if(containsDomainSignal(text,s)){score+=s.includes(' ')?22:14;hits.push(signal);}
   }
   if(def.trustBurden==='critical'&&/medical|health|finance|bank|insurance|legal|hospital|clinic/i.test(text)) score+=8;
   return {score,hits};
