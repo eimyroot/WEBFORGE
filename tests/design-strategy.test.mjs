@@ -6,6 +6,7 @@ import { renderCss } from '../src/core/visual-renderer.mjs';
 const hotel=compose('Luxury boutique hotel in Prague with elegant rooms, spa, restaurant, gallery and direct booking.');
 const club=compose('Underground techno club in Prague with tonight events, artists, tickets and immersive gallery.');
 const saas=compose('Accounting SaaS for small businesses with invoicing, expenses, reports, team accounts, security and pricing.');
+const law=compose('Corporate law firm in Prague focused on M&A, technology and employment law, with named attorneys, practice areas, case experience, insights and consultation booking. Reserved, authoritative and evidence-led.');
 
 const labels=plan=>plan.designStrategy.navigation_model.items.map(x=>x.label);
 const ids=plan=>plan.designStrategy.page_hierarchy.map(x=>x.id);
@@ -29,6 +30,13 @@ test('radically different briefs produce materially different information archit
   assert.ok(labels(saas).includes('Security'));
   assert.notDeepEqual(ids(hotel),ids(club));
   assert.notDeepEqual(ids(club),ids(saas));
+});
+
+test('corporate law navigation prefers Offices over generic Venue',()=>{
+  const nav=law.designStrategy.navigation_model.items;
+  assert.ok(nav.some(x=>x.id==='offices'&&x.label==='Offices'&&x.path==='/offices/'));
+  assert.ok(!nav.some(x=>x.label==='Venue'));
+  assert.ok(law.experience.navigation.some(x=>x.label==='Offices'));
 });
 
 test('layout strategy and navigation mode adapt to product semantics',()=>{

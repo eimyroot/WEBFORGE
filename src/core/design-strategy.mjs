@@ -210,7 +210,7 @@ function navItems(domain,product,briefTopics,tokens){
   if((c.has('commerce.checkout')||c.has('commerce.subscription')||briefTopics.some(x=>x.id==='pricing'))&&!['editorial-publication','commerce-store'].includes(domain.primary.id))add('pricing','Pricing','/pricing/',82,['pricing','proof','faq']);
   if((domain.genome.trustBurden==='high'||domain.genome.trustBurden==='critical'||briefTopics.some(x=>x.id==='security'))&&!['healthcare','civic-government'].includes(domain.primary.id))add('security','Security','/security/',80,['security','proof','faq']);
   if(c.has('media.gallery')&&!items.some(x=>['rooms','experience','projects','collections'].includes(x.id)))add('gallery','Gallery','/gallery/',70,['gallery']);
-  if(c.has('geo.location'))add('location',domain.primary.id==='hospitality'?'Location':'Venue','/location/',80,['location']);
+  if(c.has('geo.location')&&!items.some(x=>x.id==='offices'))add('location',domain.primary.id==='hospitality'?'Location':'Venue','/location/',80,['location']);
   if(c.has('conversion.booking')&&!items.some(x=>x.id==='reservations'))add('booking',domain.primary.id==='hospitality'?'Book':has(tokens,'consultation')?'Consultation':'Booking','/book/',99,['availability','booking','proof']);
   if(c.has('conversion.tickets'))add('tickets','Tickets','/checkout/',90,['next-event','pricing','proof']);
   if(c.has('identity.account'))add('login','Login','/account/',60,['task-preview']);
