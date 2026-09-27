@@ -4,7 +4,7 @@ import {resolvePackages} from '../src/core/package-policy.mjs';
 import {discoverChromium} from '../src/core/browser-qa.mjs';
 const checks=[];
 function run(id,args){try{execFileSync('npm',args,{stdio:'pipe'});checks.push({id,status:'PASS'});}catch(e){checks.push({id,status:'FAIL',detail:String(e.stdout||e.message).slice(-2000)});}}
-run('tests',['test']);run('renderer-coverage',['run','renderer:coverage']);run('universal-matrix',['run','universal:demo']);run('verify',['run','verify']);run('build',['run','build']);run('audit',['run','audit']);
+run('tests',['test']);run('structural-diversity',['run','structural:diversity']);run('renderer-coverage',['run','renderer:coverage']);run('universal-matrix',['run','universal:demo']);run('verify',['run','verify']);run('build',['run','build']);run('audit',['run','audit']);
 const pkg=JSON.parse(fs.readFileSync('package.json','utf8'));checks.push({id:'package-version-9.1.0',status:pkg.version==='9.1.0'?'PASS':'FAIL'});
 const server=fs.readFileSync('src/api/server.mjs','utf8');checks.push({id:'api-version-9.1.0',status:server.includes("const version='9.1.0'")?'PASS':'FAIL'});
 for(const route of ['/api/qa','/api/runtime-build','/api/deploy','/api/environment','/api/visual/approve','/api/visual/registry','/api/registry','/api/fulfill/media','/api/fulfill/content','/api/connectors/plan','/api/factory/run','/api/universal/analyze','/api/universal/domain','/api/universal/capabilities','/api/components/sources','/api/components/search']) checks.push({id:`route:${route}`,status:server.includes(`'${route}'`)?'PASS':'FAIL'});
