@@ -13,6 +13,8 @@ test('product applications derive content and procedural media from product beha
   const monitoring=compose(monitoringBrief), logistics=compose(logisticsBrief);
   assert.equal(monitoring.designStrategy.composition_profile.siteArchetype,'product-application');
   assert.equal(logistics.designStrategy.composition_profile.siteArchetype,'product-application');
+  assert.notEqual(monitoring.designStrategy.layout_strategy.primary,logistics.designStrategy.layout_strategy.primary);
+  assert.notDeepEqual(monitoring.designStrategy.composition_profile.homepageSections,logistics.designStrategy.composition_profile.homepageSections);
   assert.match(monitoring.visual.content.model.hero.headline,/API health/i);
   assert.match(logistics.visual.content.model.hero.headline,/shipments|exceptions/i);
   assert.notEqual(monitoring.visual.content.model.hero.headline,logistics.visual.content.model.hero.headline);

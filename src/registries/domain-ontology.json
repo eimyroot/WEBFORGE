@@ -312,6 +312,7 @@
     "signals": [
       "city portal",
       "municipality",
+      "municipal",
       "government",
       "civic",
       "report issue",

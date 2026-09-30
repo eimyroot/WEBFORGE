@@ -32,7 +32,8 @@ function heroGeometry(plan){
   if(id==='florist-retail')return 'hero-editorial-stack';
   if(id==='hospitality')return 'hero-full-bleed';
   if(id==='industrial-b2b')return 'hero-technical-split';
-  if(['software-product','web-application'].includes(id))return 'hero-product-split';
+  if(id==='software-product')return 'hero-product-split';
+  if(id==='web-application')return 'hero-evidence-split';
   if(direction==='immersive-story')return 'hero-poster';
   if(direction==='editorial-narrative')return 'hero-editorial-stack';
   if(direction==='interactive-system')return 'hero-product-split';

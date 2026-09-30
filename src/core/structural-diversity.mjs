@@ -135,7 +135,37 @@ function metricGate(metric,actual,threshold,kind='min'){
 
 
 
-export const STRUCTURAL_PLAYGROUND_THRESHOLDS={hardCollision:STRUCTURAL_DIVERSITY_THRESHOLDS.minimumCompositeDistance,warningCollision:0.58};
+export const STRUCTURAL_PLAYGROUND_THRESHOLDS={
+  hardCollision:STRUCTURAL_DIVERSITY_THRESHOLDS.minimumCompositeDistance,
+  warningCollision:0.58,
+  minimumCoreViolationsForHard:2
+};
+export const STRUCTURAL_COLLISION_DIMENSIONS={
+  core:[
+    ['sectionSequenceDistance','minimumSectionSequenceDistance'],
+    ['geometrySequenceDistance','minimumGeometrySequenceDistance'],
+    ['roleSequenceDistance','minimumRoleSequenceDistance'],
+    ['templateFamilyDistance','minimumTemplateFamilyDistance'],
+    ['pageGraphDistance','minimumPageGraphDistance']
+  ],
+  auxiliary:[['zoneSequenceDistance','minimumZoneSequenceDistance']]
+};
+
+function violatedDimensions(distance,pairs,thresholds){
+  return pairs.filter(([metric,threshold])=>distance[metric]<thresholds[threshold]).map(([metric])=>metric);
+}
+export function classifyStructuralCollision(distance,thresholds=STRUCTURAL_DIVERSITY_THRESHOLDS,{minimumCoreViolationsForHard=STRUCTURAL_PLAYGROUND_THRESHOLDS.minimumCoreViolationsForHard}={}){
+  const coreViolations=violatedDimensions(distance,STRUCTURAL_COLLISION_DIMENSIONS.core,thresholds);
+  const auxiliaryViolations=violatedDimensions(distance,STRUCTURAL_COLLISION_DIMENSIONS.auxiliary,thresholds);
+  const compositeBelowHard=distance.compositeDistance<thresholds.minimumCompositeDistance;
+  const hard=compositeBelowHard&&coreViolations.length>=minimumCoreViolationsForHard;
+  const warning=!hard&&(compositeBelowHard||coreViolations.length>0||auxiliaryViolations.length>0);
+  return {
+    severity:hard?'FAIL':warning?'WARN':'PASS',hard,warning,compositeBelowHard,
+    minimumCoreViolationsForHard,coreViolationCount:coreViolations.length,
+    coreViolations,auxiliaryViolations
+  };
+}
 
 export function structuralPairViolates(distance,thresholds=STRUCTURAL_DIVERSITY_THRESHOLDS){
   return distance.compositeDistance<thresholds.minimumCompositeDistance||distance.sectionSequenceDistance<thresholds.minimumSectionSequenceDistance||
@@ -146,20 +176,28 @@ export function structuralPairViolates(distance,thresholds=STRUCTURAL_DIVERSITY_
 
 export function evaluateStructuralPlaygroundSamples(candidate,baselineSamples,{warningCollision=STRUCTURAL_PLAYGROUND_THRESHOLDS.warningCollision}={}){
   if(!candidate||!Array.isArray(baselineSamples)||baselineSamples.length===0) throw new Error('Structural playground requires candidate and baseline samples');
-  const comparisons=baselineSamples.map(base=>({id:base.id,domain:base.domain,...compareStructuralSamples(candidate,base)})).sort((a,b)=>a.compositeDistance-b.compositeDistance);
+  const comparisons=baselineSamples.map(base=>{
+    const distance=compareStructuralSamples(candidate,base);
+    return {id:base.id,domain:base.domain,...distance,collision:classifyStructuralCollision(distance)};
+  }).sort((a,b)=>a.compositeDistance-b.compositeDistance);
   const crossDomain=comparisons.filter(x=>x.domain!==candidate.domain);
-  const hardCollisions=crossDomain.filter(x=>x.compositeDistance<STRUCTURAL_PLAYGROUND_THRESHOLDS.hardCollision);
-  const warningCollisions=crossDomain.filter(x=>x.compositeDistance>=STRUCTURAL_PLAYGROUND_THRESHOLDS.hardCollision&&structuralPairViolates(x));
+  const hardCollisions=crossDomain.filter(x=>x.collision.hard);
+  const warningCollisions=crossDomain.filter(x=>x.collision.warning);
   const nearest=comparisons[0];
   const status=hardCollisions.length?'FAIL':warningCollisions.length||nearest.compositeDistance<warningCollision?'WARN':'PASS';
   return {
     schema:'webforge.structural-playground-evaluation.r1',status,source:'rendered-dom-and-page-graph',
     candidate:{id:candidate.id,domain:candidate.domain,root:candidate.root,homepage:candidate.homepage,pageGraph:candidate.pageGraph},
-    thresholds:{hardCompositeCollision:STRUCTURAL_PLAYGROUND_THRESHOLDS.hardCollision,releaseDimensions:{...STRUCTURAL_DIVERSITY_THRESHOLDS},warningCollision},
+    thresholds:{
+      hardCompositeCollision:STRUCTURAL_PLAYGROUND_THRESHOLDS.hardCollision,
+      minimumCoreViolationsForHard:STRUCTURAL_PLAYGROUND_THRESHOLDS.minimumCoreViolationsForHard,
+      coreCollisionDimensions:STRUCTURAL_COLLISION_DIMENSIONS.core.map(([metric])=>metric),
+      auxiliaryCollisionDimensions:STRUCTURAL_COLLISION_DIMENSIONS.auxiliary.map(([metric])=>metric),
+      releaseDimensions:{...STRUCTURAL_DIVERSITY_THRESHOLDS},warningCollision
+    },
     nearest:comparisons.slice(0,3),hardCollisions:hardCollisions.slice(0,3),warningCollisions:warningCollisions.slice(0,3),baselineCount:baselineSamples.length
   };
 }
-
 export function evaluateStructuralPlaygroundBrief(brief,baselines=STRUCTURAL_PLAYGROUND_BASELINES){
   if(typeof brief!=='string'||brief.trim().length<8) throw new Error('Brief must contain at least 8 characters');
   const candidate=captureStructuralSample({id:'playground-candidate',brief});

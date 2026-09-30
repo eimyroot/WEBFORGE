@@ -88,8 +88,10 @@ const DOMAIN_COLOR_PROFILES={
 const DOMAIN_GRAMMARS={
   'education-learning':{primary:'academic-system',hero:'academic-campus',rhythm:'chaptered',nav:'academic-nav',density:'balanced',type:'editorial-display',interaction:'explore-and-apply'},
   'jobs-careers':{primary:'careers-system',hero:'job-search',rhythm:'search-and-evaluate',nav:'careers-nav',density:'balanced',type:'functional-grotesk',interaction:'search-and-apply'},
+  'web-application':{primary:'operations-system',hero:'workspace-state',rhythm:'task-state-resolution',nav:'workspace-nav',density:'dense',type:'functional-grotesk',interaction:'operate-and-resolve'},
   'industrial-b2b':{primary:'industrial-system',hero:'specification-led',rhythm:'technical-evidence',nav:'industrial-nav',density:'balanced',type:'technical-grotesk',interaction:'specify-and-enquire'},
   finance:{primary:'finance-system',hero:'trust-led',rhythm:'advisory-evidence',nav:'finance-nav',density:'airy',type:'authority-serif',interaction:'understand-and-consult'},
+  'civic-government':{primary:'civic-service-system',hero:'service-status',rhythm:'task-and-resolution',nav:'civic-nav',density:'balanced',type:'functional-grotesk',interaction:'submit-and-track'},
   'community-membership':{primary:'community-system',hero:'people-led',rhythm:'community-flow',nav:'community-nav',density:'balanced',type:'humanist-grotesk',interaction:'discover-and-join'},
   'commerce-store':{primary:'commerce-system',hero:'catalog-led',rhythm:'merchandising',nav:'commerce-nav',density:'balanced',type:'modern-grotesk',interaction:'browse-compare-buy'},
   'florist-retail':{primary:'florist-system',hero:'botanical-editorial',rhythm:'occasion-to-bouquet',nav:'florist-nav',density:'airy',type:'editorial-display',interaction:'browse-personalize-deliver'}

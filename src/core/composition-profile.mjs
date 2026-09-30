@@ -137,7 +137,18 @@ export function compileCompositionProfile(domain,product,brief,strategy={}){
     rationale:['property-and-place-led','viewing-after-context']
   });
 
-  if(['software-product','web-application'].includes(id)||base==='saas'){
+  if(id==='web-application'){
+    const realtime=has(caps,'data.realtime')||/(live status|real-time|realtime|monitoring|alerts)/i.test(text);
+    const docs=has(caps,'content.documentation')||/(documentation|docs|developer)/i.test(text);
+    return makeProfile(domain,strategy,'product-application',{
+      family:'operational-application',
+      sections:['task-preview',realtime&&'outcomes','workflow','integrations',docs&&'latest-content','proof','security','faq'],
+      flow:['enter-workspace',realtime?'inspect-live-state':'start-task','resolve-work','activate'],
+      rationale:['task-state-before-marketing',realtime?'live-state-visible':'task-flow-visible',docs?'documentation-visible':'documentation-secondary','commercial-grid-not-assumed']
+    });
+  }
+
+  if(id==='software-product'||base==='saas'){
     const realtime=has(caps,'data.realtime')||/(live status|real-time|realtime|monitoring|alerts)/i.test(text);
     const docs=has(caps,'content.documentation')||/(documentation|docs|developer)/i.test(text);
     return makeProfile(domain,strategy,'product-application',{
