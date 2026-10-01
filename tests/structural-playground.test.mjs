@@ -84,6 +84,26 @@ test('generic portal web-app no longer reuses the SaaS hard skeleton',()=>{
   assert.ok(out.nearest.every(x=>x.id!=='accounting-saas'||x.compositeDistance>=out.thresholds.hardCompositeCollision));
 });
 
+
+test('structural playground hard-fails same-domain skeleton reuse when product intent changes',()=>{
+  const manufacturer=captureStructuralSample({id:'robotics-manufacturer',brief:'Industrial robotics manufacturer with product families, technical specifications, applications, engineering support, case studies and RFQ.'});
+  const marketplace=captureStructuralSample({id:'industrial-marketplace',brief:'B2B marketplace for industrial machine parts with technical filters, supplier verification, RFQ workflow and account dashboard.'});
+  assert.equal(manufacturer.domain,marketplace.domain);
+  assert.notEqual(manufacturer.intent.signature,marketplace.intent.signature);
+  const out=evaluateStructuralPlaygroundSamples(manufacturer,[marketplace]);
+  assert.equal(out.status,'FAIL');
+  assert.equal(out.hardCollisions.length,1);
+  assert.equal(out.hardCollisions[0].id,'industrial-marketplace');
+});
+
+test('structural playground keeps same-domain same-intent clones as warnings rather than false hard blockers',()=>{
+  const base=captureStructuralSample(hotel);
+  const clone={...base,id:'same-intent-hotel'};
+  const out=evaluateStructuralPlaygroundSamples(clone,[base]);
+  assert.equal(out.status,'WARN');
+  assert.equal(out.hardCollisions.length,0);
+});
+
 test('structural playground rejects malformed briefs',()=>{
   assert.throws(()=>evaluateStructuralPlaygroundBrief('short'),/at least 8 characters/);
 });

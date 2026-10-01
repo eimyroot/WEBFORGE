@@ -74,6 +74,7 @@ export function captureStructuralSample(entry){
   const plan=compose(entry.brief),html=renderWebsite(plan,plan.visual,`structural-${entry.id}`),root=rootTag(html),sections=sectionShape(html);
   const sample={
     id:entry.id,brief:entry.brief,domain:plan.project.domainArchetype,
+    intent:{archetype:plan.project.archetype||'',primaryGoal:plan.project.primary_goal||'',signature:`${plan.project.archetype||''}:${plan.project.primary_goal||''}`},
     root:{
       layoutTemplate:attr(root,'data-template'),canvas:attr(root,'data-canvas'),layoutStrategy:attr(root,'data-strategy'),
       heroArchetype:attr(root,'data-hero-strategy'),navigationModel:attr(root,'data-nav-model')
@@ -178,16 +179,16 @@ export function evaluateStructuralPlaygroundSamples(candidate,baselineSamples,{w
   if(!candidate||!Array.isArray(baselineSamples)||baselineSamples.length===0) throw new Error('Structural playground requires candidate and baseline samples');
   const comparisons=baselineSamples.map(base=>{
     const distance=compareStructuralSamples(candidate,base);
-    return {id:base.id,domain:base.domain,...distance,collision:classifyStructuralCollision(distance)};
+    return {id:base.id,domain:base.domain,intent:base.intent,...distance,collision:classifyStructuralCollision(distance)};
   }).sort((a,b)=>a.compositeDistance-b.compositeDistance);
-  const crossDomain=comparisons.filter(x=>x.domain!==candidate.domain);
-  const hardCollisions=crossDomain.filter(x=>x.collision.hard);
-  const warningCollisions=crossDomain.filter(x=>x.collision.warning);
+  const semanticallyDistinct=comparisons.filter(x=>x.domain!==candidate.domain||x.intent?.signature!==candidate.intent?.signature);
+  const hardCollisions=semanticallyDistinct.filter(x=>x.collision.hard);
+  const warningCollisions=semanticallyDistinct.filter(x=>x.collision.warning);
   const nearest=comparisons[0];
   const status=hardCollisions.length?'FAIL':warningCollisions.length||nearest.compositeDistance<warningCollision?'WARN':'PASS';
   return {
     schema:'webforge.structural-playground-evaluation.r1',status,source:'rendered-dom-and-page-graph',
-    candidate:{id:candidate.id,domain:candidate.domain,root:candidate.root,homepage:candidate.homepage,pageGraph:candidate.pageGraph},
+    candidate:{id:candidate.id,domain:candidate.domain,intent:candidate.intent,root:candidate.root,homepage:candidate.homepage,pageGraph:candidate.pageGraph},
     thresholds:{
       hardCompositeCollision:STRUCTURAL_PLAYGROUND_THRESHOLDS.hardCollision,
       minimumCoreViolationsForHard:STRUCTURAL_PLAYGROUND_THRESHOLDS.minimumCoreViolationsForHard,
