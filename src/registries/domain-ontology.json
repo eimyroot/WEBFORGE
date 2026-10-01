@@ -317,7 +317,14 @@
       "civic",
       "report issue",
       "hlášení závad",
-      "úřad"
+      "úřad",
+      "resident services",
+      "city services",
+      "local council",
+      "public works",
+      "waste collection",
+      "parking permit",
+      "council notice"
     ],
     "entities": [
       "Citizen",
@@ -415,7 +422,27 @@
       "doctor",
       "hospital",
       "therapy",
-      "health clinic"
+      "health clinic",
+      "medical clinic",
+      "medical practice",
+      "medical center",
+      "cardiology",
+      "cardiologist",
+      "cardiac",
+      "heart clinic",
+      "ecg",
+      "dermatology",
+      "dermatologist",
+      "pediatrics",
+      "pediatric",
+      "orthopedics",
+      "orthopedic",
+      "neurology",
+      "neurologist",
+      "oncology",
+      "oncologist",
+      "gynecology",
+      "gynecologist"
     ],
     "entities": [
       "Service",
@@ -428,7 +455,10 @@
       "inform",
       "book"
     ],
-    "trustBurden": "critical"
+    "trustBurden": "critical",
+    "signalWeights": {
+      "medical": 8
+    }
   },
   {
     "id": "finance",
@@ -440,7 +470,15 @@
       "investment",
       "insurance",
       "fintech",
-      "loan"
+      "loan",
+      "insurance company",
+      "insurance provider",
+      "insurance broker",
+      "insurance agency",
+      "insurance platform",
+      "insurance portal",
+      "insurance website",
+      "insurer"
     ],
     "entities": [
       "Account",
@@ -453,7 +491,10 @@
       "inform",
       "transact"
     ],
-    "trustBurden": "critical"
+    "trustBurden": "critical",
+    "signalWeights": {
+      "insurance": 8
+    }
   },
   {
     "id": "industrial-b2b",

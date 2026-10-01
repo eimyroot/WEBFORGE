@@ -80,9 +80,13 @@ function scoreDomain(def,text){
   let score=0; const hits=[];
   for(const signal of def.signals){
     const s=signal.toLowerCase();
-    if(containsDomainSignal(text,s)){score+=s.includes(' ')?22:14;hits.push(signal);}
+    if(containsDomainSignal(text,s)){
+      const configured=def.signalWeights?.[signal]??def.signalWeights?.[s];
+      score+=Number.isFinite(configured)?configured:(s.includes(' ')?22:14);
+      hits.push(signal);
+    }
   }
-  if(def.trustBurden==='critical'&&/medical|health|finance|bank|insurance|legal|hospital|clinic/i.test(text)) score+=8;
+  if(def.trustBurden==='critical'&&hits.length>=2) score+=8;
   return {score,hits};
 }
 
