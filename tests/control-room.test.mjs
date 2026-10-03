@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { generateStatelessPreview } from '../src/core/stateless-preview.mjs';
+import { generateStatelessPreview, generateStatelessDirectionOptions } from '../src/core/stateless-preview.mjs';
 import controlRoomHandler from '../src/api/control-room-handler.mjs';
 import { buildControlRoom } from '../scripts/build-control-room.mjs';
 
@@ -22,9 +22,17 @@ test('stateless previews materially adapt to different briefs',()=>{
   assert.notEqual(hotel.plan.project.archetype,saas.plan.project.archetype);assert.notEqual(hotel.plan.layout.fingerprint,saas.plan.layout.fingerprint);assert.notEqual(hotel.receipt.previewSha256,saas.receipt.previewSha256);
 });
 
+
+test('stateless Control Room exposes bounded design directions before generation',()=>{
+  const out=generateStatelessDirectionOptions(brief);
+  assert.equal(out.status,'PASS');assert.deepEqual(out.options.map(x=>x.id),['native','contrast']);
+  assert.ok(out.options[1].distanceFromNative>=0.3);assert.notEqual(out.options[0].previewSha256,out.options[1].previewSha256);
+});
+
 test('public handler exposes plan/generate/health but fails closed on deployment',async()=>{
   let res=mockRes();await controlRoomHandler({method:'GET',url:'/api/health'},res);assert.equal(res.statusCode,200);assert.equal(JSON.parse(res.body).mode,'STATELESS_CONTROL_ROOM');
-  res=mockRes();await controlRoomHandler({method:'POST',url:'/api/generate',body:{brief}},res);assert.equal(res.statusCode,201);assert.equal(JSON.parse(res.body).status,'PASS');
+  res=mockRes();await controlRoomHandler({method:'POST',url:'/api/directions',body:{brief}},res);assert.equal(res.statusCode,200);const directions=JSON.parse(res.body);assert.equal(directions.options.length,2);
+  res=mockRes();await controlRoomHandler({method:'POST',url:'/api/generate',body:{brief,directionId:'contrast'}},res);assert.equal(res.statusCode,201);const generated=JSON.parse(res.body);assert.equal(generated.status,'PASS');assert.equal(generated.plan.designDirectionSelection.id,'contrast');
   res=mockRes();await controlRoomHandler({method:'POST',url:'/api/playground/evaluate',body:{brief}},res);assert.equal(res.statusCode,200);assert.match(JSON.parse(res.body).status,/^(PASS|WARN|FAIL)$/);
   res=mockRes();await controlRoomHandler({method:'POST',url:'/api/deploy',body:{}},res);assert.equal(res.statusCode,409);assert.equal(JSON.parse(res.body).status,'BLOCKED');
 });

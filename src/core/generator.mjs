@@ -9,6 +9,9 @@ import { verifyRuntimeBuild } from './runtime-build.mjs';
 import { renderWebsite, renderCss, renderBlueprintPage } from './visual-renderer.mjs';
 import { writeMediaAssets } from './media-assets.mjs';
 import { buildMediaRequests } from './media-requests.mjs';
+import { compileWebUIDesignSpec } from './web-ui-contract.mjs';
+import { compileWebUiBehaviorSpec } from './web-ui-behavior.mjs';
+import { applyDesignDirectionToPlan } from './design-direction-bridge.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const generatedRoot = path.join(root, 'generated');
@@ -132,8 +135,11 @@ function portableServer() {
   return `import http from 'node:http';import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';const root=path.dirname(fileURLToPath(import.meta.url));const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg'};http.createServer((req,res)=>{const u=new URL(req.url,'http://localhost');let name=u.pathname==='/'?'index.html':u.pathname.slice(1);if(name.endsWith('/'))name+='index.html';let p=path.resolve(root,name);if(fs.existsSync(p)&&fs.statSync(p).isDirectory())p=path.join(p,'index.html');if(!(p===root||p.startsWith(root+path.sep))||!fs.existsSync(p)||fs.statSync(p).isDirectory()){res.writeHead(404);return res.end('Not found')}res.writeHead(200,{'content-type':types[path.extname(p)]||'text/plain'});res.end(fs.readFileSync(p))}).listen(Number(process.env.PORT||4173),'127.0.0.1',()=>console.log('Preview http://127.0.0.1:4173'));`;
 }
 
-export function generateWebsite(brief) {
-  const plan = compose(brief);
+export function generateWebsite(brief,{directionPlan=null,directionId='selected',directionSource='governed-selection'}={}) {
+  const basePlan = compose(brief);
+  const plan = directionPlan?applyDesignDirectionToPlan(basePlan,directionPlan,{directionId,source:directionSource}):basePlan;
+  const webUiDesignSpec = compileWebUIDesignSpec(plan);
+  const webUiBehaviorSpec = compileWebUiBehaviorSpec(plan);
   if (!plan.releaseEligible || plan.policy.status !== 'PASS') {
     const err = new Error('Generation blocked by policy gate'); err.code='POLICY_BLOCK'; err.plan=plan; throw err;
   }
@@ -145,7 +151,10 @@ export function generateWebsite(brief) {
     schema:'webforge.universal-composition.v1', projectId:id, generatedAt:now(), brief,
     project:plan.project, domain:plan.domain, product:plan.product, experience:plan.experience, creative:plan.creative, designDNA:plan.designDNA, brand:plan.brand, capabilities:plan.capabilities, siteBlueprint:plan.siteBlueprint, runtime:plan.selection.runtime,
     patterns:plan.selection.patterns.map(x=>x.id), layout:plan.layout, components:plan.selection.components.map(x=>x.id),
-    tools:plan.selection.tools, policy:plan.policy, visual:plan.visual
+    tools:plan.selection.tools, policy:plan.policy, visual:plan.visual,
+    webUiDesignSpec:{schema:webUiDesignSpec.schema,file:'web-ui-design-spec.json'},
+    webUiBehaviorSpec:{schema:webUiBehaviorSpec.schema,file:'web-ui-behavior-spec.json'},
+    designDirectionSelection:plan.designDirectionSelection?{schema:plan.designDirectionSelection.schema,file:'design-direction.selection.json',id:plan.designDirectionSelection.id}:null
   };
   const mediaAssets=writeMediaAssets(dir,plan.visual,`${brief}|${id}`);
   for(const slot of plan.visual.media.slots) slot.src=mediaAssets[slot.id]||null;
@@ -157,6 +166,9 @@ export function generateWebsite(brief) {
   fs.writeFileSync(path.join(dir,'experience.model.json'),JSON.stringify(plan.experience,null,2)+'\n');
   fs.writeFileSync(path.join(dir,'creative-brief.json'),JSON.stringify(plan.creative,null,2)+'\n');
   fs.writeFileSync(path.join(dir,'design-dna.json'),JSON.stringify(plan.designDNA,null,2)+'\n');
+  if(plan.designDirectionSelection)fs.writeFileSync(path.join(dir,'design-direction.selection.json'),JSON.stringify(plan.designDirectionSelection,null,2)+'\n');
+  fs.writeFileSync(path.join(dir,'web-ui-design-spec.json'),JSON.stringify(webUiDesignSpec,null,2)+'\n');
+  fs.writeFileSync(path.join(dir,'web-ui-behavior-spec.json'),JSON.stringify(webUiBehaviorSpec,null,2)+'\n');
   fs.writeFileSync(path.join(dir,'visual-composition.json'),JSON.stringify(plan.visual,null,2)+'\n');
   fs.writeFileSync(path.join(dir,'media.plan.json'),JSON.stringify(plan.visual.media,null,2)+'\n');
   const mediaRequests=buildMediaRequests(plan); fs.writeFileSync(path.join(dir,'media.requests.json'),JSON.stringify(mediaRequests,null,2)+'\n');
@@ -185,7 +197,7 @@ export function generateWebsite(brief) {
   const receipt = {
     schema:'webforge.evidence.receipt.v1', receiptId:crypto.randomUUID(), projectId:id, timestamp:now(),
     action:'generate-universal-web-product', status:'PASS', policy:'PASS', runtime:plan.selection.runtime.id, template:plan.layout.id, brand:plan.brand.identity.name,
-    artifacts:['index.html','styles.css','universal.plan.json','domain.model.json','website-genome.json','product.model.json','experience.model.json','creative-brief.json','design-dna.json','site-blueprint.json','composition-registry-selection.json','renderer-coverage.json','project-local-components.json','visual-composition.json','media.plan.json','media.requests.json','assets/media','package.json','server.mjs','webforge.manifest.json','deployment.plan.json','runtime-build.receipt.json',...generatedPages,...runtimeForge.files.map(x=>`runtime/${x}`)],
+    artifacts:['index.html','styles.css','universal.plan.json','domain.model.json','website-genome.json','product.model.json','experience.model.json','creative-brief.json','design-dna.json',...(plan.designDirectionSelection?['design-direction.selection.json']:[]),'web-ui-design-spec.json','web-ui-behavior-spec.json','site-blueprint.json','composition-registry-selection.json','renderer-coverage.json','project-local-components.json','visual-composition.json','media.plan.json','media.requests.json','assets/media','package.json','server.mjs','webforge.manifest.json','deployment.plan.json','runtime-build.receipt.json',...generatedPages,...runtimeForge.files.map(x=>`runtime/${x}`)],
     checks:[
       {id:'universal-domain-model',status:'PASS',detail:{classification:plan.domain.classification,domain:plan.project.domainArchetype,confidence:plan.domain.confidence}},
       {id:'website-genome',status:'PASS',detail:plan.domain.genome},
@@ -194,6 +206,9 @@ export function generateWebsite(brief) {
       {id:'creative-brief-r2',status:'PASS',detail:{idea:plan.creative.thesis.idea,narrative:plan.creative.narrative.pattern,contentDepth:plan.creative.contentDepth.detailLevel}},
       {id:'composition-diversity',status:plan.visual.compositionDiversity.status,detail:plan.visual.compositionDiversity},
       {id:'design-dna',status:'PASS',detail:{mode:plan.designDNA.mode,grid:plan.designDNA.grid,motion:plan.designDNA.motion}},
+      {id:'selected-design-direction',status:plan.designDirectionSelection?'PASS':'BASE',detail:plan.designDirectionSelection?{id:plan.designDirectionSelection.id,source:plan.designDirectionSelection.source,planSha256:plan.designDirectionSelection.plan_sha256}:null},
+      {id:'web-ui-design-spec',status:'PASS',detail:{schema:webUiDesignSpec.schema,viewports:webUiDesignSpec.layout.responsive_rules.filter(x=>/^(desktop|tablet|mobile):/.test(x))}},
+      {id:'web-ui-behavior-spec',status:webUiBehaviorSpec.status==='READY'?'PASS':'BLOCKED',detail:{schema:webUiBehaviorSpec.schema,journeys:webUiBehaviorSpec.journeys.length,formPages:webUiBehaviorSpec.form_pages.length}},
       {id:'policy-gate',status:'PASS'},
       {id:'runtime-resolved',status:'PASS'},
       {id:'component-trust',status:'PASS'},

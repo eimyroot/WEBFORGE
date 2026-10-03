@@ -9,6 +9,7 @@ import { resolveBrand } from './brand.mjs';
 import { composeVisualSystem } from './visual-composition.mjs';
 import { resolveSiteBlueprint } from './site-blueprint.mjs';
 import { synthesizeDesignDNA } from './design-dna.mjs';
+import { reconcileExperienceJourneys } from './experience-intelligence.mjs';
 export function compose(brief) {
   const project=interpretIntent(brief);
   const capabilities=planCapabilities(project);
@@ -19,6 +20,8 @@ export function compose(brief) {
   const brand=resolveBrand(project);
   const designDNA=synthesizeDesignDNA(project,brand);
   const siteBlueprint=resolveSiteBlueprint(project);
+  project.experience.journeys=reconcileExperienceJourneys({product:project.product,experience:project.experience,siteBlueprint});
+  siteBlueprint.journeys=project.experience.journeys;
   const plan={version:'8.0.0',schema:'webforge.universal-plan.v1',project,domain:project.domain,product:project.product,experience:project.experience,designStrategy:project.designStrategy,creative:project.creative,designDNA,capabilities,selection,layout,brand,commercial,siteBlueprint,rejected:selection.rejected,evidence:[]};
   plan.visual=composeVisualSystem(plan);
   const policy=evaluatePolicy(plan); plan.policy=policy;
