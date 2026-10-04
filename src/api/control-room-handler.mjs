@@ -1,5 +1,5 @@
 import { compose } from '../core/compose.mjs';
-import { generateStatelessPreview, generateStatelessDirectionOptions, resolveStatelessDirectionPlan } from '../core/stateless-preview.mjs';
+import { generateStatelessPreview, generateStatelessDirectionOptions, resolveStatelessDirectionSelection } from '../core/stateless-preview.mjs';
 import { evaluateStructuralPlaygroundBrief } from '../core/structural-diversity.mjs';
 
 const version='9.1.0';
@@ -24,7 +24,7 @@ export default async function controlRoomHandler(req,res){
     catch(e){return send(res,400,{status:'FAIL',error:e.message});}
   }
   if(req.method==='POST'&&route==='generate'){
-    try{const body=await jsonBody(req);const selected=resolveStatelessDirectionPlan(body.brief,body.directionId||'native');const out=generateStatelessPreview(body.brief,{directionPlan:selected.plan,directionId:selected.id,directionSource:'control-room-user-selection'});return send(res,out.status==='PASS'?201:409,out);}
+    try{const body=await jsonBody(req);const selected=resolveStatelessDirectionSelection(body.brief,{directionId:body.directionId,selectionDigest:body.selectionDigest});const out=generateStatelessPreview(body.brief,{directionPlan:selected.plan,directionId:selected.id,directionSource:'control-room-explicit-preview-selection',selectionReceipt:selected.selectionReceipt});return send(res,out.status==='PASS'?201:409,out);}
     catch(e){return send(res,e.code==='POLICY_BLOCK'?409:e.code==='DIRECTION_NOT_FOUND'?400:400,{error:e.message,policy:e.plan?.policy||null});}
   }
   if(req.method==='POST'&&route==='playground/evaluate'){

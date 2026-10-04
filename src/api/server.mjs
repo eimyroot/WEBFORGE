@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { compose } from '../core/compose.mjs';
 import { templateCatalog } from '../core/template-schema.mjs';
 import { generateWebsite, generatedFile, generatedProjectDir } from '../core/generator.mjs';
-import { generateStatelessDirectionOptions, resolveStatelessDirectionPlan } from '../core/stateless-preview.mjs';
+import { generateStatelessDirectionOptions, resolveStatelessDirectionSelection } from '../core/stateless-preview.mjs';
 import { runBrowserQa } from '../core/browser-qa.mjs';
 import { verifyRuntimeBuild } from '../core/runtime-build.mjs';
 import { evaluateDeployment } from '../core/deployment.mjs';
@@ -50,7 +50,7 @@ const server=http.createServer(async(req,res)=>{
     catch(e){send(res,400,JSON.stringify({status:'FAIL',error:e.message}));}return;
   }
   if(req.method==='POST' && url.pathname==='/api/generate'){
-    try{const body=await jsonBody(req); if(typeof body.brief!=='string'||body.brief.trim().length<8)throw new Error('Brief must contain at least 8 characters'); const selected=resolveStatelessDirectionPlan(body.brief,body.directionId||'native'); const result=generateWebsite(body.brief,{directionPlan:selected.plan,directionId:selected.id,directionSource:'control-room-user-selection'}); send(res,201,JSON.stringify(result,null,2));}
+    try{const body=await jsonBody(req); if(typeof body.brief!=='string'||body.brief.trim().length<8)throw new Error('Brief must contain at least 8 characters'); const selected=resolveStatelessDirectionSelection(body.brief,{directionId:body.directionId,selectionDigest:body.selectionDigest}); const result=generateWebsite(body.brief,{directionPlan:selected.plan,directionId:selected.id,directionSource:'control-room-explicit-preview-selection',selectionReceipt:selected.selectionReceipt}); send(res,201,JSON.stringify(result,null,2));}
     catch(e){const status=e.code==='POLICY_BLOCK'?409:400; send(res,status,JSON.stringify({error:e.message,policy:e.plan?.policy||null}));} return;
   }
   if(req.method==='POST' && url.pathname==='/api/fulfill/media'){try{const body=await jsonBody(req);const dir=generatedProjectDir(body.projectId);if(!dir)throw new Error('Unknown projectId');send(res,200,JSON.stringify(fulfillMedia(dir,{assetDir:body.assetDir||path.join(root,'demo-media'),approve:body.approve===true}),null,2));}catch(e){send(res,400,JSON.stringify({error:e.message}));}return;}

@@ -74,6 +74,32 @@ export function deriveContrastDirectionPlan(nativePlan){
   const checked=validateDesignDirectionPlan(plan);if(checked.status!=='PASS')throw new Error(`contrast direction invalid: ${checked.reason}`);return checked.plan;
 }
 
+
+export function deriveExplorerDirectionPlan(nativePlan){
+  const alt={
+    archetype:{editorial:'split',split:'showcase',grid:'editorial',showcase:'grid'},
+    hero:{'media-led':'split',split:'text-led','text-led':'media-led'},
+    density:{airy:'dense',balanced:'dense',dense:'airy'},
+    rhythm:{alternating:'rail',rail:'mosaic',stacked:'mosaic',mosaic:'stacked'},
+    cta:{explore:'contact',contact:'explore',transact:'contact'},
+    palette:{warm:'cool',neutral:'contrast',cool:'warm',contrast:'neutral'},
+    shape:{soft:'pill',sharp:'soft',pill:'sharp'},
+    nav:{balanced:'compact',compact:'prominent',prominent:'balanced'}
+  };
+  const sections=[nativePlan.section_1,nativePlan.section_2,nativePlan.section_3,nativePlan.section_4];
+  const rotated=[sections[1],sections[3],sections[0],sections[2]];
+  const plan={...nativePlan,
+    archetype:alt.archetype[nativePlan.archetype]||'grid',hero:alt.hero[nativePlan.hero]||'media-led',
+    density:alt.density[nativePlan.density]||'airy',rhythm:alt.rhythm[nativePlan.rhythm]||'mosaic',
+    section_1:rotated[0],section_2:rotated[1],section_3:rotated[2],section_4:rotated[3],
+    cta:alt.cta[nativePlan.cta]||'explore',palette:alt.palette[nativePlan.palette]||'cool',
+    shape:alt.shape[nativePlan.shape]||'pill',nav:alt.nav[nativePlan.nav]||'compact'
+  };
+  const checked=validateDesignDirectionPlan(plan);
+  if(checked.status!=='PASS')throw new Error(`explorer direction invalid: ${checked.reason}`);
+  return checked.plan;
+}
+
 const SIMPLE_WEIGHTS={archetype:.16,hero:.12,density:.08,rhythm:.12,cta:.05,palette:.08,shape:.06,nav:.05};
 export function directionDistance(a,b){
   let score=0;for(const [key,weight] of Object.entries(SIMPLE_WEIGHTS))if(a?.[key]!==b?.[key])score+=weight;

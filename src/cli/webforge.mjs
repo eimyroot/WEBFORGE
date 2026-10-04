@@ -21,7 +21,7 @@ import { runPerceptualReviewRequest, runPerceptualVisualCritic } from '../core/w
 import { runWebUiBehaviorVerifier } from '../core/web-ui-behavior.mjs';
 import { runGeneratorTournament } from '../core/generator-tournament.mjs';
 import { rescoreGeneratorTournamentRun } from '../core/generator-tournament-design-score.mjs';
-import { runDesignDirectionTournament, rescoreDesignDirectionTournament } from '../core/design-direction-tournament.mjs';
+import { runDesignDirectionTournament, rescoreDesignDirectionTournament, resolveReviewedDesignDirectionSelection } from '../core/design-direction-tournament.mjs';
 
 const [cmd,...rest]=process.argv.slice(2);
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
@@ -94,6 +94,13 @@ else if(cmd==='design-direction-tournament-score'){
   const reviews=JSON.parse(fs.readFileSync(path.resolve(reviewsFile),'utf8'));
   print(rescoreDesignDirectionTournament(path.resolve(runRoot),{reviews,topK:Number(flag('top')||3),minDistance:Number(flag('min-distance')||0.30)}));
 }
+else if(cmd==='design-direction-build'){
+  const flag=name=>rest.find(x=>x.startsWith(`--${name}=`))?.slice(name.length+3)||null;
+  const runRoot=flag('run'),directionId=flag('direction');
+  if(!runRoot||!directionId) throw new Error('Usage: webforge design-direction-build --run=/path/reviewed-run --direction=<id>');
+  const selected=resolveReviewedDesignDirectionSelection(path.resolve(runRoot),{directionId});
+  print(generateWebsite(selected.brief,{directionPlan:selected.direction_plan,directionId:selected.direction_id,directionSource:`reviewed-direction-tournament:${selected.source_run}`}));
+}
 else if(cmd==='runtime-build'){
   const dir=generatedProjectDir(rest[0]); if(!dir) throw new Error('Unknown projectId');
   const allowNetwork=rest.includes('--allow-network'); const receipt=verifyRuntimeBuild(path.join(dir,'runtime'),{allowNetwork});
@@ -137,4 +144,4 @@ else if(cmd==='plugins') {const p=compose(rest.join(' '));print(p.visual.plugins
 else if(cmd==='workflow') {const p=compose(rest.join(' '));print(p.visual.workflow);}
 
 else if(cmd==='audit') print({schemas:fs.readdirSync(path.join(root,'schemas')).length,components:JSON.parse(fs.readFileSync(path.join(root,'src/registries/components.json'))).length,status:'PASS'});
-else {console.log('Usage: webforge <factory|universal|domain|genome|product|experience|plan|design-spec|generate|qa|qa-matrix|behavior-qa|visual-critic|perceptual-request|perceptual-critic|visual-refine|generator-tournament|generator-tournament-score|design-direction-tournament|design-direction-tournament-score|runtime-build|release|deploy|components|registry|blueprint|plugins|workflow|audit> ...'); process.exitCode=1;}
+else {console.log('Usage: webforge <factory|universal|domain|genome|product|experience|plan|design-spec|generate|qa|qa-matrix|behavior-qa|visual-critic|perceptual-request|perceptual-critic|visual-refine|generator-tournament|generator-tournament-score|design-direction-tournament|design-direction-tournament-score|design-direction-build|runtime-build|release|deploy|components|registry|blueprint|plugins|workflow|audit> ...'); process.exitCode=1;}

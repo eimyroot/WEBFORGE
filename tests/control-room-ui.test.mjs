@@ -23,6 +23,8 @@ test('Control Room exposes the complete brief to preview journey with progressiv
   assert.match(app,/playground\/evaluate/);
   assert.match(app,/\/api\/directions/);
   assert.match(app,/selectedDirectionId/);
+  assert.match(app,/selectedDirectionDigest/);
+  assert.match(app,/selectionDigest:selectedDirectionDigest/);
   assert.match(app,/directionId:selectedDirectionId/);
   assert.match(app,/renderPlayground/);
 });

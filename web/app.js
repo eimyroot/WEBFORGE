@@ -8,6 +8,7 @@ let currentStateless=null;
 let currentPlayground=null;
 let currentDirections=null;
 let selectedDirectionId=null;
+let selectedDirectionDigest=null;
 let previewObjectUrl=null;
 
 const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -18,21 +19,23 @@ function setReady(ready){const btn=$('#generate'),dry=$('#dryrun'),effective=Boo
 function briefSynthesis(p){return p.project?.domain?.synthesis||p.domain?.synthesis||null}
 function setPlaygroundWaiting(){currentPlayground=null;$('#playground-status').textContent='ČEKÁ';$('#playground-status').className='';$('#playground-nearest').textContent='—';$('#playground-distance').textContent='—';$('#playground-collisions').textContent='—';$('#playground-copy').textContent='Po analýze se nový brief porovná s osmi strukturálně odlišnými baseline weby.';$('#playground-signature').textContent='Čeká na brief.';$('#playground-comparisons').innerHTML=''}
 function setDirectionsWaiting(){
-  currentDirections=null;selectedDirectionId=null;
+  currentDirections=null;selectedDirectionId=null;selectedDirectionDigest=null;
   $('#directions-state').textContent='ČEKÁ NA ANALÝZU';$('#selected-direction-copy').textContent='Zatím není vybraný směr.';
   $('#direction-cards').innerHTML='<div class="muted">Po analýze se zde objeví vizuální směry.</div>';
 }
 function selectDirection(id){
   if(!currentDirections?.options?.some(x=>x.id===id))return;
   selectedDirectionId=id;
+  const selected=currentDirections.options.find(x=>x.id===id);
+  selectedDirectionDigest=selected?.selectionClaim?.selection_digest||null;
+  if(!selectedDirectionDigest){selectedDirectionId=null;setReady(false);return;}
   $$('.direction-card').forEach(card=>card.classList.toggle('selected',card.dataset.directionId===id));
   $$('.direction-card button').forEach(button=>{const selected=button.dataset.directionId===id;button.textContent=selected?'VYBRÁNO ✓':'VYBRAT TENTO SMĚR';button.disabled=selected});
-  const selected=currentDirections.options.find(x=>x.id===id);
   $('#directions-state').textContent='SMĚR VYBRÁN';$('#selected-direction-copy').textContent=`${selected.label} · ${selected.directionPlan.archetype} · ${selected.directionPlan.rhythm}`;
   $('#release').textContent='PŘIPRAVENO';setJourney('direction','done');setJourney('preview','active');setReady(Boolean(currentPlan?.releaseEligible&&currentPlan?.policy?.status==='PASS'));
 }
 function renderDirections(out){
-  currentDirections=out;selectedDirectionId=null;const root=$('#direction-cards');root.innerHTML='';
+  currentDirections=out;selectedDirectionId=null;selectedDirectionDigest=null;const root=$('#direction-cards');root.innerHTML='';
   for(const option of out.options||[]){
     const card=document.createElement('article');card.className='direction-card';card.dataset.directionId=option.id;
     const preview=document.createElement('div');preview.className='direction-preview';const frame=document.createElement('iframe');frame.title=`Preview směru ${option.label}`;frame.setAttribute('sandbox','');frame.loading='lazy';frame.srcdoc=option.previewHtml;preview.append(frame);
@@ -48,7 +51,7 @@ function renderDirections(out){
 async function loadDirections(){
   $('#directions-state').textContent='GENERUJI SMĚRY…';
   try{const r=await fetch('/api/directions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({brief:brief.value})});const out=await jsonResponse(r);renderDirections(out);return out}
-  catch(e){currentDirections={status:'FAIL',error:e.message};selectedDirectionId=null;$('#directions-state').textContent='FAIL';$('#selected-direction-copy').textContent=`Generování směrů selhalo: ${e.message}`;$('#direction-cards').innerHTML='<div class="muted">Design direction evidence není dostupná. Build zůstává zablokovaný.</div>';setReady(false);return currentDirections}
+  catch(e){currentDirections={status:'FAIL',error:e.message};selectedDirectionId=null;selectedDirectionDigest=null;$('#directions-state').textContent='FAIL';$('#selected-direction-copy').textContent=`Generování směrů selhalo: ${e.message}`;$('#direction-cards').innerHTML='<div class="muted">Design direction evidence není dostupná. Build zůstává zablokovaný.</div>';setReady(false);return currentDirections}
 }
 function renderPlayground(out){
   currentPlayground=out;const c=out.candidate||{},h=c.homepage||{},root=c.root||{},nearest=out.nearest?.[0];
@@ -93,18 +96,18 @@ function showProgress(active=0,done=false){$('#progress-panel').classList.remove
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 $('#dryrun').addEventListener('click',()=>{if(!currentPlan)return;$('#technical-details').open=true;$('#technical-details').scrollIntoView({behavior:'smooth',block:'start'})});
 $('#generate').addEventListener('click',async()=>{
-  if(!currentPlan||!currentPlan.releaseEligible||!selectedDirectionId)return;
+  if(!currentPlan||!currentPlan.releaseEligible||!selectedDirectionId||!selectedDirectionDigest)return;
   const btn=$('#generate');btn.disabled=true;$('#result-panel').classList.add('hidden');$('#build-state').textContent='GENERUJI';setJourney('preview','active');
   try{
     for(let i=0;i<5;i++){showProgress(i);await sleep(90)}
-    const r=await fetch('/api/generate',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({brief:brief.value,directionId:selectedDirectionId})});const out=await jsonResponse(r);
+    const r=await fetch('/api/generate',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({brief:brief.value,directionId:selectedDirectionId,selectionDigest:selectedDirectionDigest})});const out=await jsonResponse(r);
     for(let i=5;i<stages.length;i++){showProgress(i);await sleep(90)}showProgress(stages.length,true);
     currentReceipt=out.receipt;currentProjectId=out.projectId;currentStateless=out.stateless?out:null;
     $('#result-id').textContent=out.projectId;$('#result-direction').textContent=out.plan.designDirectionSelection?.id?.toUpperCase()||selectedDirectionId.toUpperCase();$('#result-runtime').textContent=out.plan.selection.runtime.id.toUpperCase();$('#result-artifacts').textContent=String(out.previewChecks?.length||out.receipt.artifacts?.length||0);
     if(out.previewHtml){if(previewObjectUrl)URL.revokeObjectURL(previewObjectUrl);previewObjectUrl=URL.createObjectURL(new Blob([out.previewHtml],{type:'text/html'}));$('#preview').href=previewObjectUrl;$('#preview-frame').src=previewObjectUrl;$('#qa-state').textContent=out.previewChecks?.some(x=>x.status==='FAIL')?'FAIL':'PASS';$('#release').textContent=out.release?.previewEligible?'PREVIEW READY':'BLOKOVÁNO';$('#run-qa').textContent='QA DETAIL';$('#approve-visual').hidden=true;}else{$('#preview').href=out.previewUrl;$('#preview-frame').src=out.previewUrl;}
     $('#evidence').textContent=JSON.stringify(out.receipt,null,2);$('#result-panel').classList.remove('hidden');$('#build-state').textContent='WEB PŘIPRAVEN';$('#build-dot').classList.add('ready');setJourney('preview','done');$('#result-panel').scrollIntoView({behavior:'smooth',block:'start'});
   }catch(e){$('#build-state').textContent='GENEROVÁNÍ BLOKOVÁNO';$('#evidence').textContent=JSON.stringify({status:'FAIL',error:e.message},null,2);$('#evidence-section').open=true;setJourney('preview','active');}
-  finally{btn.disabled=!(currentPlan&&currentPlan.releaseEligible&&selectedDirectionId)}
+  finally{btn.disabled=!(currentPlan&&currentPlan.releaseEligible&&selectedDirectionId&&selectedDirectionDigest)}
 });
 $('#approve-visual')?.addEventListener('click',async()=>{if(!currentProjectId)return;const btn=$('#approve-visual');btn.disabled=true;try{const r=await fetch('/api/visual/approve',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({projectId:currentProjectId,contentApproved:true,mediaApproved:true})});const out=await jsonResponse(r);btn.textContent='VISUAL APPROVED ✓';$('#evidence').textContent=JSON.stringify(out,null,2);}catch(e){$('#evidence').textContent=JSON.stringify({status:'FAIL',error:e.message},null,2);btn.disabled=false;}});
 $('#show-receipt').addEventListener('click',()=>{if(currentReceipt){$('#evidence').textContent=JSON.stringify(currentReceipt,null,2);$('#evidence-section').open=true;$('#evidence-section').scrollIntoView({behavior:'smooth',block:'start'})}});

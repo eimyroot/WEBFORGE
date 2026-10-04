@@ -12,7 +12,8 @@ import {
   deriveContrastDirectionPlan,
   directionDistance,
   runDesignDirectionTournament,
-  rescoreDesignDirectionTournament
+  rescoreDesignDirectionTournament,
+  resolveReviewedDesignDirectionSelection
 } from '../src/core/design-direction-tournament.mjs';
 
 const florist='Premium local florist in Prague with seasonal bouquets, weddings, same-day delivery, subscriptions and a botanical editorial feel.';
@@ -82,8 +83,25 @@ test('exact screenshot-bound reviews produce a ranked set of at least two distin
     assert.equal(scored.selection.filtered_out[0].reason,'DOMAIN_FIT_BELOW_THRESHOLD');
     assert.equal(scored.promotion.winner,null);
     assert.equal(scored.truth_boundary.selection_is_not_build_authority,true);
+    const chosen=scored.selection.selected[0].id;
+    const selection=resolveReviewedDesignDirectionSelection(receipt.output_root,{directionId:chosen});
+    assert.equal(selection.status,'PASS');assert.equal(selection.direction_id,chosen);
+    assert.equal(selection.authority.selection,'EXPLICIT_HUMAN_ID_REQUIRED');
+    assert.equal(selection.authority.release,'NONE');
   } finally {fs.rmSync(out,{recursive:true,force:true});}
-});test('stale perceptual review fails closed instead of selecting a direction',async()=>{
+});test('direction build selection fails closed before reviewed shortlist and for non-shortlisted ids',async()=>{
+  const out=fs.mkdtempSync(path.join(os.tmpdir(),'webforge-ddt-build-gate-'));
+  try{
+    const receipt=await runDesignDirectionTournament(florist,{outputRoot:out,externalGenerator:fakeExternal,qualityRunner:async root=>fakeQuality(root)});
+    assert.throws(()=>resolveReviewedDesignDirectionSelection(receipt.output_root,{directionId:'native'}),error=>error.code==='DIRECTION_SCORE_REQUIRED');
+    const scored=rescoreDesignDirectionTournament(receipt.output_root,{reviews:reviewsFromReceipt(receipt),topK:2});
+    const excluded=['native','contrast','uigen'].find(id=>!scored.selection.selected.some(x=>x.id===id));
+    if(excluded)assert.throws(()=>resolveReviewedDesignDirectionSelection(receipt.output_root,{directionId:excluded}),error=>error.code==='DIRECTION_NOT_SHORTLISTED');
+    assert.throws(()=>resolveReviewedDesignDirectionSelection(receipt.output_root,{}),error=>error.code==='DIRECTION_SELECTION_REQUIRED');
+  } finally {fs.rmSync(out,{recursive:true,force:true});}
+});
+
+test('stale perceptual review fails closed instead of selecting a direction',async()=>{
   const out=fs.mkdtempSync(path.join(os.tmpdir(),'webforge-ddt-stale-'));
   try{
     const receipt=await runDesignDirectionTournament(florist,{outputRoot:out,externalGenerator:fakeExternal,qualityRunner:async root=>fakeQuality(root)});

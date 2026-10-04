@@ -135,9 +135,10 @@ function portableServer() {
   return `import http from 'node:http';import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';const root=path.dirname(fileURLToPath(import.meta.url));const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg'};http.createServer((req,res)=>{const u=new URL(req.url,'http://localhost');let name=u.pathname==='/'?'index.html':u.pathname.slice(1);if(name.endsWith('/'))name+='index.html';let p=path.resolve(root,name);if(fs.existsSync(p)&&fs.statSync(p).isDirectory())p=path.join(p,'index.html');if(!(p===root||p.startsWith(root+path.sep))||!fs.existsSync(p)||fs.statSync(p).isDirectory()){res.writeHead(404);return res.end('Not found')}res.writeHead(200,{'content-type':types[path.extname(p)]||'text/plain'});res.end(fs.readFileSync(p))}).listen(Number(process.env.PORT||4173),'127.0.0.1',()=>console.log('Preview http://127.0.0.1:4173'));`;
 }
 
-export function generateWebsite(brief,{directionPlan=null,directionId='selected',directionSource='governed-selection'}={}) {
+export function generateWebsite(brief,{directionPlan=null,directionId='selected',directionSource='governed-selection',selectionReceipt=null}={}) {
   const basePlan = compose(brief);
   const plan = directionPlan?applyDesignDirectionToPlan(basePlan,directionPlan,{directionId,source:directionSource}):basePlan;
+  if(selectionReceipt&&plan.designDirectionSelection)plan.designDirectionSelection.selectionReceipt=selectionReceipt;
   const webUiDesignSpec = compileWebUIDesignSpec(plan);
   const webUiBehaviorSpec = compileWebUiBehaviorSpec(plan);
   if (!plan.releaseEligible || plan.policy.status !== 'PASS') {

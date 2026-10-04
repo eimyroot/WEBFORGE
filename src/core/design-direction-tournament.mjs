@@ -132,3 +132,28 @@ export function rescoreDesignDirectionTournament(runRoot,{reviews,topK=3,minDist
   writeJson(runRoot,'design-direction-tournament.score.receipt.json',result);
   return result;
 }
+
+export const DESIGN_DIRECTION_BUILD_SELECTION_SCHEMA='webforge.design-direction-build-selection.v1';
+export function resolveReviewedDesignDirectionSelection(runRoot,{directionId}={}){
+  if(!directionId){const err=new Error('Explicit directionId required');err.code='DIRECTION_SELECTION_REQUIRED';throw err;}
+  const scorePath=path.join(runRoot,'design-direction-tournament.score.receipt.json');
+  if(!fs.existsSync(scorePath)){const err=new Error('Reviewed direction score receipt required');err.code='DIRECTION_SCORE_REQUIRED';throw err;}
+  const score=JSON.parse(fs.readFileSync(scorePath,'utf8'));
+  if(score.schema!==DESIGN_DIRECTION_SCORE_SCHEMA||score.status!=='REVIEWED'||score.selection?.status!=='READY_FOR_HUMAN_CHOICE'){
+    const err=new Error('Direction tournament is not reviewed and ready for human choice');err.code='DIRECTION_SELECTION_NOT_READY';throw err;
+  }
+  const shortlist=new Set((score.selection.selected||[]).map(x=>x.id));
+  if(!shortlist.has(directionId)){const err=new Error(`Direction is not in reviewed shortlist: ${directionId}`);err.code='DIRECTION_NOT_SHORTLISTED';throw err;}
+  const receipt=JSON.parse(fs.readFileSync(path.join(runRoot,'design-direction-tournament.receipt.json'),'utf8'));
+  const input=JSON.parse(fs.readFileSync(path.join(runRoot,'direction-tournament.input.json'),'utf8'));
+  const candidate=(receipt.candidates||[]).find(x=>x.id===directionId&&x.plan);
+  if(!candidate){const err=new Error(`Reviewed direction candidate unavailable: ${directionId}`);err.code='DIRECTION_CANDIDATE_UNAVAILABLE';throw err;}
+  const checked=validateDesignDirectionPlan(candidate.plan);
+  if(checked.status!=='PASS'){const err=new Error(`Reviewed direction candidate invalid: ${checked.reason}`);err.code='DIRECTION_CANDIDATE_INVALID';throw err;}
+  return {
+    schema:DESIGN_DIRECTION_BUILD_SELECTION_SCHEMA,status:'PASS',source_run:receipt.run_id,direction_id:directionId,
+    direction_plan:checked.plan,direction_plan_sha256:directionHash(checked.plan),brief:input.brief,
+    reviewed_score:score.scores?.[directionId]?.total??null,rank:score.ranking?.find(x=>x.id===directionId)?.rank??null,
+    authority:{selection:'EXPLICIT_HUMAN_ID_REQUIRED',build:'BOUNDED_SELECTED_DIRECTION',release:'NONE',production:'NONE'}
+  };
+}
