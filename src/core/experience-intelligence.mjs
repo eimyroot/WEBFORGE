@@ -64,3 +64,40 @@ export function designExperience(domain,product,brief,strategy=null){
     synthesisReason:[`domain:${domain.primary.id}`,`classification:${domain.classification}`,`capabilities:${product.capabilityIds.length}`,`jobs:${product.userJobs.length}`]
   };
 }
+
+const JOURNEY_PAGE_SEQUENCES={
+  'choose-bouquet':[['occasions','categories'],['bouquets','shop','products']],
+  personalize:[['bouquets','shop','products']],
+  delivery:[['delivery','location'],['contact']],
+  discover:[['browse','shop','products','product','bouquets','occasions','categories','integrations','solutions','services']],
+  purchase:[['pricing','product','shop','bouquets'],['transaction','checkout']],
+  learn:[['resources','latest','insights','guides','subscriptions','news']],
+  book:[['booking','reservations']],
+  submit:[['submit','report'],['account','status']],
+  return:[['account','dashboard','status']],
+  participate:[['directory','profiles','events','join']],
+  configure:[['configure','product'],['contact']],
+  understand:[['services','product','about'],['contact']]
+};
+const DYNAMIC_DETAIL_JOBS=new Set(['choose-bouquet','personalize','discover']);
+
+export function reconcileExperienceJourneys({product,experience,siteBlueprint}){
+  const pages=siteBlueprint?.pages||experience?.sitemap||[];
+  const byId=new Map(pages.map(page=>[page.id,page]));
+  const navIds=new Set((siteBlueprint?.navigation||experience?.navigation||[]).map(item=>item.id));
+  const firstNavigable=pages.find(page=>page.id!=='home'&&!page.dynamic&&navIds.has(page.id));
+  const dynamicDetail=pages.find(page=>page.dynamic&&(page.family==='detail'||String(page.path||'').includes('[slug]')));
+  const choose=(ids,{navigable=true}={})=>ids.map(id=>byId.get(id)).find(page=>page&&!page.dynamic&&(!navigable||navIds.has(page.id)));
+  return (product?.userJobs||[]).map(job=>{
+    const path=['home'];
+    const sequences=JOURNEY_PAGE_SEQUENCES[job.id]||[];
+    for(let i=0;i<sequences.length;i++){
+      const terminal=i===sequences.length-1&&['purchase','delivery','submit','configure','understand'].includes(job.id);
+      const page=choose(sequences[i],{navigable:!terminal});
+      if(page&&!path.includes(page.id))path.push(page.id);
+    }
+    if(path.length===1&&firstNavigable)path.push(firstNavigable.id);
+    if(DYNAMIC_DETAIL_JOBS.has(job.id)&&dynamicDetail&&!path.includes(dynamicDetail.id))path.push(dynamicDetail.id);
+    return {id:job.id,goal:job.goal,path,successEvidence:job.needs,synthesis:{mode:'SEMANTIC_BLUEPRINT_REBIND',blueprint:siteBlueprint?.id||null,navigationBound:true}};
+  });
+}

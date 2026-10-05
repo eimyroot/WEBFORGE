@@ -27,7 +27,8 @@
       <div class="journey" aria-label="Workflow">
         <div class="journey-step active" id="journey-brief"><span>01</span><div><strong>Zadání</strong><small>Připraveno</small></div></div>
         <div class="journey-step" id="journey-analysis"><span>02</span><div><strong>Analýza</strong><small>Čeká</small></div></div>
-        <div class="journey-step" id="journey-preview"><span>03</span><div><strong>Web</strong><small>Čeká</small></div></div>
+        <div class="journey-step" id="journey-direction"><span>03</span><div><strong>Směr</strong><small>Čeká</small></div></div>
+        <div class="journey-step" id="journey-preview"><span>04</span><div><strong>Web</strong><small>Čeká</small></div></div>
       </div>
 
       <div id="composer" class="forge">
@@ -49,6 +50,12 @@
         <article class="summary-card"><div class="panel-head">PROJEKT <span>01</span></div><div id="project" class="content muted">Spusť analýzu zadání.</div></article>
         <article class="summary-card"><div class="panel-head">SMĚR WEBU <span>02</span></div><div id="stack" class="content muted">Po analýze se zobrazí doména, design a runtime.</div></article>
       </div>
+    </section>
+
+    <section id="directions" class="panel directions-panel" aria-labelledby="directions-title">
+      <div class="panel-head"><span id="directions-title">DESIGN DIRECTIONS</span><span id="directions-state">ČEKÁ NA ANALÝZU</span></div>
+      <div class="directions-copy"><p>WEBFORGE připraví několik materiálně odlišných směrů ze stejného briefu. Vyber jeden, teprve potom vznikne plný web.</p><strong id="selected-direction-copy">Zatím není vybraný směr.</strong></div>
+      <div id="direction-cards" class="direction-cards"><div class="muted">Po analýze se zde objeví vizuální směry.</div></div>
     </section>
 
     <section id="playground" class="panel playground-panel" aria-labelledby="playground-title">
@@ -85,7 +92,7 @@
 
     <section id="result-panel" class="panel result-panel hidden" aria-labelledby="result-title">
       <div class="panel-head"><span id="result-title">WEB JE PŘIPRAVENÝ</span><span>05</span></div>
-      <div class="result-grid"><div><small>PROJEKT</small><strong id="result-id">—</strong></div><div><small>RUNTIME</small><strong id="result-runtime">—</strong></div><div><small>POLICY</small><strong>PASS</strong></div><div><small>CHECKS</small><strong id="result-artifacts">—</strong></div></div>
+      <div class="result-grid"><div><small>PROJEKT</small><strong id="result-id">—</strong></div><div><small>SMĚR</small><strong id="result-direction">—</strong></div><div><small>RUNTIME</small><strong id="result-runtime">—</strong></div><div><small>POLICY</small><strong>PASS</strong></div><div><small>CHECKS</small><strong id="result-artifacts">—</strong></div></div>
       <div class="preview-shell"><div class="preview-toolbar"><strong>LIVE PREVIEW</strong><span>Izolovaný preview výstup</span></div><iframe id="preview-frame" title="Vygenerovaný WEBFORGE preview" sandbox="allow-scripts allow-forms allow-popups"></iframe></div>
       <div class="result-actions"><a id="preview" class="button-link" target="_blank" rel="noopener">OTEVŘÍT WEB V NOVÉM OKNĚ →</a><button id="run-qa" type="button" class="secondary">QA DETAIL</button><button id="release-eval" type="button" class="secondary">PREVIEW GATE</button><button id="approve-visual" type="button" class="secondary">APPROVE CONTENT + MEDIA</button><button id="show-receipt" type="button" class="secondary">EVIDENCE</button></div>
     </section>

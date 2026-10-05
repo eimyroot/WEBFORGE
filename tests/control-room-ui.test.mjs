@@ -15,12 +15,17 @@ test('Control Room has unique ids and a labelled critical brief input',()=>{
 });
 
 test('Control Room exposes the complete brief to preview journey with progressive disclosure',()=>{
-  for(const id of ['journey-brief','journey-analysis','journey-preview','forge','generate','playground','playground-status','playground-signature','playground-comparisons','result-panel','preview-frame','technical-details','evidence-section']) assert.match(html,new RegExp(`id="${id}"`),id);
+  for(const id of ['journey-brief','journey-analysis','journey-direction','journey-preview','forge','generate','directions','direction-cards','directions-state','playground','playground-status','playground-signature','playground-comparisons','result-panel','preview-frame','technical-details','evidence-section']) assert.match(html,new RegExp(`id="${id}"`),id);
   assert.match(html,/sandbox="allow-scripts allow-forms allow-popups"/);
   assert.match(app,/preview-frame/);
   assert.match(app,/scrollIntoView/);
   assert.match(app,/\.preset/);
   assert.match(app,/playground\/evaluate/);
+  assert.match(app,/\/api\/directions/);
+  assert.match(app,/selectedDirectionId/);
+  assert.match(app,/selectedDirectionDigest/);
+  assert.match(app,/selectionDigest:selectedDirectionDigest/);
+  assert.match(app,/directionId:selectedDirectionId/);
   assert.match(app,/renderPlayground/);
 });
 
@@ -30,4 +35,6 @@ test('Control Room CSS has explicit reflow and overflow defenses for narrow scre
   assert.match(css,/@media\(max-width:640px\)/);
   assert.match(css,/grid-template-columns:1fr/);
   assert.match(css,/overflow-wrap:anywhere/);
+  assert.match(css,/direction-cards/);
+  assert.match(css,/direction-card\.selected/);
 });

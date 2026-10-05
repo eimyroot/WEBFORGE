@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { generateStatelessPreview } from '../src/core/stateless-preview.mjs';
+import { generateStatelessPreview, generateStatelessDirectionOptions, resolveStatelessDirectionSelection } from '../src/core/stateless-preview.mjs';
 import controlRoomHandler from '../src/api/control-room-handler.mjs';
 import { buildControlRoom } from '../scripts/build-control-room.mjs';
 
@@ -22,9 +22,29 @@ test('stateless previews materially adapt to different briefs',()=>{
   assert.notEqual(hotel.plan.project.archetype,saas.plan.project.archetype);assert.notEqual(hotel.plan.layout.fingerprint,saas.plan.layout.fingerprint);assert.notEqual(hotel.receipt.previewSha256,saas.receipt.previewSha256);
 });
 
+
+test('stateless Control Room exposes bounded design directions before generation',()=>{
+  const out=generateStatelessDirectionOptions(brief);
+  assert.equal(out.status,'PASS');assert.deepEqual(out.options.map(x=>x.id),['native','contrast','explorer']);
+  assert.ok(out.options[1].distanceFromNative>=0.3);assert.notEqual(out.options[0].previewSha256,out.options[1].previewSha256);
+});
+
+
+test('selection receipt binds exact brief, direction plan and preview',()=>{
+  const directions=generateStatelessDirectionOptions(brief),native=directions.options.find(x=>x.id==='native');
+  const selected=resolveStatelessDirectionSelection(brief,{directionId:'native',selectionDigest:native.selectionClaim.selection_digest});
+  assert.equal(selected.id,'native');assert.equal(selected.selectionReceipt.status,'PASS');
+  assert.equal(selected.selectionReceipt.preview_sha256,native.previewSha256);
+  assert.throws(()=>resolveStatelessDirectionSelection(`${brief} changed`,{directionId:'native',selectionDigest:native.selectionClaim.selection_digest}),e=>e.code==='DIRECTION_SELECTION_MISMATCH');
+});
+
 test('public handler exposes plan/generate/health but fails closed on deployment',async()=>{
   let res=mockRes();await controlRoomHandler({method:'GET',url:'/api/health'},res);assert.equal(res.statusCode,200);assert.equal(JSON.parse(res.body).mode,'STATELESS_CONTROL_ROOM');
-  res=mockRes();await controlRoomHandler({method:'POST',url:'/api/generate',body:{brief}},res);assert.equal(res.statusCode,201);assert.equal(JSON.parse(res.body).status,'PASS');
+  res=mockRes();await controlRoomHandler({method:'POST',url:'/api/directions',body:{brief}},res);assert.equal(res.statusCode,200);const directions=JSON.parse(res.body);assert.equal(directions.options.length,3);assert.ok(directions.options.some(x=>x.id==='explorer'));
+  const contrast=directions.options.find(x=>x.id==='contrast');assert.match(contrast.selectionClaim.selection_digest,/^[a-f0-9]{64}$/);
+  res=mockRes();await controlRoomHandler({method:'POST',url:'/api/generate',body:{brief,directionId:'contrast'}},res);assert.equal(res.statusCode,400);assert.match(JSON.parse(res.body).error,/Selection digest required/);
+  res=mockRes();await controlRoomHandler({method:'POST',url:'/api/generate',body:{brief,directionId:'contrast',selectionDigest:'0'.repeat(64)}},res);assert.equal(res.statusCode,400);assert.match(JSON.parse(res.body).error,/does not match/);
+  res=mockRes();await controlRoomHandler({method:'POST',url:'/api/generate',body:{brief,directionId:'contrast',selectionDigest:contrast.selectionClaim.selection_digest}},res);assert.equal(res.statusCode,201);const generated=JSON.parse(res.body);assert.equal(generated.status,'PASS');assert.equal(generated.plan.designDirectionSelection.id,'contrast');assert.equal(generated.selectionReceipt.selection_digest,contrast.selectionClaim.selection_digest);
   res=mockRes();await controlRoomHandler({method:'POST',url:'/api/playground/evaluate',body:{brief}},res);assert.equal(res.statusCode,200);assert.match(JSON.parse(res.body).status,/^(PASS|WARN|FAIL)$/);
   res=mockRes();await controlRoomHandler({method:'POST',url:'/api/deploy',body:{}},res);assert.equal(res.statusCode,409);assert.equal(JSON.parse(res.body).status,'BLOCKED');
 });

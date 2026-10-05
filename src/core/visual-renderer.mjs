@@ -21,7 +21,7 @@ function renderSteps(s,c){const steps=c.steps||[];return `<section class="vc-sec
 function renderFaq(s,c){return `<section class="vc-section faq template-${attr(s.template)} variant-${attr(s.variant||'accordion')}" data-role="${attr(s.role||'OBJECTION')}" data-layout="${attr(s.layoutMode||'minimal')}" id="${attr(s.id)}">${sectionHead(c.kicker,c.title||'Questions, answered.')}<div class="faq-list">${(c.items||[]).map((x,i)=>`<details ${i===0?'open':''}><summary>${esc(x[0])}<span>+</span></summary><p>${esc(x[1])}</p></details>`).join('')}</div></section>`}
 function renderEditorial(s,c){return `<section class="vc-section editorial-split template-${attr(s.template)} variant-${attr(s.variant||'split')}" data-role="${attr(s.role||'POSITION')}" data-layout="${attr(s.layoutMode||'editorial')}" id="${attr(s.id)}"><div>${sectionHead(c.kicker,c.title)}${c.quote?`<blockquote>“${esc(c.quote)}”</blockquote>`:`<p class="lead">${esc(c.body||'')}</p>`}</div><div class="editorial-media">${img(media(s),c.title||c.kicker)}</div></section>`}
 function renderLocation(s,c){return `<section class="vc-section location template-${attr(s.template)} variant-${attr(s.variant||'map-split')}" data-role="${attr(s.role||'ORIENT')}" data-layout="${attr(s.layoutMode||'split')}" id="${attr(s.id)}"><div>${sectionHead(c.kicker,c.title)}<p class="lead">${esc(c.body||'')}</p><a class="button ghost" href="#contact">Get directions ${arrow}</a></div><div class="map-art">${img(media(s),'Location')}</div></section>`}
-function renderFinal(v,s){const c=v.content.model.final||{};return `<section class="conversion-band template-${attr(s.template)}" data-role="${attr(s.role||'CONVERT')}" id="contact"><div><span class="kicker">${esc(c.eyebrow)}</span><h2>${esc(c.headline)}</h2></div><div class="conversion-actions"><a class="button primary" href="#top">${esc(c.primary)} ${arrow}</a><a class="button ghost" href="#top">${esc(c.secondary)}</a></div></section>`}
+function renderFinal(v,s,plan,currentPath='/',page=null){const c=v.content.model.final||{};const primaryHref=page?.family==='pricing'?(transactionHref(plan,currentPath)||'#top'):'#top';return `<section class="conversion-band template-${attr(s.template)}" data-role="${attr(s.role||'CONVERT')}" id="contact"><div><span class="kicker">${esc(c.eyebrow)}</span><h2>${esc(c.headline)}</h2></div><div class="conversion-actions"><a class="button primary" href="${attr(primaryHref)}">${esc(c.primary)} ${arrow}</a><a class="button ghost" href="#top">${esc(c.secondary)}</a></div></section>`}
 
 
 function renderHeroProduct(v,s,plan){const c=v.content.model.hero||{};const hero=media(s);const entities=(plan.product?.entities||[]).slice(0,4).map(x=>x.name);return `<section class="vc-hero hero-product-stage template-${attr(s.template)}" data-layout="${attr(s.layoutMode||'split')}" id="top"><div class="product-hero-grid"><div class="product-hero-copy"><span class="kicker">${esc(c.eyebrow)}</span><h1>${esc(c.headline)}</h1><p>${esc(c.subheadline)}</p><div class="actions"><a class="button primary" href="#contact">${esc(c.primary)} ${arrow}</a><a class="button ghost" href="#contact">${esc(c.secondary)}</a></div><div class="product-chips">${entities.map(x=>`<span>${esc(x)}</span>`).join('')}</div></div><div class="product-stage-frame"><div class="stage-toolbar"><i></i><i></i><i></i><span>${esc(domainDisplayName(plan.project.domainArchetype,plan.project.locale))}</span></div>${hero?img(hero,c.headline,'product-stage-image'):`<div class="stage-placeholder"><strong>${esc(v.content.brand)}</strong><span>PRODUCT EXPERIENCE</span></div>`}</div></div></section>`}
@@ -31,9 +31,9 @@ function renderHeroConversion(v,s){const c=v.content.model.hero||{};const next=v
 function renderServiceStack(s,c){const items=c.features||c.items||[];return `<section class="vc-section service-stack template-${attr(s.template)}" data-layout="${attr(s.layoutMode||'editorial')}" id="${attr(s.id)}">${sectionHead(c.kicker,c.title)}${c.body?`<p class="lead">${esc(c.body)}</p>`:''}<div class="service-stack-list">${items.map((x,i)=>{const a=Array.isArray(x)?x:[x.title||x.name,x.body||x.meta];return `<article><span>0${i+1}</span><h3>${esc(a[0])}</h3><p>${esc(a[1]||'')}</p><b>${arrow}</b></article>`}).join('')}</div></section>`}
 function renderGalleryFilmstrip(s,c){return `<section class="vc-section gallery-filmstrip template-${attr(s.template)}" data-layout="${attr(s.layoutMode||'mosaic')}" id="${attr(s.id)}">${sectionHead(c.kicker,c.title,'View full gallery')}<div class="filmstrip">${(c.items||[]).map((x,i)=>`<figure class="film-${(i%3)+1}">${img(media(s,i),x.title||'Gallery image')}<figcaption><span>0${i+1}</span>${esc(x.title||'')}</figcaption></figure>`).join('')}</div></section>`}
 function renderQuoteGrid(s,c){const items=c.items||[];return `<section class="vc-section quote-grid template-${attr(s.template)}" data-layout="${attr(s.layoutMode||'split')}" id="${attr(s.id)}">${sectionHead(c.kicker,c.title||'What people say')}<div class="quote-grid-items">${items.map((x,i)=>`<blockquote><span>“</span><p>${esc(x.body||x.quote||x.meta||'Trusted by people who needed the outcome to work.')}</p><footer><strong>${esc(x.title||x.name||`Client ${i+1}`)}</strong><small>${esc(x.meta||'')}</small></footer></blockquote>`).join('')}</div></section>`}
-function renderPricingFeatured(s,c){const items=c.items||[];return `<section class="vc-section pricing-featured template-${attr(s.template)}" data-layout="${attr(s.layoutMode||'conversion')}" id="${attr(s.id)}">${sectionHead(c.kicker,c.title)}<div class="pricing-featured-grid">${items.map((x,i)=>`<article class="${i===1?'is-featured':''}"><span>${i===1?'RECOMMENDED':`0${i+1}`}</span><h3>${esc(x.title||x.name||'Plan')}</h3><strong>${esc(x.price||'Custom')}</strong><p>${esc(x.body||x.meta||'')}</p><a class="button ${i===1?'primary':'ghost'}" href="#contact">Choose plan ${arrow}</a></article>`).join('')}</div></section>`}
+function renderPricingFeatured(s,c,plan,currentPath='/'){const items=c.items||[],target=transactionHref(plan,currentPath)||'#contact';return `<section class="vc-section pricing-featured template-${attr(s.template)}" data-layout="${attr(s.layoutMode||'conversion')}" id="${attr(s.id)}">${sectionHead(c.kicker,c.title)}<div class="pricing-featured-grid">${items.map((x,i)=>`<article class="${i===1?'is-featured':''}"><span>${i===1?'RECOMMENDED':`0${i+1}`}</span><h3>${esc(x.title||x.name||'Plan')}</h3><strong>${esc(x.price||'Custom')}</strong><p>${esc(x.body||x.meta||'')}</p><a class="button ${i===1?'primary':'ghost'}" href="${attr(target)}">Choose plan ${arrow}</a></article>`).join('')}</div></section>`}
 function renderArticleGrid(s,c){return `<section class="vc-section article-grid-section template-${attr(s.template)}" data-layout="${attr(s.layoutMode||'editorial')}" id="${attr(s.id)}">${sectionHead(c.kicker,c.title||'Latest')}<div class="article-grid">${(c.items||[]).map((x,i)=>`<article class="article-${i+1}">${media(s,i)?`<div class="article-media">${img(media(s,i),x.title||'Article')}</div>`:''}<span>${esc(x.meta||`0${i+1}`)}</span><h3>${esc(x.title||x.name||'Story')}</h3><p>${esc(x.body||'')}</p><a href="#contact">Read ${arrow}</a></article>`).join('')}</div></section>`}
-function renderCtaSplit(v,s){const c=s.id==='final-cta'?(v.content.model.final||{}):(s.content||{});return `<section class="cta-split template-${attr(s.template)}" data-layout="${attr(s.layoutMode||'conversion')}" id="${s.id==='final-cta'?'contact':attr(s.id)}"><div><span class="kicker">${esc(c.eyebrow||c.kicker||'NEXT STEP')}</span><h2>${esc(c.headline||c.title||'Stay in the loop.')}</h2><p>${esc(c.body||'A focused next action without visual noise.')}</p></div><div class="cta-split-action"><a class="button primary" href="#top">${esc(c.primary||c.cta||'Continue')} ${arrow}</a><small>${esc(c.secondary||'No unnecessary friction.')}</small></div></section>`}
+function renderCtaSplit(v,s,plan,currentPath='/',page=null){const c=s.id==='final-cta'?(v.content.model.final||{}):(s.content||{}),primaryHref=s.id==='final-cta'&&page?.family==='pricing'?(transactionHref(plan,currentPath)||'#top'):'#top';return `<section class="cta-split template-${attr(s.template)}" data-layout="${attr(s.layoutMode||'conversion')}" id="${s.id==='final-cta'?'contact':attr(s.id)}"><div><span class="kicker">${esc(c.eyebrow||c.kicker||'NEXT STEP')}</span><h2>${esc(c.headline||c.title||'Stay in the loop.')}</h2><p>${esc(c.body||'A focused next action without visual noise.')}</p></div><div class="cta-split-action"><a class="button primary" href="${attr(primaryHref)}">${esc(c.primary||c.cta||'Continue')} ${arrow}</a><small>${esc(c.secondary||'No unnecessary friction.')}</small></div></section>`}
 
 
 const DOMAIN_HERO_LABELS={
@@ -65,8 +65,8 @@ function renderAdaptive(v,s,c,plan){
   return `<section class="vc-section adaptive-section project-local" data-role="${attr(s.role||'VALUE')}" data-layout="${attr(s.layoutMode||'immersive')}" id="${attr(s.id)}"><div class="adaptive-orbit" aria-hidden="true"><i></i><i></i><i></i></div><div class="adaptive-copy">${sectionHead(c.kicker||'DOMAIN SIGNATURE',c.title||'A composition made for this idea.')}<p class="lead">${esc(c.body||'Project-local composition synthesized because the registry had no sufficient semantic match.')}</p><div class="entity-cloud">${labels.map((x,i)=>`<span style="--i:${i}">${esc(x)}</span>`).join('')}</div><small class="provisional-note">PROJECT-LOCAL · DESIGN REVIEW REQUIRED</small></div></section>`;
 }
 
-export function renderSection(v,s,plan){
-  const c=s.content||{};const renderer=s.rendererKey||s.template||'';
+export function renderSection(v,s,plan,context={}){
+  const c=s.content||{};const renderer=s.rendererKey||s.template||'',currentPath=context.currentPath||'/',page=context.page||null;
   if(plan?.project?.domainArchetype==='florist-retail'&&s.id==='hero')return renderHeroEditorial(v,s);
   if(renderer==='adaptive-section')return renderAdaptive(v,s,c,plan);
   if(renderer==='hero-product-stage')return renderHeroProduct(v,s,plan);
@@ -78,11 +78,11 @@ export function renderSection(v,s,plan){
   if(renderer==='service-stack')return renderServiceStack(s,c);
   if(renderer==='gallery-filmstrip')return renderGalleryFilmstrip(s,c);
   if(renderer==='quote-grid')return renderQuoteGrid(s,c);
-  if(renderer==='pricing-featured')return renderPricingFeatured(s,c);
+  if(renderer==='pricing-featured')return renderPricingFeatured(s,c,plan,currentPath);
   if(renderer==='article-grid')return renderArticleGrid(s,c);
-  if(renderer==='cta-split')return renderCtaSplit(v,s);
+  if(renderer==='cta-split')return renderCtaSplit(v,s,plan,currentPath,page);
   if(s.id==='hero')return renderHero(v,s,plan);
-  if(s.id==='final-cta')return renderFinal(v,s);
+  if(s.id==='final-cta')return renderFinal(v,s,plan,currentPath,page);
   if(s.id==='next-event')return renderNextEvent(s,c);
   if(s.id==='latest-content'&&c.items)return renderEvents(s,c);
   if(['artists','team'].includes(s.id))return renderPeople(s,c);
@@ -99,6 +99,7 @@ export function renderSection(v,s,plan){
 
 function pageDepth(currentPath='/'){return currentPath==='/'?0:currentPath.split('/').filter(Boolean).length}
 function routeHref(targetPath='/',currentPath='/'){const prefix=pageDepth(currentPath)?'../'.repeat(pageDepth(currentPath)):'./';if(targetPath==='/')return prefix;return prefix+targetPath.replace(/^\/|\/$/g,'')+'/'}
+function transactionHref(plan,currentPath='/'){const page=(plan?.siteBlueprint?.pages||[]).find(x=>x.id==='transaction'&&!x.dynamic&&x.path);return page?routeHref(page.path,currentPath):null}
 function navigation(plan,currentPath='/'){
   const strategyItems=plan.designStrategy?.navigation_model?.items||[];
   if(strategyItems.length) return strategyItems.slice(0,plan.designStrategy.navigation_model.maxPrimary||8).map(item=>`<a href="${attr(routeHref(item.path,currentPath))}">${esc(item.label)}</a>`).join('');
@@ -161,8 +162,9 @@ function renderPageIntro(plan,page){
 export function renderBlueprintPage(plan,visual,page){
   const byId=Object.fromEntries(visual.sections.map(s=>[s.id,s]));
   const picked=page.sectionHints.filter(id=>!['hero','final-cta'].includes(id)&&byId[id]).slice(0,5);
-  const sections=picked.map(id=>renderSection(visual,byId[id],plan)).join('');
-  const final=byId['final-cta']?renderSection(visual,byId['final-cta'],plan):'';
+  const context={currentPath:page.path,page};
+  const sections=picked.map(id=>renderSection(visual,byId[id],plan,context)).join('');
+  const final=byId['final-cta']?renderSection(visual,byId['final-cta'],plan,context):'';
   const intro=renderPageIntro(plan,page), state=renderPageState(plan,page);
   return shell(plan,visual,`<main class="subpage" data-page="${attr(page.id)}" data-family="${attr(page.family||'overview')}" data-detail-kind="${attr(page.detailKind||'')}">${intro}${state}${sections}${final}</main>`,{currentPath:page.path,title:`${page.title} — ${plan.brand.identity.name}`});
 }
